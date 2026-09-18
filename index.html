@@ -1,0 +1,3100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Casa Hogar Alegre — Sponsor a Child</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --tierra: #C4622D;
+      --sol: #F2A73B;
+      --verde: #3A7D44;
+      --cielo: #5BA4CF;
+      --crema: #FDF6EC;
+      --dark: #1A1208;
+      --warm-gray: #7C6B55;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--crema);
+      color: var(--dark);
+      overflow-x: hidden;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      /* background image with a dark overlay for legibility */
+      background:
+  linear-gradient(rgba(10,6,4,0.5), rgba(10,6,4,0.5)),
+        url('images/hero.JPG') center/cover no-repeat;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 40px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      /* keep subtle accent glows but lower opacity so the image shows through */
+      background:
+        radial-gradient(ellipse 60% 40% at 80% 20%, rgba(242,167,59,0.12) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 60% at 10% 80%, rgba(58,125,68,0.10) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-pattern {
+      position: absolute;
+      inset: 0;
+      /* removed faint diagonal lines to let hero image show through */
+      opacity: 0;
+      background-image: none;
+    }
+
+    .hero-eyebrow {
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: 0.75rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--sol);
+      margin-bottom: 16px;
+      position: relative;
+      z-index: 1;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.2s;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 8vw, 6.5rem);
+      line-height: 1.05;
+      color: #fff;
+      position: relative;
+      z-index: 1;
+      opacity: 0;
+      animation: fadeUp 0.9s ease forwards 0.4s;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--sol);
+    }
+
+    .hero-sub {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      color: rgba(255,255,255,0.75);
+      max-width: 560px;
+      line-height: 1.7;
+      margin-top: 20px;
+      position: relative;
+      z-index: 1;
+      opacity: 0;
+      animation: fadeUp 0.9s ease forwards 0.6s;
+    }
+
+    .hero-badges {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 28px;
+      position: relative;
+      z-index: 1;
+      opacity: 0;
+      animation: fadeUp 0.9s ease forwards 0.8s;
+    }
+
+    .badge {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      backdrop-filter: blur(8px);
+      color: #fff;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 999px;
+      letter-spacing: 0.04em;
+    }
+
+    .hero-cta {
+      margin-top: 40px;
+      position: relative;
+      z-index: 1;
+      opacity: 0;
+      animation: fadeUp 0.9s ease forwards 1s;
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .btn-primary {
+      background: var(--sol);
+      color: var(--dark);
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 14px 32px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: inline-block;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(242,167,59,0.4);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: #fff;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 14px 32px;
+      border-radius: 999px;
+      border: 1.5px solid rgba(255,255,255,0.4);
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s, border-color 0.2s;
+      display: inline-block;
+    }
+
+    .btn-outline:hover {
+      background: rgba(255,255,255,0.08);
+      border-color: rgba(255,255,255,0.7);
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,0.4);
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      animation: fadeUp 1s ease forwards 1.4s;
+      opacity: 0;
+    }
+
+    .scroll-arrow {
+      width: 1px;
+      height: 36px;
+      background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.4));
+      animation: scrollPulse 1.5s ease-in-out infinite;
+    }
+
+    /* Pagination styles for children grid */
+    .pagination-wrap { display: flex; gap: 8px; justify-content: center; align-items: center; }
+    .pag-btn {
+      background: #fff;
+      border: 1px solid #e6d8c4;
+      padding: 8px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 700;
+      color: var(--dark);
+      transition: background 0.15s, transform 0.08s;
+    }
+    .pag-btn:hover { transform: translateY(-2px); }
+    .pag-btn[disabled] { opacity: 0.5; cursor: default; transform: none; }
+    .pag-btn.active { background: var(--tierra); color: #fff; border-color: var(--tierra); }
+    .pag-ellipsis { padding: 6px 4px; color: var(--warm-gray); }
+
+    /* ── STATS BAR ── */
+    .stats-bar {
+      background: var(--verde);
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      flex-wrap: wrap;
+    }
+
+    .stat-item {
+      padding: 28px 40px;
+      text-align: center;
+      border-right: 1px solid rgba(255,255,255,0.15);
+      flex: 1;
+      min-width: 160px;
+    }
+
+    .stat-item:last-child { border-right: none; }
+
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.4rem;
+      line-height: 1;
+      color: #fff;
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.7);
+      margin-top: 4px;
+    }
+
+    /* ── SECTION COMMONS ── */
+    section { padding: 80px 20px; }
+
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--tierra);
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.15;
+      color: var(--dark);
+    }
+
+    .section-title em {
+      font-style: italic;
+      color: var(--tierra);
+    }
+
+    .section-body {
+      font-size: 1.05rem;
+      color: var(--warm-gray);
+      line-height: 1.75;
+      max-width: 580px;
+    }
+
+    .image-disclaimer-inline {
+      font-size: 0.86rem;
+      color: var(--warm-gray);
+      margin-top: 8px;
+      max-width: 680px;
+    }
+
+    /* ── ABOUT ── */
+    .about {
+      background: #fff;
+    }
+
+    /* Mission section specific background */
+    #mission {
+      background: #FDF6EC;
+    }
+
+    .about-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 70px;
+      align-items: center;
+    }
+
+    .about-visual {
+      position: relative;
+    }
+
+    .about-img-placeholder {
+      width: 100%;
+      aspect-ratio: 4/3;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #c4622d22, #f2a73b33);
+      border: 2px solid var(--sol);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: var(--tierra);
+      font-size: 0.85rem;
+      text-align: center;
+      padding: 24px;
+      gap: 10px;
+    }
+
+    /* about image when provided */
+    .about-img-placeholder img.about-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      border-radius: 16px;
+    }
+
+    .about-img-placeholder .icon { font-size: 2.5rem; }
+
+    .about-tag {
+      position: absolute;
+      bottom: -18px;
+      right: -18px;
+      background: var(--tierra);
+      color: #fff;
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.05rem;
+      padding: 14px 22px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(196,98,45,0.35);
+    }
+
+    .about-content { display: flex; flex-direction: column; gap: 20px; }
+
+    .location-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--crema);
+      border: 1px solid #e8d5b7;
+      border-radius: 999px;
+      padding: 6px 14px;
+      font-size: 0.8rem;
+      color: var(--warm-gray);
+      width: fit-content;
+    }
+
+    /* ── CHILDREN GRID ── */
+    .children-section {
+      background: var(--crema);
+    }
+
+    .children-section .top {
+      max-width: 1100px;
+      margin: 0 auto 50px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .filter-tabs {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .filter-tab {
+      padding: 7px 18px;
+      border-radius: 999px;
+      border: 1.5px solid #ddd;
+      background: #fff;
+      color: var(--warm-gray);
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .filter-tab.active, .filter-tab:hover {
+      background: var(--tierra);
+      border-color: var(--tierra);
+      color: #fff;
+    }
+
+    .children-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 28px;
+    }
+
+    .child-card {
+      background: #fff;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+      transition: transform 0.25s, box-shadow 0.25s;
+      cursor: pointer;
+    }
+
+    .child-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 36px rgba(0,0,0,0.12);
+    }
+
+    .child-card.sponsored {
+      opacity: 0.65;
+      pointer-events: none;
+    }
+
+    .child-photo {
+      width: 100%;
+      aspect-ratio: 3/2.8;
+      background: linear-gradient(135deg, #f5e6d0, #e8c99a);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .child-photo .avatar {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--tierra), var(--sol));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+      color: #fff;
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+    }
+
+    .sponsored-banner {
+      position: absolute;
+      top: 14px;
+      right: -28px;
+      background: var(--verde);
+      color: #fff;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 5px 36px;
+      transform: rotate(45deg);
+    }
+
+    .child-info {
+      padding: 20px 22px 24px;
+    }
+
+    .child-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.35rem;
+      color: var(--dark);
+    }
+
+    .child-nickname {
+      font-size: 0.9rem;
+      color: var(--warm-gray);
+      margin-top: 4px;
+      font-style: italic;
+    }
+
+    /* child image styles */
+    .child-photo { position: relative; }
+    .child-photo img.child-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* modal image */
+    .modal-photo { display: flex; align-items: center; justify-content: center; position: relative; }
+    .modal-photo img.modal-img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
+      background: linear-gradient(135deg, #f5e6d0, #e8c99a);
+      display: block;
+    }
+
+    .modal-avatar {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #e9e2d8;
+      color: var(--dark);
+      font-weight: 700;
+      font-size: 2rem;
+    }
+
+    .child-meta {
+      display: flex;
+      gap: 10px;
+      margin-top: 6px;
+      flex-wrap: wrap;
+    }
+
+    .child-tag {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--tierra);
+      background: #fdf0e6;
+      padding: 3px 10px;
+      border-radius: 999px;
+    }
+
+    .child-funfact {
+      margin-top: 12px;
+      font-size: 0.9rem;
+      color: var(--warm-gray);
+      line-height: 1.6;
+      padding-left: 12px;
+      border-left: 3px solid var(--sol);
+    }
+
+    .child-card-footer {
+      margin-top: 18px;
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn-sponsor {
+      flex: 1;
+      background: var(--tierra);
+      color: #fff;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+      padding: 10px 16px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      text-align: center;
+    }
+
+    .btn-sponsor:hover {
+      background: #a84f22;
+      transform: scale(1.02);
+    }
+
+    .btn-learn {
+      background: var(--crema);
+      color: var(--dark);
+      font-family: 'Nunito', sans-serif;
+      font-weight: 600;
+      font-size: 0.85rem;
+      padding: 10px 16px;
+      border-radius: 999px;
+      border: 1.5px solid #e0d0bb;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn-learn:hover { background: #efe6d7; }
+
+    /* ── COFFEE PARTNERSHIP ── */
+    .coffee-section {
+      background: #1a0e00;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .coffee-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 50% 60% at 90% 50%, rgba(196,98,45,0.25) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 5% 30%, rgba(242,167,59,0.1) 0%, transparent 60%);
+    }
+
+    .coffee-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 70px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .coffee-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--sol);
+      margin-bottom: 10px;
+    }
+
+    .coffee-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.15;
+      color: #fff;
+    }
+
+    .coffee-title em { color: var(--sol); font-style: italic; }
+
+    .coffee-body {
+      color: rgba(255,255,255,0.65);
+      font-size: 1.05rem;
+      line-height: 1.75;
+      margin-top: 16px;
+    }
+    /* ensure links in content areas are readable (not browser-default purple) */
+    .coffee-body a,
+    .section-body a,
+    .image-disclaimer-inline a,
+    #aiDisclaimer a {
+      color: var(--tierra);
+      text-decoration: underline;
+    }
+    .coffee-body a:visited,
+    .section-body a:visited,
+    .image-disclaimer-inline a:visited,
+    #aiDisclaimer a:visited {
+      color: var(--tierra);
+    }
+
+    .perks {
+      margin-top: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .perk {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 14px;
+      padding: 16px 20px;
+    }
+
+    .perk-icon {
+      font-size: 1.6rem;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .perk-text strong {
+      display: block;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 3px;
+    }
+
+    .perk-text span {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.55);
+    }
+
+    .coffee-visual {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .coffee-emblem {
+      width: 320px;
+      height: 320px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #3d2200, #1a0e00);
+      border: 2px solid rgba(242,167,59,0.3);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      gap: 8px;
+      position: relative;
+    }
+
+    .coffee-emblem-logo {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover; /* fill circle */
+      transform: scale(0.94); /* small inset so border remains visible */
+      border-radius: 50%;
+      filter: brightness(1.02) contrast(1.02);
+    }
+
+    .coffee-emblem::before {
+      content: '';
+      position: absolute;
+      inset: 12px;
+      border-radius: 50%;
+      border: 1px solid rgba(242,167,59,0.15);
+    }
+
+    .coffee-icon { font-size: 4rem; }
+
+    .coffee-emblem-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      color: var(--sol);
+      font-style: italic;
+    }
+
+    .coffee-emblem-sub {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+    }
+
+    /* ── HOW IT WORKS ── */
+    .how-section {
+      background: #fff;
+    }
+
+    .how-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .how-header { text-align: center; margin-bottom: 60px; }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 32px;
+      position: relative;
+    }
+
+    .step {
+      text-align: center;
+      padding: 32px 24px;
+      position: relative;
+    }
+
+    .step-num {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: var(--tierra);
+      color: #fff;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+    }
+
+    .step h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: var(--dark);
+      margin-bottom: 10px;
+    }
+
+    .step p {
+      font-size: 0.9rem;
+      color: var(--warm-gray);
+      line-height: 1.65;
+    }
+
+    /* ── MODAL ── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.65);
+      backdrop-filter: blur(6px);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-overlay.active { display: flex; }
+
+    .modal {
+      background: #fff;
+      border-radius: 24px;
+      max-width: 920px;
+      width: 100%;
+      max-height: 90vh;
+      display: block;
+      overflow: hidden;
+      animation: modalIn 0.3s ease;
+      position: relative;
+    }
+
+    /* modal two-column layout: image left, content right */
+    .modal-grid {
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      gap: 0;
+      align-items: stretch;
+    }
+
+    .modal-photo {
+      background: linear-gradient(135deg, #f5e6d0, #e8c99a);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      min-height: 360px;
+      width: 100%;
+    }
+
+    .modal-photo img.modal-img {
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      object-position: center;
+      display: block;
+    }
+
+    /* place close button over the modal */
+    .modal .modal-close {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      z-index: 30;
+    }
+
+    @media (max-width: 820px) {
+      .modal-grid { grid-template-columns: 1fr; }
+      .modal-photo { min-height: 260px; }
+    }
+
+    .modal-avatar {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--tierra), var(--sol));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      color: #fff;
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      border: 4px solid #fff;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.25);
+      border: none;
+      color: #fff;
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-body { padding: 28px 32px 32px; }
+
+    .modal-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.9rem;
+      color: var(--dark);
+    }
+
+    .modal-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+
+    .modal-section { margin-top: 20px; }
+    .modal-section h4 {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--tierra);
+      margin-bottom: 6px;
+    }
+    .modal-section p {
+      font-size: 0.95rem;
+      color: var(--warm-gray);
+      line-height: 1.7;
+    }
+
+    .modal-actions {
+      margin-top: 28px;
+      display: flex;
+      gap: 12px;
+    }
+
+    .modal-actions .btn-sponsor { flex: 1; padding: 13px 20px; font-size: 0.95rem; }
+    .modal-actions .btn-learn { padding: 13px 20px; font-size: 0.95rem; }
+
+    /* ── SPONSOR FORM ── */
+    .form-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(6px);
+      z-index: 1100;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .form-overlay.active { display: flex; }
+
+    .form-modal {
+      background: #fff;
+      border-radius: 24px;
+      max-width: 500px;
+      width: 100%;
+      padding: 36px 36px 40px;
+      position: relative;
+      animation: modalIn 0.3s ease;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .form-modal h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.7rem;
+      color: var(--dark);
+      margin-bottom: 6px;
+    }
+
+    .form-modal .sub {
+      font-size: 0.9rem;
+      color: var(--warm-gray);
+      margin-bottom: 28px;
+    }
+
+    .form-group { margin-bottom: 18px; }
+
+    .form-group label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--dark);
+      margin-bottom: 7px;
+    }
+
+    .form-group input, .form-group select {
+      width: 100%;
+      padding: 11px 15px;
+      border: 1.5px solid #e0d0bb;
+      border-radius: 10px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.95rem;
+      color: var(--dark);
+      background: var(--crema);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .form-group input:focus, .form-group select:focus {
+      border-color: var(--tierra);
+    }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+
+    .coffee-opt {
+      background: #fff8ef;
+      border: 1.5px solid #f2d49e;
+      border-radius: 14px;
+      padding: 16px 18px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .coffee-opt input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--tierra);
+      flex-shrink: 0;
+    }
+
+    .coffee-opt-text strong { display: block; font-size: 0.9rem; color: var(--dark); }
+    .coffee-opt-text span { font-size: 0.8rem; color: var(--warm-gray); }
+
+    /* Donation tax note */
+    .tax-note {
+      margin-top: 10px;
+      font-size: 0.95rem;
+      color: var(--dark);
+      font-weight: 600;
+    }
+    .child-note {
+      margin-top: 8px;
+      font-size: 0.9rem;
+      color: var(--warm-gray);
+      font-weight: 600;
+    }
+    .site-disclaimer {
+      margin-top: 18px;
+      font-size: 0.85rem;
+      color: var(--warm-gray);
+      opacity: 0.95;
+      line-height: 1.4;
+    }
+
+    .form-submit {
+      width: 100%;
+      background: var(--tierra);
+      color: #fff;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 14px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .form-submit:hover { background: #a84f22; }
+
+    .success-state {
+      display: none;
+      text-align: center;
+      padding: 20px 0;
+    }
+
+    .success-state .check {
+      font-size: 3.5rem;
+      margin-bottom: 16px;
+    }
+
+    .success-state h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      color: var(--verde);
+      margin-bottom: 10px;
+    }
+
+    .success-state p {
+      color: var(--warm-gray);
+      line-height: 1.7;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--dark);
+      color: rgba(255,255,255,0.5);
+      text-align: center;
+      padding: 40px 20px;
+      font-size: 0.85rem;
+      line-height: 1.8;
+    }
+
+    footer strong { color: rgba(255,255,255,0.85); }
+
+    footer a { color: var(--sol); text-decoration: none; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 500;
+      padding: 16px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.3s, box-shadow 0.3s;
+    }
+
+    nav.scrolled {
+      background: rgba(26,8,0,0.92);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      color: #fff;
+      text-decoration: none;
+      font-style: italic;
+    }
+
+    .nav-logo span { color: var(--sol); }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: rgba(255,255,255,0.75);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: #fff; }
+
+    .nav-links .nav-cta {
+      background: var(--sol);
+      color: var(--dark) !important;
+      padding: 8px 20px;
+      border-radius: 999px;
+      font-weight: 700;
+    }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.4; transform: scaleY(1); }
+      50% { opacity: 1; transform: scaleY(1.15); }
+    }
+
+    @keyframes modalIn {
+      from { opacity: 0; transform: scale(0.94) translateY(10px); }
+      to   { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .about-inner, .coffee-inner { grid-template-columns: 1fr; gap: 40px; }
+      .about-tag { bottom: -12px; right: 0; }
+      .nav-links { display: none; }
+      .form-row { grid-template-columns: 1fr; }
+      .coffee-emblem { width: 240px; height: 240px; }
+      .stat-item { padding: 20px 24px; }
+    }
+
+    /* Responsive video wrapper for mission section */
+    .video-responsive {
+      position: relative;
+      width: 100%;
+      padding-bottom: 56.25%; /* 16:9 aspect ratio */
+      height: 0;
+      overflow: hidden;
+      border-radius: 12px;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.08);
+      background: #000;
+    }
+
+    .video-responsive iframe,
+    .video-responsive video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+
+    /* Poster overlay with play button */
+    .video-poster {
+      position: absolute;
+      inset: 0;
+      border-radius: 12px;
+      z-index: 3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.0);
+      cursor: pointer;
+      overflow: hidden;
+      border: 0;
+    }
+
+    .video-poster img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      inset: 0;
+      display: block;
+    }
+
+    .video-poster .video-play {
+      font-size: 3.25rem;
+      color: rgba(255,255,255,0.95);
+      background: rgba(0,0,0,0.35);
+      padding: 12px 18px;
+      border-radius: 999px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.45);
+      z-index: 4;
+    }
+
+    .video-fallback a {
+      color: var(--tierra);
+      background: rgba(255,255,255,0.95);
+      padding: 8px 12px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    /* Larger mission video section */
+    .mission-video-section { background: var(--crema); padding: 40px 20px 60px; }
+    .mission-video-inner { max-width: 1100px; margin: 0 auto; text-align: left; }
+    .mission-video-inner .section-title { margin-top: 6px; }
+    /* Make the large video slightly taller on wide screens */
+    @media (min-width: 880px) {
+      #mission-video .video-responsive { padding-bottom: 44.44%; /* ~2.25:1 for a wider feel */ }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo">Casa Hogar <span>Alegre</span></a>
+  <div class="nav-links">
+    <a href="#children">Meet the Kids</a>
+    <a href="#coffee">Coffee Rewards</a>
+    <a href="#how">How It Works</a>
+    <a href="#children" class="nav-cta">Sponsor a Child</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-pattern"></div>
+  <p class="hero-eyebrow">Valley Christian High School × Casa Hogar Alegre</p>
+  <h1>Change a Life<br>with <em>One Cup</em></h1>
+  <p class="hero-sub">Partner with a child in Chiapas, Mexico. Every sponsorship brings hope, education, and family — and free merch from Broken Rib Coffee.</p>
+  <div class="hero-badges">
+    <span class="badge">📍 Chiapas, Mexico</span>
+    <a class="badge" href="https://www.alegrecasahogar.org/" target="_blank" rel="noopener noreferrer">🏠 Casa Hogar Alegre</a>
+    <a class="badge" href="https://brokenribcoffee.com/" target="_blank" rel="noopener noreferrer">☕ Broken Rib Coffee Partner</a>
+  </div>
+  <div class="hero-cta">
+    <a href="#children" class="btn-primary">Meet the Children →</a>
+    <a href="#how" class="btn-outline">How It Works</a>
+  </div>
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-arrow"></div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stat-item">
+    <div class="stat-num">85</div>
+    <div class="stat-label">Children Housed</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">85</div>
+    <div class="stat-label">Awaiting Sponsors</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">$45</div>
+    <div class="stat-label">Monthly Sponsorship</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">2026</div>
+    <div class="stat-label">Year Founded</div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-inner">
+    <div class="about-visual">
+      <div class="about-img-placeholder">
+        <img src="images/casahogar.jpg" alt="Casa Hogar Alegre building" class="about-img" />
+      </div>
+      <div class="about-tag">"A Home Full of Joy"</div>
+    </div>
+    <div class="about-content">
+      <div>
+        <p class="section-label">Our Story</p>
+        <h2 class="section-title">A <em>home</em>, not just a shelter</h2>
+      </div>
+      <div class="location-pill">
+        📍 Tuxtla Gutiérrez, Chiapas, México
+      </div>
+      <p class="section-body">
+        Casa Hogar Alegre ("Joyful Home") is a loving orphanage nestled in the highlands of Chiapas, Mexico. Since 2010, they've provided a safe, nurturing family environment for children who need it most — offering meals, schooling, and unconditional love.
+      </p>
+      <p class="section-body">
+        Our partnership connects Valley Christian High School families in San Jose, California with these incredible kids. Your monthly sponsorship directly funds food, clothing, school supplies, and medical care.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- CHILDREN -->
+<section class="children-section" id="children">
+  <div class="top">
+    <div>
+      <p class="section-label">Meet the Kids</p>
+      <h2 class="section-title">Each child is <em>waiting</em></h2>
+        <p class="image-disclaimer-inline">Note: the photos have been modified using AI-based techniques to protect identities.</p>
+    </div>
+    <p class="site-disclaimer">*While sponsorships help support an individual child, donations are pooled and used for the benefit of the entire orphanage to ensure the best overall care and resources for all children.</p>
+    <div style="display:flex;align-items:center;gap:12px;">
+      <div class="filter-tabs">
+      <button class="filter-tab active" onclick="filterCards('all', this)">All</button>
+      <button class="filter-tab" onclick="filterCards('available', this)">Needs Sponsor</button>
+      <button class="filter-tab" onclick="filterCards('sponsored', this)">Sponsored</button>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px;">
+        <label for="ageFilter" style="font-size:0.85rem;color:var(--warm-gray);">Age</label>
+        <select id="ageFilter" onchange="onAgeFilterChange(this.value)" style="padding:8px 10px;border-radius:8px;border:1px solid #e0d0bb;background:var(--crema);font-family:Nunito;">
+          <option value="all">All ages</option>
+          <option value="0-5">0–5</option>
+          <option value="6-10">6–10</option>
+          <option value="11-17">11–17</option>
+          <option value="18-40">18+</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="children-grid" id="childrenGrid"></div>
+  <!-- Pagination controls inserted here -->
+  <div id="childrenPagination" style="max-width:1100px;margin:18px auto 0;text-align:center;"></div>
+</section>
+
+<!-- COFFEE PARTNERSHIP -->
+<section class="coffee-section" id="coffee">
+  <div class="coffee-inner">
+    <div>
+      <p class="coffee-label">☕ Partnership Perks</p>
+      <h2 class="coffee-title">Sponsor a child.<br><em>Earn your coffee.</em></h2>
+      <p class="coffee-body">
+        We've partnered with <a href="https://brokenribcoffee.com/" target="_blank" rel="noopener noreferrer">Broken Rib Coffee</a> — a faith-driven, small-batch roaster — to reward every sponsor. Great coffee, greater purpose.
+      </p>
+      <div class="perks">
+        <div class="perk">
+          <div class="perk-icon">🎁</div>
+          <div class="perk-text">
+            <strong>Welcome Merchandise — Free</strong>
+            <span>Every new sponsor receives a complimentary Broken Rib Coffee merch when they sign up.</span>
+          </div>
+        </div>
+        <div class="perk">
+          <div class="perk-icon">☕</div>
+          <div class="perk-text">
+            <strong>Monthly Discount — 20% Off</strong>
+            <span>Active sponsors enjoy 20% off all Broken Rib Coffee orders every month your sponsorship is active.</span>
+          </div>
+        </div>
+        <div class="perk">
+          <div class="perk-icon">❤️</div>
+          <div class="perk-text">
+            <strong>Impact Updates</strong>
+            <span>Receive quarterly letters and photos from your sponsored child along with your coffee subscription.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="coffee-visual">
+      <div class="coffee-emblem">
+        <!-- partner logo: place a PNG/SVG at images/broken-rib-logo.png -->
+        <img src="images/brokenribcoffee.JPG" alt="Broken Rib Coffee logo" class="coffee-emblem-logo" />
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how-section" id="how">
+  <div class="how-inner">
+    <div class="how-header">
+      <p class="section-label">Simple Steps</p>
+      <h2 class="section-title">How <em>sponsorship</em> works</h2>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <h3>Choose a Child</h3>
+        <p>Browse our children's profiles and find one whose story resonates with your family.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <h3>Commit Monthly</h3>
+        <p>$45/month covers food, clothing, education, and medical care for your sponsored child.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <h3>Get Your Coffee</h3>
+        <p>Receive your free merchandise from Broken Rib Coffee and enjoy 20% off every month.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <h3>Stay Connected</h3>
+        <p>Receive letters, photos, and updates from Casa Hogar Alegre throughout the year.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MISSION TRIPS -->
+<section class="about" id="mission">
+  <div class="about-inner">
+    <div>
+      <p class="section-label">Mission Trips</p>
+      <h2 class="section-title">Travel. Serve. <em>Connect.</em></h2>
+      <p class="section-body">Valley Christian students are invited to join supervised mission trips to Casa Hogar Alegre in Chiapas. Volunteers help with light construction, activities, and meeting coffee farmers while building relationships with the children. Trips run during school breaks and require parental permission.</p>
+
+      <ul class="section-body" style="margin-top:12px; list-style: none; padding-left:0; max-width:680px;">
+        <li><strong>Who:</strong> VCHS students (grades 9–12) accompanied by chaperones.</li>
+        <li><strong>What:</strong> Hands-on service, play, and business ideation.</li>
+        <li><strong>When:</strong> Typical trips are around 10 days during school breaks; exact dates announced each year.</li>
+        <li><strong>Cost & support:</strong> Fundraising guidance and limited scholarships available.</li>
+      </ul>
+
+      <div style="margin-top:20px; display:flex; gap:12px; flex-wrap:wrap;">
+        <a class="btn-primary" href="https://learn.vcs.net/course/view.php?id=920&amp;section=10#tabs-tree-start" target="_blank" rel="noopener noreferrer">I'm Interested — Sign Up</a>
+        <!-- <a class="btn-outline" href="#children">Meet the Kids</a> -->
+      </div>
+    </div>
+    <div>
+      <div class="about-img-placeholder">
+        <img src="images/mission.jpg" alt="Mission Trips to Chiapas" class="about-img" />
+      </div>
+      <!-- mission image shown above; the larger video was moved to its own section below -->
+    </div>
+  </div>
+</section>
+
+<!-- MISSION TRIP HIGHLIGHTS VIDEO (separate larger section) -->
+<section id="mission-video" class="mission-video-section">
+  <div class="mission-video-inner">
+    <p class="section-label">Mission Media</p>
+    <h2 class="section-title">Trip <em>Highlights</em></h2>
+
+    <div class="video-responsive" style="margin-top:20px;">
+      <!-- Poster visible initially; clicking it will load the iframe inline -->
+      <button class="video-poster" id="missionPoster" type="button" aria-label="Play mission video">
+        <img src="https://img.youtube.com/vi/LgmjU755knw/maxresdefault.jpg" alt="Mission trip thumbnail" />
+        <span class="video-play">▶</span>
+      </button>
+      <!-- Inline iframe — initially empty src; will be set when user clicks the poster -->
+      <iframe
+        id="missionIframe"
+        src=""
+        data-src="https://www.youtube.com/embed/LgmjU755knw?rel=0&modestbranding=1"
+        title="Mission trip highlights"
+        frameborder="0"
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+        allowfullscreen
+      ></iframe>
+
+      <div class="video-fallback" id="missionFallback" style="display:none;margin-top:10px;text-align:center;">
+        <p style="margin-bottom:6px;color:var(--warm-gray);font-size:0.95rem;">If the embedded player doesn't work the video may have embedding disabled, be age-restricted, or region-blocked. You can still watch it on YouTube:</p>
+        <a href="https://youtu.be/LgmjU755knw" target="_blank" rel="noopener noreferrer">Open video on YouTube</a>
+      </div>
+      <!-- Active local fallback: place an MP4 at images/mission-trip.mp4 or update path below -->
+      <!-- <video id="missionLocalLarge" controls preload="metadata">
+        <source src="Chiapas Long.m4v" type="video/mp4">
+        Your browser does not support the video tag.
+      </video> -->
+    </div>
+
+  </div>
+</section>
+
+<!-- TRIP SIGN-UP FORM -->
+<div class="form-overlay" id="tripOverlay" onclick="closeTripForm()">
+  <div class="form-modal" onclick="event.stopPropagation()">
+    <button class="modal-close" style="position:absolute;top:16px;right:16px;background:#eee;color:#333;" onclick="closeTripForm()">✕</button>
+
+    <div id="tripFormContent">
+      <h2>Mission Trip Interest</h2>
+      <p class="sub">Thanks for your interest — fill out this short form and our trip coordinator will reach out with next steps.</p>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>First Name</label>
+          <input id="tripFirst" type="text" placeholder="Jane" />
+        </div>
+        <div class="form-group">
+          <label>Last Name</label>
+          <input id="tripLast" type="text" placeholder="Smith" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Email Address</label>
+        <input id="tripEmail" type="email" placeholder="jane@valleychristian.net" />
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Grade</label>
+          <input id="tripGrade" type="text" placeholder="11" />
+        </div>
+        <div class="form-group">
+          <label>Phone</label>
+          <input id="tripPhone" type="tel" placeholder="(408) 555-0000" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Available Dates / Notes</label>
+        <input id="tripDates" type="text" placeholder="Summer 2026, Spring Break, etc." />
+      </div>
+
+      <div class="form-group">
+        <label>Why do you want to join?</label>
+        <textarea id="tripMsg" rows="4" style="width:100%;padding:11px 15px;border:1.5px solid #e0d0bb;border-radius:10px;"></textarea>
+      </div>
+
+      <div class="coffee-opt" style="background:#fff8ef;border-color:#f2d49e;">
+        <input type="checkbox" id="tripPermission" />
+        <div class="coffee-opt-text">
+          <strong>I understand parental permission and school approvals are required</strong>
+        </div>
+      </div>
+
+      <button class="form-submit" onclick="submitTripForm()">Notify Me — Submit Interest</button>
+    </div>
+
+    <!-- <div class="success-state" id="tripSuccessState">
+      <div class="check">🎉</div>
+      <h3>Thanks — You're on the List!</h3>
+      <p>We received your interest and the trip coordinator will contact you with next steps.</p>
+      <br>
+      <button class="btn-sponsor" style="display:inline-block;padding:12px 28px;border:none;cursor:pointer;" onclick="closeTripForm()">Back to Site</button>
+    </div> -->
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <p><a href="https://www.alegrecasahogar.org/" target="_blank" rel="noopener noreferrer"><strong>Casa Hogar Alegre</strong></a> · Chiapas, México</p>
+  <p>A sponsorship initiative by <strong>Valley Christian High School</strong> · San Jose, California</p>
+  <p style="margin-top:10px;">☕ In partnership with <a href="https://brokenribcoffee.com/" target="_blank" rel="noopener noreferrer">Broken Rib Coffee</a> · Questions? <a href="mailto:sponsorship@vcs.net">sponsorship@vcs.net</a></p>
+  <p class="site-disclaimer">Please note: donations are pooled for the care and support of the entire orphanage, even if you select a specific child to sponsor.</p>
+  <p style="margin-top:16px; font-size:0.75rem; opacity:0.5;">© 2026 Valley Christian High School. All rights reserved.</p>
+</footer>
+<div id="aiDisclaimer" aria-hidden="false" style="max-width:1100px;margin:14px auto 36px;color:var(--warm-gray);font-size:0.82rem;text-align:center;">
+  <strong>Image disclosure:</strong> To protect identities, some photos shown on this site were modified using AI-based techniques. If you have questions, please contact <a href="mailto:sponsorship@vcs.net">sponsorship@vcs.net</a>.
+</div>
+
+<!-- CHILD DETAIL MODAL -->
+<div class="modal-overlay" id="childModal" onclick="closeModal()">
+  <div class="modal" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-grid">
+      <div class="modal-photo">
+        <div class="modal-avatar" id="modalAvatar"></div>
+      </div>
+      <div class="modal-body">
+        <div class="modal-name" id="modalName"></div>
+        <div class="modal-tags" id="modalTags"></div>
+        <div class="modal-section">
+          <h4>Fun Fact</h4>
+          <p id="modalFact"></p>
+        </div>
+        <div class="modal-section">
+          <h4>About</h4>
+          <p id="modalAbout"></p>
+        </div>
+        <div class="modal-actions">
+          <button class="btn-sponsor" id="modalSponsorBtn">Sponsor Me →</button>
+          <button class="btn-learn" onclick="closeModal()">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SPONSOR FORM -->
+<div class="form-overlay" id="formOverlay" onclick="closeForm()">
+  <div class="form-modal" onclick="event.stopPropagation()">
+    <button class="modal-close" style="position:absolute;top:16px;right:16px;background:#eee;color:#333;" onclick="closeForm()">✕</button>
+
+    <!-- <div id="formContent"> 
+      <h2>Sponsor <span id="formChildName" style="color:var(--tierra);font-style:italic;"></span></h2>
+      <p class="sub">Join the Valley Christian family of sponsors. $45/month makes a lasting difference.</p>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>First Name</label>
+          <input type="text" placeholder="Jane" />
+        </div>
+        <div class="form-group">
+          <label>Last Name</label>
+          <input type="text" placeholder="Smith" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" placeholder="jane@valleychristian.net" />
+      </div>
+
+      <div class="form-group">
+        <label>Phone (optional)</label>
+        <input type="tel" placeholder="(408) 555-0000" />
+      </div>
+
+      <div class="form-group">
+        <label>Connection to Valley Christian</label>
+        <select>
+          <option value="">Select one...</option>
+          <option>Parent of a student</option>
+          <option>Alumni</option>
+          <option>Faculty / Staff</option>
+          <option>Community member</option>
+        </select>
+      </div>
+
+      <div class="coffee-opt">
+        <input type="checkbox" id="coffeeCheck" checked />
+        <div class="coffee-opt-text">
+          <strong>☕ Yes! Send me my free Broken Rib Coffee bag</strong>
+          <span>Plus 20% off every month as an active sponsor</span>
+        </div>
+      </div>
+
+      <button class="form-submit" onclick="submitForm()">Complete Sponsorship — $45/month</button>
+    </div> -->
+    <div id="formContent">
+      <h2>Sponsor <span id="formChildName" style="color:var(--tierra);font-style:italic;"></span></h2>
+      <p class="sub">Complete your sponsorship securely through Donorbox. Donations are tax deductible and an email receipt will be sent to you.</p>
+
+      <div id="donorboxContainer"></div>
+      <!-- <button class="form-submit" onclick="submitForm()">
+        Continue to Payment →
+      </button> -->
+    </div>
+
+    <div class="success-state" id="successState">
+      <div class="check">🎉</div>
+      <h3>You're a Sponsor!</h3>
+      <p>Thank you for changing a child's life. Watch your inbox — we'll send you everything you need to get started, including your Broken Rib Coffee welcome bag details.</p>
+      <br>
+      <button class="btn-sponsor" style="display:inline-block;padding:12px 28px;border:none;cursor:pointer;" onclick="closeForm()">Back to Site</button>
+    </div>
+  </div>
+</div>
+
+<script type="module" src="https://donorbox.org/widgets.js" async></script>
+
+<script>
+const children = [
+  {
+    id: 1,
+    // name: "Francisco A",
+    name: "Frank",
+    age: 17,
+    gender: "Boy",
+    interests: ["Basketball", "Drawing"],
+    funfact: "Frank is very skilled in English and math.",
+    about: "Frank arrived at Casa Hogar at age 12 and has been a part of the orphanage for 5.6 years. He dreams of studying engineering and traveling the world.",
+    image: "images/francisco.png",
+    sponsored: false
+  },
+  {
+    id: 2,
+    name: "Arturo",
+    // nickname: "Arturo",
+    age: 17,
+    gender: "Boy",
+    interests: ["Basketball", "Reading books about dinosaurs"],
+    funfact: "Arturo is very calm and focused when completing tasks.",
+    about: "Arturo arrived at Casa Hogar at age 6 and has been a part of the orphanage for 10.2 years. He hopes to become a construction engineer.",
+    image: "images/arturo.png",
+    sponsored: false
+  },
+  {
+    id: 3,
+    // name: "Ximena G",
+    name: "Xime",
+    age: 16,
+    gender: "Girl",
+    interests: ["Singing", "Embroidery"],
+    funfact: "Xime is very creative and is very skilled in making beautiful bracelets.",
+    about: "Xime arrived at Casa Hogar at age 6 and has been a part of the orphanage for 9.9 years. She wants to become a teacher in the future.",
+    image: "images/ximena.png",
+    sponsored: false
+  },
+  {
+    id: 4,
+    name: "Mariana",
+    // nickname: "Mariana",
+    age: 16,
+    gender: "Girl",
+    interests: ["Baking", "Taking care of the babies"],
+    funfact: "Mariana enjoys styling her friends' hair.",
+    about: "Mariana arrived at Casa Hogar at age 2 and has been a part of the orphanage for 14.3 years. She wants to be a preschool teacher in the future.",
+    image: "images/mariana.png",
+    sponsored: false
+  },
+  {
+    id: 5,
+    name: "Dana",
+    // nickname: "Dana",
+    age: 16,
+    gender: "Girl",
+    interests: ["Taking care of the babies", "Reading"],
+    funfact: "Dana is very organized and keeps all her schoolwork neat.",
+    about: "Dana arrived at Casa Hogar at age 4 and has been a part of the orphanage for 11.9 years. She hopes to become a teacher or a doctor in the future.",
+    image: "images/dana.png",
+    sponsored: false
+  },
+  {
+    id: 6,
+    // name: "Noemi",
+    name: "Mima",
+    age: 18,
+    gender: "Girl",
+    interests: ["Cooking", "Reading"],
+    funfact: "Mima loves nature and often spends time outdoors.",
+    about: "Mima arrived at Casa Hogar at age 9 and has been a part of the orphanage for 9.0 years. She wants to study languages to travel and explore different cultures.",
+    image: "images/noemi.png",
+    sponsored: false
+  },
+  {
+    id: 7,
+    // name: "Antonio",
+    name: "Lugo",
+    age: 19,
+    gender: "Boy",
+    interests: ["Playing soccer", "Cooking"],
+    funfact: "Lugo loves cooking and designing.",
+    about: "Lugo arrived at Casa Hogar at age 19 and has been a part of the orphanage for 0.2 years. He dreams to become a soccer player.",
+    image: "images/antonio.png",
+    sponsored: false
+  },
+  {
+    id: 8,
+    // name: "José Antonio",
+    name: "Toño",
+    age: 19,
+    gender: "Boy",
+    interests: ["Bioxng", "Electrical work"],
+    funfact: "Toño loves to build and work with tools.",
+    about: "Toño arrived at Casa Hogar at age 4 and has been a part of the orphanage for 14.3 years. He wants to be an electrical engineer in the future.",
+    image: "images/joseantonio.png",
+    sponsored: false
+  },
+  {
+    id: 9,
+    // name: "Yosmar",
+    name: "Choma",
+    age: 18,
+    gender: "Boy",
+    interests: ["Reading", "Listening to music"],
+    funfact: "Choma is loves to to research new things.",
+    about: "Choma arrived at Casa Hogar at age 10 and has been a part of the orphanage for 8.7 years. He wants to become a doctor in the future.",
+    image: "images/yosmar.png",
+    sponsored: false
+  },
+  {
+    id: 10,
+    // name: "Luis",
+    name: "Wicho",
+    age: 16,
+    gender: "Boy",
+    interests: ["Playing basketball", "Drawing"],
+    funfact: "Wicho is very artistic and loves learning new things.",
+    about: "Wicho arrived at Casa Hogar at age 7 and has been a part of the orphanage for 9.3 years. He wants to be a music producer especially for electronic music.",
+    image: "images/luis.png",
+    sponsored: false
+  },
+  {
+    id: 11,
+    name: "Karla",
+    // nickname: "Karla",
+    age: 14,
+    gender: "Girl",
+    interests: ["Playing soccer", "Coloring"],
+    funfact: "Karla is very smart and quick to understand instructions. She also really enjoys math.",
+    about: "Karla arrived at Casa Hogar at age 13 and has been a part of the orphanage for 0.8 years. She wants to study nursing or become a stylist.",
+    image: "images/karla.png",
+    sponsored: false
+  },
+  {
+    id: 12,
+    name: "Yoni",
+    // nickname: "Yoni",
+    age: 13,
+    gender: "Boy",
+    interests: ["Playing basketball", "Reading stories"],
+    funfact: "Yoni is very responsible and strong in all subjects.",
+    about: "Yoni arrived at Casa Hogar at age 0 and has been a part of the orphanage for 12.3 years. He wants to study accounting in the future.",
+    image: "images/yoni.png",
+    sponsored: false
+  },
+  {
+    id: 13,
+    // name: "Rigorberto",
+    name: "Rigo",
+    age: 15,
+    gender: "Boy",
+    interests: ["Playing soccer", "Playing basketball"],
+    funfact: "Rigo is very helpful and always willing to assist others.",
+    about: "Rigo arrived at Casa Hogar at age 1 and has been a part of the orphanage for 13.8 years. He wants to study gastronomy in the future.",
+    image: "images/rigo.png",
+    sponsored: false
+  },
+  {
+    id: 14,
+    // name: "Adamari",
+    name: "Mari",
+    age: 14,
+    gender: "Girl",
+    interests: ["Coloring", "Sleeping"],
+    funfact: "Mari is good at english and math.",
+    about: "Mari arrived at Casa Hogar at age 2 and has been a part of the orphanage for 11.9 years. She wants to study gastronomy in the future.",
+    image: "images/adamari.png",
+    sponsored: false
+  },
+  {
+    id: 15,
+    name: "Geysi",
+    // nickname: "Geysi",
+    age: 13,
+    gender: "Girl",
+    interests: ["Singing", "Playing soccer"],
+    funfact: "Geysi enjoys reading and is good at coloring.",
+    about: "Geysi arrived at Casa Hogar at age 9 and has been a part of the orphanage for 3.6 years. She wants to become a secondary school English teacher.",
+    image: "images/geysi.png",
+    sponsored: false
+  },
+  {
+    id: 16,
+    name: "Ivan",
+    // nickname: "Ivan",
+    age: 12,
+    gender: "Boy",
+    interests: ["Playing with Legos", "Playing soccer"],
+    funfact: "Ivan is very helpful and cooperative.",
+    about: "Ivan arrived at Casa Hogar at age 2 and has been a part of the orphanage for 10.5 years. He wants to be a firefighter, doctor, or surgeon.",
+    image: "images/ivan.png",
+    sponsored: false
+  },
+  {
+    id: 17,
+    // name: "Anita",
+    name: "Ana",
+    age: 14,
+    gender: "Girl",
+    interests: ["Playing basketball", "Playing volleyball"],
+    funfact: "Ana is very shy and quiet.",
+    about: "Ana arrived at Casa Hogar at age 9 and has been a part of the orphanage for 5.0 years. She wants to be a teacher in the future.",
+    image: "images/anita.png",
+    sponsored: false
+  },
+  {
+    id: 18,
+    name: "Darwin",
+    // nickname: "Darwin",
+    age: 14,
+    gender: "Boy",
+    interests: ["Playing basketball", "Playing soccer"],
+    funfact: "Darwin is very smart and enjoys math, but can be shy.",
+    about: "Darwin arrived at Casa Hogar at age 13 and has been a part of the orphanage for 1.1 years. He wants to study accounting.",
+    image: "images/darwin.png",
+    sponsored: false
+  },
+  {
+    id: 19,
+    name: "Lucas",
+    // nickname: "Lucas",
+    age: 14,
+    gender: "Boy",
+    interests: ["Playing volleyball", "Playing marbles"],
+    funfact: "Lucas is helpful around the orphanage and enjoys reading.",
+    about: "Lucas arrived at Casa Hogar at age 13 and has been a part of the orphanage for 1.1 years. He wants to join the military in the future.",
+    image: "images/lucas.png",
+    sponsored: false
+  },
+  {
+    id: 20,
+    // name: "Flor De Asalia",
+    name: "Flor",
+    age: 14,
+    gender: "Girl",
+    interests: ["Watching movies", "Playing soccer"],
+    funfact: "Flor is very bright and enjoys math.",
+    about: "Flor arrived at Casa Hogar at age 10 and has been a part of the orphanage for 4.1 years. She wants to study accounting.",
+    image: "images/flor.png",
+    sponsored: false
+  },
+  {
+    id: 21,
+    // name: "Blanca L",
+    name: "Lety",
+    age: 15,
+    gender: "Girl",
+    interests: ["Playing with dolls", "Playing with balls"],
+    funfact: "Lety is very creative and is good with modeling clay.",
+    about: "Lety arrived at Casa Hogar at age 12 and has been a part of the orphanage for 3.4 years. She wants to be an elementary school teacher.",
+    image: "images/blanca.png",
+    sponsored: false
+  },
+  {
+    id: 22,
+    // name: "Maria Del Carmen",
+    name: "Carmen",
+    age: 16,
+    gender: "Girl",
+    interests: ["Playing basketball", "Coloring"],
+    funfact: "Carmen is very dedicated and responsible with cleaning and tasks.",
+    about: "Carmen arrived at Casa Hogar at age 13 and has been a part of the orphanage for 2.7 years. She wants to be a manicurist in the future.",
+    image: "images/carmen.png",
+    sponsored: false
+  },
+  {
+    id: 23,
+    name: "Miguel",
+    // nickname: "Miguel",
+    age: 17,
+    gender: "Boy",
+    interests: ["Reading", "Playing soccer"],
+    funfact: "Miguel has very good handwriting.",
+    about: "Miguel arrived at Casa Hogar at age 16 and has been a part of the orphanage for 1.1 years. He wants to study architecture.",
+    image: "images/miguel.png",
+    sponsored: false
+  },
+  {
+    id: 24,
+    name: "Bruno",
+    // nickname: "Bruno",
+    age: 13,
+    gender: "Boy",
+    interests: ["Playing soccer", "Painting"],
+    funfact: "Bruno is very good at math.",
+    about: "Bruno arrived at Casa Hogar at age 12 and has been a part of the orphanage for 0.8 years. He wants to study gastronomy.",
+    image: "images/bruno.png",
+    sponsored: false
+  },
+  {
+    id: 25,
+    // name: "Dariney C",
+    name: "Clemente",
+    age: 12,
+    gender: "Boy",
+    interests: ["Playing soccer", "Playing basketball"],
+    funfact: "Clemente is very nice handwriting.",
+    about: "Clemente arrived at Casa Hogar at age 10 and has been a part of the orphanage for 1.1 years. He wants to join the military in the future.",
+    image: "images/dariney.png",
+    sponsored: false
+  },
+  {
+    id: 26,
+    // name: "Itzel M",
+    name: "Margarita",
+    age: 11,
+    gender: "Girl",
+    interests: ["Playing soccer", "Embroidery"],
+    funfact: "Margarita is very shy and quiet.",
+    about: "Margarita arrived at Casa Hogar at age 8 and has been a part of the orphanage for 3.0 years. She wants to join the military in the future.",
+    image: "images/itzel.png",
+    sponsored: false
+  },
+  {
+    id: 27,
+    // name: "Pascuala C",
+    name: "Carolina",
+    age: 11,
+    gender: "Girl",
+    interests: ["Playing soccer", "Playing basketball"],
+    funfact: "Carolina is very outgoing and talkative.",
+    about: "Carolina arrived at Casa Hogar at age 10 and has been a part of the orphanage for 1.1 years. She wants to be an accountant in the future.",
+    image: "images/pascuala.png",
+    sponsored: false
+  },
+  {
+    id: 28,
+    name: "Claudio",
+    // nickname: "Claudio",
+    age: 12,
+    gender: "Boy",
+    interests: ["Playing with Legos", "Playing soccer"],
+    funfact: "Claudio is very creative and good at following instructions.",
+    about: "Claudio arrived at Casa Hogar at age 0 and has been a part of the orphanage for 12.4 years. He wants to be an archaeologist in the future.",
+    image: "images/claudio.png",
+    sponsored: false
+  },
+  {
+    id: 29,
+    // name: "Rey D",
+    name: "David",
+    age: 13,
+    gender: "Boy",
+    interests: ["Playing soccer", "Playing chess"],
+    funfact: "David is very creative and participative.",
+    about: "David arrived at Casa Hogar at age 3 and has been a part of the orphanage for 10.5 years. In the future he wants to be a veterinarian.",
+    image: "images/david.png",
+    sponsored: false
+  },
+  {
+    id: 30,
+    name: "Genesis",
+    // nickname: "Genesis",
+    age: 17,
+    gender: "Girl",
+    interests: ["Hair styling", "Playing"],
+    funfact: "Though she is visually impaired, Genesis is very talented and creative.",
+    about: "Genesis arrived at Casa Hogar at age 6 and has been a part of the orphanage for 11.3 years. In the future she wants to be a stylist.",
+    image: "images/genesis.png",
+    sponsored: false
+  },
+  {
+    id: 31,
+    name: "Fabian",
+    // nickname: "Fabian",
+    age: 13,
+    gender: "Boy",
+    interests: ["Playing soccer", "Singing"],
+    funfact: "Fabian is very creative and good at drawing.",
+    about: "Fabian arrived at Casa Hogar at age 11 and has been a part of the orphanage for 1.2 years. He wants to study gastronomy in the future.",
+    image: "images/fabian.png",
+    sponsored: false
+  },
+  {
+    id: 32,
+    name: "William",
+    // nickname: "William",
+    age: 14,
+    gender: "Boy",
+    interests: ["Playing basketball", "Playing soccer"],
+    funfact: "William is very hardworking and works well when focused.",
+    about: "William arrived at Casa Hogar at age 8 and has been a part of the orphanage for 6.6 years. He wants to join the military in the future.",
+    image: "images/william.png",
+    sponsored: false
+  },
+  {
+    id: 33,
+    name: "Carlos",
+    // nickname: "Carlos",
+    age: 9,
+    gender: "Boy",
+    interests: ["Playing soccer", "Playing basketball"],
+    funfact: "Carlos is very shy and helpful.",
+    about: "Carlos arrived at Casa Hogar at age 8 and has been a part of the orphanage for 0.8 years. In the future he wants to be an architect.",
+    image: "images/carlos.png",
+    sponsored: false
+  },
+  {
+    id: 34,
+    name: "Fatima",
+    // nickname: "Fatima",
+    age: 10,
+    gender: "Girl",
+    interests: ["Playing soccer", "Jumping rope"],
+    funfact: "Fatima is very talkative and loves helping others.",
+    about: "Fatima arrived at Casa Hogar at age 9 and has been a part of the orphanage for 1.1 years. She wants to be a police officer.",
+    image: "images/fatima.png",
+    sponsored: false
+  },
+  {
+    id: 35,
+    name: "Gilberto",
+    // nickname: "Gilbeto",
+    age: 11,
+    gender: "Boy",
+    interests: ["Playing soccer", "Playing volleyball"],
+    funfact: "Gilberto is hardworking and always making an effort.",
+    about: "Gilberto arrived at Casa Hogar at age 10 and has been a part of the orphanage for 0.8 years. He wants to be a truck driver.",
+    image: "images/gilberto.png",
+    sponsored: false
+  },
+  {
+    id: 36,
+    name: "Eunices",
+    // nickname: "Eunices",
+    age: 9,
+    gender: "Girl",
+    interests: ["Playing soccer", "Playing basketball"],
+    funfact: "Eunices is very intelligent.",
+    about: "Eunices arrived at Casa Hogar at age 5 and has been a part of the orphanage for 4.1 years. She wants to be a police officer.",
+    image: "images/eunices.png",
+    sponsored: false
+  },
+  {
+    id: 37,
+    name: "Dulce",
+    // nickname: "Dulce",
+    age: 11,
+    gender: "Girl",
+    interests: ["Playing soccer", "Playing basketball"],
+    funfact: "Dulce is very intelligent.",
+    about: "Dulce arrived at Casa Hogar at age 6 and has been a part of the orphanage for 4.7 years. She wants to be a chef.",
+    image: "images/dulce.png",
+    sponsored: false
+  },
+  {
+    id: 38,
+    // name: "Yenibeth",
+    name: "Yeni",
+    age: 11,
+    gender: "Girl",
+    interests: ["Playing soccer", "Playing basketball"],
+    funfact: "Yeni is very dedicated to crafts.",
+    about: "Yeni arrived at Casa Hogar at age 6 and has been a part of the orphanage for 4.7 years. She wants to be a lawyer in the future.",
+    image: "images/yenibeth.png",
+    sponsored: false
+  },
+  {
+    id: 39,
+    // name: "Ivana N",
+    name: "Nicole",
+    age: 10,
+    gender: "Girl",
+    interests: ["Playing basketball", "Playing soccer"],
+    funfact: "Nicole enjoys reading and has a good memory.",
+    about: "Nicole arrived at Casa Hogar at age 4 and has been a part of the orphanage for 6.2 years. She wants to be a chef in the future.",
+    image: "images/ivana.png",
+    sponsored: false
+  },
+  {
+    id: 40,
+    name: "Santiago",
+    // nickname: "Santiago",
+    age: 11,
+    gender: "Boy",
+    interests: ["Playing soccer", "Playing volleyball"],
+    funfact: "Santiago is very good at drawing.",
+    about: "Santiago arrived at Casa Hogar at age 7 and has been a part of the orphanage for 3.4 years. In the future he wants to be a painter.",
+    image: "images/santiago.png",
+    sponsored: false
+  },
+  {
+    id: 41,
+    name: "Jesus",
+    // nickname: "Jesus",
+    age: 10,
+    gender: "Boy",
+    interests: ["Playing soccer", "Playing volleyball"],
+    funfact: "Jesus is very talkative and helpful.",
+    about: "Jesus arrived at Casa Hogar at age 1 and has been a part of the orphanage for 9.5 years. He wants to be a chef or join the military.",
+    image: "images/jesus.png",
+    sponsored: false
+  },
+  {
+    id: 42,
+    name: "Enoc",
+    // nickname: "Enoc",
+    age: 10,
+    gender: "Boy",
+    interests: ["Playing soccer", "Playing volleyball"],
+    funfact: "Enoc enjoys math but dislikes reading.",
+    about: "Enoc arrived at Casa Hogar at age 2 and has been a part of the orphanage for 8.7 years. He wants to be a chef in the future.",
+    image: "images/enoc.png",
+    sponsored: false
+  },
+  {
+    id: 43,
+    // name: "Sarai C",
+    name: "Sara",
+    age: 10,
+    gender: "Girl",
+    interests: ["Playing soccer", "Jumping rope"],
+    funfact: "Sara enjoys math and reading.",
+    about: "Sara arrived at Casa Hogar at age 9 and has been a part of the orphanage for 0.7 years. She wants to be a doctor.",
+    image: "images/sarai.png",
+    sponsored: false
+  },
+  {
+    id: 44,
+    name: "Lizbeth",
+    // nickname: "Lizbeth",
+    age: 9,
+    gender: "Girl",
+    interests: ["Playing basketball", "Gymnastics"],
+    funfact: "Lizbeth is very helpful and enjoys supporting others.",
+    about: "Lizbeth arrived at Casa Hogar at age 5 and has been a part of the orphanage for 4.1 years. She wants to be a preschool teacher.",
+    image: "images/lizbeth.png",
+    sponsored: false
+  },
+  {
+    id: 45,
+    name: "Miranda",
+    // nickname: "Miranda",
+    age: 6,
+    gender: "Girl",
+    interests: ["Playing hide and seek", "Painting"],
+    funfact: "Miranda is very skilled in english and math.",
+    about: "Miranda arrived at Casa Hogar at age 6 and has been a part of the orphanage for 0.8 years. She wants to be a nurse in the future.",
+    image: "images/miranda.png",
+    sponsored: false
+  },
+  {
+    id: 46,
+    name: "Blanquita",
+    // nickname: "Yazmin",
+    age: 6,
+    gender: "Girl",
+    interests: ["Playing pretend kitchen", "Coloring"],
+    funfact: "Blanquita is very imaginative and loves all her siblings.",
+    about: "Blanquita arrived at Casa Hogar at age 5 and has been a part of the orphanage for 1.1 years. She wants to be a doctor in the future.",
+    image: "images/blancajosselyn.png",
+    sponsored: false
+  },
+  {
+    id: 47,
+    name: "Emili",
+    // nickname: "Yazmin",
+    age: 6,
+    gender: "Girl",
+    interests: ["Playing with blocks", "Painting"],
+    funfact: "Emili is very good at crafts.",
+    about: "Emili arrived at Casa Hogar at age 4 and has been a part of the orphanage for 1.8 years. She wants to be a pediatrician in the future.",
+    image: "images/emili.png",
+    sponsored: false
+  },
+  {
+    id: 48,
+    name: "Masha",
+    // nickname: "Yazmin",
+    age: 6,
+    gender: "Girl",
+    interests: ["Painting", "Playing with dolls"],
+    funfact: "Masha is very good at singing.",
+    about: "Masha arrived at Casa Hogar at age 4 and has been a part of the orphanage for 1.8 years. She wants to be a doctor in the future.",
+    image: "images/melissa.png",
+    sponsored: false
+  },
+  {
+    id: 49,
+    name: "Gabi",
+    // nickname: "Yazmin",
+    age: 6,
+    gender: "Girl",
+    interests: ["Playing with blocks", "Hide and seek"],
+    funfact: "Gabi enjoys being read to.",
+    about: "Gabi arrived at Casa Hogar at age 5 and has been a part of the orphanage for 1.2 years. She wants to be a chef in the future.",
+    image: "images/gabriela.png",
+    sponsored: false
+  },
+  {
+    id: 50,
+    name: "Chaparrita",
+    // nickname: "Yazmin",
+    age: 4,
+    gender: "Girl",
+    interests: ["Playing pretend kitchen", "Painting"],
+    funfact: "Chaparrita enjoys dancing.",
+    about: "Chaparrita arrived at Casa Hogar at age 1 and has been a part of the orphanage for 3.1 years. He wants to be a pediatrician in the future.",
+    image: "images/ambar.png",
+    sponsored: false
+  },
+  {
+    id: 51,
+    name: "Chaparrito",
+    // nickname: "Yazmin",
+    age: 5,
+    gender: "Boy",
+    interests: ["Playing soccer", "Playing with toy cars"],
+    funfact: "Chaparrito enjoys math.",
+    about: "Chaparrito arrived at Casa Hogar at age 1 and has been a part of the orphanage for 4.2 years. He wants to be a teacher in the future.",
+    image: "images/asbel.png",
+    sponsored: false
+  },
+  {
+    id: 52,
+    name: "Julio",
+    // nickname: "Yazmin",
+    age: 6,
+    gender: "Boy",
+    interests: ["Playing soccer", "Playing basketball"],
+    funfact: "Julio is very creative and has great storytelling skills.",
+    about: "Julio arrived at Casa Hogar at age 1 and has been a part of the orphanage for 4.2 years. He wants to be a pediatrician in the future.",
+    image: "images/julio.png",
+    sponsored: false
+  },
+  {
+    id: 53,
+    name: "Elena",
+    // nickname: "Yazmin",
+    age: 5,
+    gender: "Girl",
+    interests: ["Playing pretend kitchen", "Playing basketball"],
+    funfact: "Elena is very good at crafts.",
+    about: "Elena arrived at Casa Hogar at age 4 and has been a part of the orphanage for 0.5 years. She wants to be a chef in the future.",
+    image: "images/elena.png",
+    sponsored: false
+  },
+  {
+    id: 54,
+    name: "Ana",
+    // nickname: "Yazmin",
+    age: 4,
+    gender: "Girl",
+    interests: ["Playing with dolls", "Playing pretend kitchen"],
+    funfact: "Ana is very good at singing.",
+    about: "Ana arrived at Casa Hogar at age 3 and has been a part of the orphanage for 1.0 years. She wants to be a painter in the future.",
+    image: "images/ana.png",
+    sponsored: false
+  },
+  {
+    id: 55,
+    name: "Sele",
+    // nickname: "Yazmin",
+    age: 27,
+    gender: "Girl",
+    interests: ["Playing with dolls", "Painting"],
+    funfact: "Sele enjoys painting.",
+    about: "Sele arrived at Casa Hogar at age 7 and has been a part of the orphanage for 19.8 years. She wants to be a doctor in the future.",
+    image: "images/selene.png",
+    sponsored: false
+  },
+  {
+    id: 56,
+    name: "Alexa",
+    // nickname: "Yazmin",
+    age: 4,
+    gender: "Girl",
+    interests: ["Playing with dolls", "Playing pretend kitchen"],
+    funfact: "Alexa enjoys listening to stories.",
+    about: "Alexa arrived at Casa Hogar at age 2 and has been a part of the orphanage for 1.8 years. She wants to be a doctor in the future.",
+    image: "images/alexa.png",
+    sponsored: false
+  },
+  {
+    id: 57,
+    name: "Javier",
+    // nickname: "Yazmin",
+    age: 6,
+    gender: "Boy",
+    interests: ["Playing basketball", "Playing with animals"],
+    funfact: "Javier is a very creative storyteller.",
+    about: "Javier arrived at Casa Hogar at age 2 and has been a part of the orphanage for 4.2 years. He wants to be a veterinarian in the future.",
+    image: "images/javier.png",
+    sponsored: false
+  },
+  {
+    id: 58,
+    name: "Fer",
+    // nickname: "Yazmin",
+    age: 5,
+    gender: "Boy",
+    interests: ["Playing basketball", "Playing with toy cars"],
+    funfact: "Fer enjoys listening to stories.",
+    about: "Fer arrived at Casa Hogar at age 1 and has been a part of the orphanage for 4.2 years. He wants to be a police officer in the future.",
+    image: "images/fernando.png",
+    sponsored: false
+  },
+  {
+    id: 59,
+    name: "Kevin",
+    // nickname: "Yazmin",
+    age: 4,
+    gender: "Boy",
+    interests: ["Playing cops and robbers", "Playing firefighters"],
+    funfact: "Kevin enjoys being read stories.",
+    about: "Kevin arrived at Casa Hogar at age 3 and has been a part of the orphanage for 0.5 years. He wants to be a firefighter in the future.",
+    image: "images/kevin.png",
+    sponsored: false
+  },
+  {
+    id: 60,
+    name: "Lupita",
+    // nickname: "Yazmin",
+    age: 7,
+    gender: "Girl",
+    interests: ["Playing basketball", "Painting"],
+    funfact: "Lupita loves reading.",
+    about: "Lupita arrived at Casa Hogar at age 6 and has been a part of the orphanage for 0.8 years. She wants to be a doctor in the future.",
+    image: "images/lupita.png",
+    sponsored: false
+  },
+  {
+    id: 61,
+    name: "Natanael",
+    // nickname: "Yazmin",
+    age: 7,
+    gender: "Boy",
+    interests: ["Playing soccer", "Racing games"],
+    funfact: "Natanael enjoys reading and crafts.",
+    about: "Natanael arrived at Casa Hogar at age 6 and has been a part of the orphanage for 1.1 years. He wants to join the military in the future.",
+    image: "images/adriel.png",
+    sponsored: false
+  },
+  {
+    id: 62,
+    name: "Rafa",
+    // nickname: "Yazmin",
+    age: 11,
+    gender: "Boy",
+    interests: ["Playing basketball", "Doing his homework"],
+    funfact: "Rafa has a lot of useful practical skills.",
+    about: "Rafa arrived at Casa Hogar at age 10 and has been a part of the orphanage for 1.1 years. He wants to be a farmer in the future.",
+    image: "images/antoniorafael.png",
+    sponsored: false
+  },
+  {
+    id: 63,
+    name: "Daniela",
+    // nickname: "Yazmin",
+    age: 7,
+    gender: "Girl",
+    interests: ["Cooking", "Writing"],
+    funfact: "Daniela loves making crafts.",
+    about: "Daniela arrived at Casa Hogar at age 8 and has been a part of the orphanage for 1.1 years. She wants to be a ophthalmologist in the future.",
+    image: "images/daniela.png",
+    sponsored: false
+  },
+  {
+    id: 64,
+    name: "Josue",
+    // nickname: "Yazmin",
+    age: 9,
+    gender: "Boy",
+    interests: ["Card games", "Puzzles"],
+    funfact: "Josue loves reading and crafts.",
+    about: "Josue arrived at Casa Hogar at age 6 and has been a part of the orphanage for 3.1 years. He wants to be a chef in the future.",
+    image: "images/josue.png",
+    sponsored: false
+  },
+  {
+    id: 65,
+    name: "Eli",
+    // nickname: "Yazmin",
+    age: 8,
+    gender: "Boy",
+    interests: ["Watching movies", "Cleaning"],
+    funfact: "Eli loves reading and listening to stories.",
+    about: "Eli arrived at Casa Hogar at age 3 and has been a part of the orphanage for 5.5 years. He wants to join the military in the future.",
+    image: "images/elias.png",
+    sponsored: false
+  },
+  {
+    id: 66,
+    name: "Laura",
+    // nickname: "Yazmin",
+    age: 7,
+    gender: "Girl",
+    interests: ["Reading", "Card games"],
+    funfact: "Laura loves crafts and stories.",
+    about: "Laura arrived at Casa Hogar at age 6 and has been a part of the orphanage for 0.5 years. She wants to be a doctor in the future.",
+    image: "images/laura.png",
+    sponsored: false
+  },
+  {
+    id: 67,
+    name: "Lleny",
+    // nickname: "Yazmin",
+    age: 1,
+    gender: "Girl",
+    interests: ["Painting", "Racing"],
+    funfact: "Lleny enjoys listening to stories.",
+    about: "Lleny arrived at Casa Hogar at age 0 and has been a part of the orphanage for 0.5 years. She wants to be a chef in the future.",
+    image: "images/lleny.png",
+    sponsored: false
+  },
+  {
+    id: 68,
+    name: "Christopher",
+    // nickname: "Yazmin",
+    age: 8,
+    gender: "Boy",
+    interests: ["Card games", "Hide and seek"],
+    funfact: "Christopher loves reading and writing.",
+    about: "Christopher arrived at Casa Hogar at age 2 and has been a part of the orphanage for 6.2 years. He wants to be a chef in the future.",
+    image: "images/christopher.png",
+    sponsored: false
+  },
+  {
+    id: 69,
+    name: "Ardani",
+    // nickname: "Yazmin",
+    age: 8,
+    gender: "Girl",
+    interests: ["Painting", "Swimming"],
+    funfact: "Ardani loves making crafts.",
+    about: "Ardani arrived at Casa Hogar at age 4 and has been a part of the orphanage for 4.2 years. She wants to be a chef in the future.",
+    image: "images/ardani.png",
+    sponsored: false
+  },
+  {
+    id: 70,
+    name: "Leslie",
+    // nickname: "Yazmin",
+    age: 10,
+    gender: "Boy",
+    interests: ["Painting", "Hide and seek"],
+    funfact: "Leslie enjoys creative storytelling.",
+    about: "Leslie arrived at Casa Hogar at age 10 and has been a part of the orphanage for 0.3 years. He wants to be a military doctor in the future.",
+    image: "images/leslie.png",
+    sponsored: false
+  },
+  {
+    id: 71,
+    name: "Benja",
+    // nickname: "Yazmin",
+    age: 7,
+    gender: "Boy",
+    interests: ["Playing soccer", "Playing tag"],
+    funfact: "Benja loves reading and math.",
+    about: "Benja arrived at Casa Hogar at age 1 and has been a part of the orphanage for 6.9 years. He wants to be a chef in the future.",
+    image: "images/benjamin.png",
+    sponsored: false
+  },
+  {
+    id: 72,
+    name: "Jorge",
+    // nickname: "Yazmin",
+    age: 8,
+    gender: "Boy",
+    interests: ["Playing soccer", "Bible questions"],
+    funfact: "Jorge loves reading and drawing.",
+    about: "Jorge arrived at Casa Hogar at age 7 and has been a part of the orphanage for 0.9 years. He wants to be a magician or president.",
+    image: "images/jorge.png",
+    sponsored: false
+  },
+  {
+    id: 73,
+    name: "Mendoza",
+    // nickname: "Yazmin",
+    age: 11,
+    gender: "Boy",
+    interests: ["Playing soccer", "Hide and seek"],
+    funfact: "Mendoza loves reading.",
+    about: "Mendoza arrived at Casa Hogar at age 10 and has been a part of the orphanage for 1.1 years. He wants to join the military in the future.",
+    image: "images/jose.png",
+    sponsored: false
+  },
+  {
+    id: 74,
+    name: "Emma",
+    // nickname: "Yazmin",
+    age: 9,
+    gender: "Boy",
+    interests: ["Reading", "Writing"],
+    funfact: "Emma loves reading and storytelling.",
+    about: "Emma arrived at Casa Hogar at age 7 and has been a part of the orphanage for 1.7 years. She wants to be a doctor in the future.",
+    image: "images/emmanuel.png",
+    sponsored: false
+  },
+  {
+    id: 75,
+    name: "Manuel",
+    // nickname: "Yazmin",
+    age: 10,
+    gender: "Boy",
+    interests: ["Reading", "Building things"],
+    funfact: "Manuel has great math skills.",
+    about: "Manuel arrived at Casa Hogar at age 5 and has been a part of the orphanage for 5.5 years. He wants to work in systems and IT in the future.",
+    image: "images/manuel.png",
+    sponsored: false
+  },
+  {
+    id: 76,
+    name: "Ximena",
+    // nickname: "Yazmin",
+    age: 10,
+    gender: "Girl",
+    interests: ["Painting", "Singing"],
+    funfact: "Ximena loves making crafts and is helpful to others.",
+    about: "Ximena arrived at Casa Hogar at age 10 and has been a part of the orphanage for 0.5 years. She wants to be a chef in the future.",
+    image: "images/ximena1.png",
+    sponsored: false
+  },
+  {
+    id: 77,
+    name: "Avatar",
+    // nickname: "Yazmin",
+    age: 7,
+    gender: "Boy",
+    interests: ["Playing basketball", "Writing"],
+    funfact: "Avatar loves reading.",
+    about: "Avatar arrived at Casa Hogar at age 3 and has been a part of the orphanage for 4.2 years. He wants to be a chef and a boxer in the future.",
+    image: "images/aviatar.png",
+    sponsored: false
+  },
+  {
+    id: 78,
+    name: "Juan",
+    // nickname: "Yazmin",
+    age: 18,
+    gender: "Boy",
+    interests: ["Playing soccer", "Carpentry"],
+    funfact: "Juan enjoys helping others.",
+    about: "Juan arrived at Casa Hogar at age 8 and has been a part of the orphanage for 9.4 years. He wants to be an engineer in the future.",
+    image: "images/juan.png",
+    sponsored: false
+  },
+  {
+    id: 79,
+    name: "Silvia",
+    // nickname: "Yazmin",
+    age: 21,
+    gender: "Girl",
+    interests: ["Cleaning"],
+    funfact: "Silvia is very helpful in the kitchen.",
+    about: "Silvia arrived at Casa Hogar at age 18 and has been a part of the orphanage for 3.1 years. She wants to be a cook in the future.",
+    image: "images/maria.png",
+    sponsored: false
+  },
+  {
+    id: 80,
+    name: "Lalito",
+    // nickname: "Yazmin",
+    age: 2,
+    gender: "Boy",
+    interests: ["Playing"],
+    funfact: "Lalito plays well with others.",
+    about: "Lalito arrived at Casa Hogar at age 2 and has been a part of the orphanage for 0.8 years.",
+    image: "images/eduardo.png",
+    sponsored: false
+  },
+  {
+    id: 81,
+    name: "Arleth",
+    // nickname: "Yazmin",
+    age: 2,
+    gender: "Girl",
+    interests: ["Playing"],
+    funfact: "Arleth is very playful.",
+    about: "Arleth arrived at Casa Hogar at age 1 and has been a part of the orphanage for 0.8 years.",
+    image: "images/arleth.png",
+    sponsored: false
+  },
+  {
+    id: 82,
+    name: "Manuel",
+    // nickname: "Yazmin",
+    age: 2,
+    gender: "Boy",
+    interests: ["Playing"],
+    funfact: "Manuel plays and shares with others.",
+    about: "Manuel arrived at Casa Hogar at age 2 and has been a part of the orphanage for 0.5 years.",
+    image: "images/juanmanuel.png",
+    sponsored: false
+  },
+  {
+    id: 83,
+    name: "Angelito",
+    // nickname: "Yazmin",
+    age: 3,
+    gender: "Boy",
+    interests: ["Playing"],
+    funfact: "Angelito is very playful.",
+    about: "Angelito arrived at Casa Hogar at age 0 and has been a part of the orphanage for 3.4 years.",
+    image: "images/angel.png",
+    sponsored: false
+  },
+  {
+    id: 84,
+    name: "Majo",
+    // nickname: "Yazmin",
+    age: 28,
+    gender: "Girl",
+    interests: ["Drawing", "Coloring"],
+    funfact: "Majo loves drawing what she sees or imagines.",
+    about: "Majo arrived at Casa Hogar at age 3 and has been a part of the orphanage for 25.2 years.",
+    image: "images/majo.png",
+    sponsored: false
+  },
+  {
+    id: 85,
+    name: "Ingrid",
+    // nickname: "Yazmin",
+    age: 21,
+    gender: "Girl",
+    interests: ["Reading", "Writing"],
+    funfact: "Ingrid loves reading and researching.",
+    about: "Ingrid arrived at Casa Hogar at age 5 and has been a part of the orphanage for 16.4 years. She wants to be a nurse and work in an institution in the future.",
+    image: "images/ingrid.png",
+    sponsored: false
+  }
+];
+
+let currentChild = null;
+let currentFilter = 'all';
+let currentAgeFilter = 'all';
+let currentPage = 1;
+const PAGE_SIZE = 12;
+
+function getInitial(name) { return name[0]; }
+
+function renderChildren(filter) {
+  const grid = document.getElementById('childrenGrid');
+  // base filtering by sponsor status
+  let filtered = filter === 'all' ? children
+    : filter === 'available' ? children.filter(c => !c.sponsored)
+    : children.filter(c => c.sponsored);
+
+  // then apply age-range filter
+  if (currentAgeFilter && currentAgeFilter !== 'all') {
+    const parts = currentAgeFilter.split('-').map(Number);
+    if (parts.length === 2) {
+      const min = parts[0];
+      const max = parts[1];
+      filtered = filtered.filter(c => typeof c.age === 'number' && c.age >= min && c.age <= max);
+    }
+  }
+
+  // pagination
+  const total = filtered.length;
+  const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
+  if (currentPage > totalPages) currentPage = totalPages;
+  const start = (currentPage - 1) * PAGE_SIZE;
+  const pageItems = filtered.slice(start, start + PAGE_SIZE);
+
+  grid.innerHTML = pageItems.map(child => `
+    <div class="child-card ${child.sponsored ? 'sponsored' : ''}" onclick="${child.sponsored ? '' : `openModal(${child.id})`}">
+      <div class="child-photo">
+        ${child.image ? `<img class="child-img" src="${child.image}" alt="Photo of ${child.name}" loading="lazy" onerror="this.style.display='none'; this.parentNode.querySelector('.avatar').style.display='flex'">` : ''}
+        <div class="avatar" style="${child.image ? 'display:none;' : ''}">${getInitial(child.name)}</div>
+        ${child.sponsored ? '<div class="sponsored-banner">Sponsored</div>' : ''}
+      </div>
+      <div class="child-info">
+  <div class="child-name">${child.name}</div>
+  ${child.nickname ? `<div class="child-nickname">"${child.nickname}"</div>` : ''}
+        <div class="child-meta">
+          <span class="child-tag">Age ${child.age}</span>
+          <span class="child-tag">${child.gender}</span>
+          ${child.interests.map(i => `<span class="child-tag">${i}</span>`).join('')}
+        </div>
+        <p class="child-funfact">${child.funfact}</p>
+        <div class="child-card-footer">
+          ${child.sponsored
+            ? `<div class="btn-learn" style="flex:1;text-align:center;cursor:default;">💚 Sponsored</div>`
+            : `<button class="btn-sponsor" onclick="event.stopPropagation(); openSponsorForm(${child.id})">Sponsor ${child.name}</button>
+               <button class="btn-learn" onclick="event.stopPropagation(); openModal(${child.id})">Learn More</button>`
+          }
+        </div>
+      </div>
+    </div>
+  `).join('');
+
+  createPagination(totalPages);
+}
+
+function createPagination(totalPages) {
+  const container = document.getElementById('childrenPagination');
+  if (!container) return;
+  // if only one page, hide pagination
+  if (totalPages <= 1) {
+    container.innerHTML = '';
+    return;
+  }
+
+  let html = '';
+  // previous
+  html += `<button class="pag-btn" ${currentPage === 1 ? 'disabled' : ''} onclick="goToPage(${currentPage - 1})">← Prev</button>`;
+  // page numbers (show up to 7: first, prev2, current, next2, last)
+  const range = 2; // pages around current
+  const start = Math.max(1, currentPage - range);
+  const end = Math.min(totalPages, currentPage + range);
+
+  if (start > 1) html += `<button class="pag-btn" onclick="goToPage(1)">1</button>` + (start > 2 ? `<span class="pag-ellipsis">…</span>` : '');
+
+  for (let p = start; p <= end; p++) {
+    html += `<button class="pag-btn ${p === currentPage ? 'active' : ''}" onclick="goToPage(${p})">${p}</button>`;
+  }
+
+  if (end < totalPages) html += (end < totalPages - 1 ? `<span class="pag-ellipsis">…</span>` : '') + `<button class="pag-btn" onclick="goToPage(${totalPages})">${totalPages}</button>`;
+
+  // next
+  html += `<button class="pag-btn" ${currentPage === totalPages ? 'disabled' : ''} onclick="goToPage(${currentPage + 1})">Next →</button>`;
+
+  container.innerHTML = `<div class="pagination-wrap">${html}</div>`;
+}
+
+function goToPage(p) {
+  const totalPages = Math.max(1, Math.ceil((currentFilter === 'all' ? children.length : (currentFilter === 'available' ? children.filter(c=>!c.sponsored).length : children.filter(c=>c.sponsored).length)) / PAGE_SIZE));
+  if (p < 1) p = 1;
+  if (p > totalPages) p = totalPages;
+  currentPage = p;
+  renderChildren(currentFilter);
+}
+
+function filterCards(filter, btn) {
+  currentFilter = filter;
+  currentPage = 1;
+  document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  renderChildren(filter);
+}
+
+function onAgeFilterChange(val) {
+  currentAgeFilter = val;
+  currentPage = 1;
+  renderChildren(currentFilter);
+}
+
+function openModal(id) {
+  const child = children.find(c => c.id === id);
+  if (!child) return;
+  currentChild = child;
+  document.getElementById('modalAvatar').textContent = getInitial(child.name);
+  document.getElementById('modalName').textContent = child.name;
+  // show nickname below name when present
+  const existingNick = document.getElementById('modalNickname');
+  if (existingNick) existingNick.remove();
+  if (child.nickname) {
+    const nick = document.createElement('div');
+    nick.id = 'modalNickname';
+    nick.style.fontStyle = 'italic';
+    nick.style.color = 'var(--warm-gray)';
+    nick.style.marginTop = '6px';
+    nick.textContent = `"${child.nickname}"`;
+    document.getElementById('modalName').insertAdjacentElement('afterend', nick);
+  }
+  document.getElementById('modalTags').innerHTML = [
+    `<span class="child-tag">Age ${child.age}</span>`,
+    `<span class="child-tag">${child.gender}</span>`,
+    ...child.interests.map(i => `<span class="child-tag">${i}</span>`)
+  ].join('');
+  document.getElementById('modalFact').textContent = child.funfact;
+  document.getElementById('modalAbout').textContent = child.about;
+  document.getElementById('modalSponsorBtn').onclick = () => { closeModal(); openSponsorForm(id); };
+  // replace modal photo with image if available, otherwise keep avatar
+  const modalPhoto = document.querySelector('.modal-photo');
+  if (modalPhoto) {
+    modalPhoto.innerHTML = '';
+    if (child.image) {
+      const img = document.createElement('img');
+      img.className = 'modal-img';
+      img.src = child.image;
+      img.alt = `Photo of ${child.name}`;
+      img.onerror = () => {
+        img.remove();
+        const av = document.createElement('div');
+        av.className = 'modal-avatar';
+        av.textContent = getInitial(child.name);
+        modalPhoto.appendChild(av);
+      };
+      modalPhoto.appendChild(img);
+    } else {
+      const av = document.createElement('div');
+      av.className = 'modal-avatar';
+      av.textContent = getInitial(child.name);
+      modalPhoto.appendChild(av);
+    }
+  }
+  document.getElementById('childModal').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  const overlay = document.getElementById('childModal');
+  if (!overlay) return;
+  overlay.classList.remove('active');
+  document.body.style.overflow = '';
+
+  // cleanup modal content to avoid stale nodes or handlers
+  try {
+    const modalPhoto = overlay.querySelector('.modal-photo');
+    if (modalPhoto) {
+      modalPhoto.innerHTML = '<div class="modal-avatar" id="modalAvatar"></div>';
+    }
+    const modalName = document.getElementById('modalName');
+    if (modalName) modalName.textContent = '';
+    const existingNick = document.getElementById('modalNickname');
+    if (existingNick) existingNick.remove();
+    const modalTags = document.getElementById('modalTags');
+    if (modalTags) modalTags.innerHTML = '';
+    const modalFact = document.getElementById('modalFact');
+    if (modalFact) modalFact.textContent = '';
+    const modalAbout = document.getElementById('modalAbout');
+    if (modalAbout) modalAbout.textContent = '';
+    const sponsorBtn = document.getElementById('modalSponsorBtn');
+    if (sponsorBtn) sponsorBtn.onclick = null;
+  } catch (e) {
+    // silent fallback — keep UX working even if cleanup fails
+    console.warn('Modal cleanup error', e);
+  }
+}
+
+// function openSponsorForm(id) {
+//   const child = children.find(c => c.id === id);
+//   if (!child) return;
+//   currentChild = child;
+//   document.getElementById('formChildName').textContent = child.name;
+//   document.getElementById('formContent').style.display = 'block';
+//   document.getElementById('successState').style.display = 'none';
+//   document.getElementById('formOverlay').classList.add('active');
+//   document.body.style.overflow = 'hidden';
+// }
+
+function openSponsorForm(id) {
+  const child = children.find(c => c.id === id);
+  if (!child) return;
+
+  currentChild = child;
+
+  document.getElementById("formChildName").textContent = child.name;
+  document.getElementById("formOverlay").classList.add("active");
+  document.body.style.overflow = "hidden";
+
+  document.getElementById("donorboxContainer").innerHTML = `
+    <p class="child-note">Please add the name of the child you are sponsoring in the comment section so we can match your donation to the child.</p>
+    <iframe
+      src="https://donorbox.org/embed/vcs-cha-sponsorship-program?default_interval=m&designation=${encodeURIComponent("Sponsor " + child.name)}"
+      name="donorbox"
+      allowpaymentrequest="allowpaymentrequest"
+      seamless="seamless"
+      frameborder="0"
+      scrolling="no"
+      height="900px"
+      width="100%"
+      style="max-width:100%; min-width:250px; max-height:none!important">
+    </iframe>
+  `;
+}
+
+function closeForm() {
+  document.getElementById('formOverlay').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+// function submitForm() {
+//   document.getElementById('formContent').style.display = 'none';
+//   document.getElementById('successState').style.display = 'block';
+//   if (currentChild) {
+//     currentChild.sponsored = true;
+//     renderChildren(currentFilter);
+//   }
+// }
+
+function submitForm() {
+  const child = document.getElementById("formChildName").textContent;
+
+  document.getElementById("donorboxContainer").innerHTML = `
+    <iframe
+      src="https://donorbox.org/embed/vcs-cha-sponsorship-program?default_interval=m&designation=${encodeURIComponent("Sponsor " + child)}"
+      name="donorbox"
+      allowpaymentrequest="allowpaymentrequest"
+      seamless="seamless"
+      frameborder="0"
+      scrolling="no"
+      height="900px"
+      width="100%"
+      style="max-width:100%; min-width:250px; max-height:none!important">
+    </iframe>
+    <p class="child-note">Please add the name of the child you are sponsoring in the comment/notes section so we can match your donation to the child.</p>
+  `;
+}
+
+// Sticky nav
+window.addEventListener('scroll', () => {
+  document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 60);
+});
+
+// Init
+renderChildren('all');
+
+// Mission trip form handlers
+function openTripForm() {
+  const content = document.getElementById('tripFormContent');
+  const success = document.getElementById('tripSuccessState');
+  const overlay = document.getElementById('tripOverlay');
+  if (!overlay) return;
+  if (content) content.style.display = 'block';
+  if (success) success.style.display = 'none';
+  overlay.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeTripForm() {
+  const overlay = document.getElementById('tripOverlay');
+  if (!overlay) return;
+  overlay.classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+function submitTripForm() {
+  const data = {
+    first: (document.getElementById('tripFirst') || {}).value || '',
+    last: (document.getElementById('tripLast') || {}).value || '',
+    email: (document.getElementById('tripEmail') || {}).value || '',
+    grade: (document.getElementById('tripGrade') || {}).value || '',
+    phone: (document.getElementById('tripPhone') || {}).value || '',
+    dates: (document.getElementById('tripDates') || {}).value || '',
+    message: (document.getElementById('tripMsg') || {}).value || '',
+    permission: !!(document.getElementById('tripPermission') || {}).checked
+  };
+
+  // For now we log the submission; in a production site you'd POST this to your backend.
+  console.log('Mission trip interest submitted:', data);
+
+  // Show success state
+  const content = document.getElementById('tripFormContent');
+  const success = document.getElementById('tripSuccessState');
+  if (content) content.style.display = 'none';
+  if (success) success.style.display = 'block';
+}
+</script>
+
+<!-- Mission video poster loader with fallback handling -->
+<script>
+ (function(){
+   const poster = document.getElementById('missionPoster');
+   const iframe = document.getElementById('missionIframe');
+   const fallback = document.getElementById('missionFallback');
+   if (!poster || !iframe) return;
+
+   function showFallback(){ if (fallback) fallback.style.display = 'block'; }
+   function hideFallback(){ if (fallback) fallback.style.display = 'none'; }
+
+   poster.addEventListener('click', function(){
+     // prevent multiple clicks
+     if (iframe.getAttribute('data-loaded')) return;
+     const src = iframe.getAttribute('data-src');
+     if (!src) return;
+
+  // prepare a timer to reveal fallback if nothing loads (give slower connections more time)
+  hideFallback();
+  const failTimer = setTimeout(showFallback, 5000);
+
+     // set up load handler
+     function onIframeLoad(){
+       clearTimeout(failTimer);
+       // mark loaded so we don't re-init
+       iframe.setAttribute('data-loaded','true');
+       // hide poster now that iframe content is available
+       poster.style.display = 'none';
+       hideFallback();
+       iframe.removeEventListener('load', onIframeLoad);
+     }
+
+    iframe.addEventListener('load', onIframeLoad);
+    // set src with autoplay; include page origin only when running on http/https
+    // this avoids sending origin=null when the page is opened via file:// which can
+    // trigger YouTube player configuration errors in Chrome
+    const sep = src.includes('?') ? '&' : '?';
+    const params = ['autoplay=1'];
+    if (!/origin=/i.test(src)) {
+      try {
+        // only append origin for http(s) pages and when location.origin is meaningful
+        if (location && location.protocol && location.protocol.indexOf('http') === 0 && location.origin && location.origin !== 'null') {
+          params.push('origin=' + encodeURIComponent(location.origin));
+        }
+      } catch (e) { /* ignore when location is unavailable */ }
+    }
+    iframe.src = src + sep + params.join('&');
+   });
+ })();
+</script>
+</body>
+</html>
