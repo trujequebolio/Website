@@ -69,6 +69,10 @@
   }
   </script>
   <!-- Abre la conexion con Google Fonts antes de pedirlas (ahorra ~200-300 ms) -->
+  <!-- El hero es un fondo CSS: el navegador no lo descubre hasta leer el CSS.
+       El preload lo adelanta. Cada uno se limita a su rango de pantalla. -->
+  <link rel="preload" as="image" href="images/hero-mobile.jpg" media="(max-width: 899px)" />
+  <link rel="preload" as="image" href="images/hero.jpg" media="(min-width: 900px)" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet"/>
@@ -100,7 +104,7 @@
       /* background image with a dark overlay for legibility */
       background:
   linear-gradient(rgba(10,6,4,0.5), rgba(10,6,4,0.5)),
-        url('images/hero.jpg') center/cover no-repeat;
+        url('images/hero-mobile.jpg') center/cover no-repeat;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -109,6 +113,15 @@
       padding: 40px 20px;
       position: relative;
       overflow: hidden;
+    }
+
+    /* pantallas anchas: version de mayor resolucion (los moviles no la descargan) */
+    @media (min-width: 900px) {
+      .hero {
+        background-image:
+          linear-gradient(rgba(10,6,4,0.5), rgba(10,6,4,0.5)),
+          url('images/hero.jpg');
+      }
     }
 
     .hero::before {
