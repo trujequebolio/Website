@@ -1,0 +1,5 @@
+# https://sponsorachildmexico.org/
+User-agent: *
+Allow: /
+
+Sitemap: https://sponsorachildmexico.org/sitemap.xml
