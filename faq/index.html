@@ -192,58 +192,59 @@
       background: var(--sol);
     }
 
-    /* ── BANDA DE LLAMADA A LA ACCIÓN ── */
-    .card {
+    /* ── BARRA DE DONACIÓN ──
+       position:sticky + bottom la mantiene pegada al borde inferior de la
+       pantalla mientras se recorre la FAQ, y la deja aterrizar en su sitio
+       al llegar al final. Sin JavaScript. */
+    .donate-bar {
+      position: sticky;
+      bottom: 18px;
+      z-index: 20;
+      margin-top: 44px;
+    }
+
+    .donate-bar-inner {
       background: #fff;
-      border: 1px solid #EFE0CB;
+      border: 1px solid #E4CEAC;
       border-radius: 16px;
-      padding: 26px 30px;
-      margin: 0 0 40px;
+      box-shadow: 0 12px 34px rgba(26, 18, 8, 0.16);
+      padding: 18px 24px;
       display: grid;
       grid-template-columns: auto minmax(0, 1fr) auto;
-      gap: 28px;
+      gap: 26px;
       align-items: center;
     }
 
-    .card h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 1.25rem;
-      line-height: 1.3;
-      margin-bottom: 10px;
-    }
-
-    .card p {
-      font-size: 0.95rem;
-      line-height: 1.68;
+    .donate-bar p {
+      font-size: 0.93rem;
+      line-height: 1.6;
       color: var(--warm-gray);
       margin: 0;
     }
 
-    .card .card-actions { display: flex; gap: 12px; }
-
-    .card .amount {
+    .donate-bar .amount {
       font-family: 'Playfair Display', serif;
-      font-size: 2.1rem;
+      font-size: 1.9rem;
       color: var(--tierra);
       line-height: 1;
     }
 
-    .card .amount span {
+    .donate-bar .amount span {
       font-family: 'Nunito', sans-serif;
       font-size: 0.74rem;
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--warm-gray);
       display: block;
-      margin-top: 7px;
+      margin-top: 6px;
     }
 
     .btn-primary {
       background: var(--sol);
       color: var(--dark);
       font-weight: 700;
-      font-size: 0.96rem;
-      padding: 13px 24px;
+      font-size: 1rem;
+      padding: 14px 30px;
       border-radius: 999px;
       text-decoration: none;
       display: block;
@@ -253,21 +254,6 @@
     }
 
     .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(242,167,59,0.4); }
-
-    .btn-quiet {
-      display: block;
-      text-align: center;
-      padding: 12px 24px;
-      border: 1.5px solid #E4CEAC;
-      border-radius: 999px;
-      color: var(--tierra);
-      font-weight: 600;
-      font-size: 0.92rem;
-      text-decoration: none;
-      white-space: nowrap;
-    }
-
-    .btn-quiet:hover { background: #FDF6EC; }
 
     /* ── VÍDEO JUNTO A SU PROPIA RESPUESTA ──
        Cada hueco vive dentro del <details> de la pregunta que contesta.
@@ -333,9 +319,15 @@
     @media (max-width: 900px) {
       .faq-layout { padding: 48px 0 64px; }
       .answer.with-video { grid-template-columns: 1fr; gap: 22px; }
-      .card { grid-template-columns: 1fr; gap: 16px; text-align: center; }
-      .card .card-actions { flex-direction: column; }
       .page-hero { padding: 88px 0 60px; }
+
+      /* En móvil la barra se queda con lo imprescindible: importe y botón. */
+      .donate-bar { bottom: 12px; margin-top: 32px; }
+      .donate-bar-inner { grid-template-columns: auto minmax(0, 1fr); gap: 16px; padding: 14px 18px; }
+      .donate-bar p { display: none; }
+      .donate-bar .amount { font-size: 1.5rem; }
+      .donate-bar .amount span { font-size: 0.66rem; margin-top: 4px; }
+      .btn-primary { padding: 13px 20px; font-size: 0.94rem; }
     }
   </style>
 </head>
@@ -414,15 +406,6 @@
             <p>Most are not. Nearly all have living relatives who cannot care for them, or must not. A Mexican family court placed them here, after abuse or neglect.</p>
           </div>
         </details>
-      </div>
-
-      <div class="card">
-        <div class="amount">$45<span>per month</span></div>
-        <p>Sponsor a child at Casa Hogar Alegre. Tax-deductible in the United States, through a U.S. 501(c)(3).</p>
-        <div class="card-actions">
-          <a class="btn-primary" href="/#children">Meet the children →</a>
-          <a class="btn-quiet" href="/casa-hogar/">What is a casa hogar?</a>
-        </div>
       </div>
 
       <div class="group">
@@ -618,12 +601,11 @@
         </details>
       </div>
 
-      <div class="card">
-        <div class="amount">$45<span>per month</span></div>
-        <p>Sponsor a child at Casa Hogar Alegre. Tax-deductible in the United States, through a U.S. 501(c)(3).</p>
-        <div class="card-actions">
-          <a class="btn-primary" href="/#children">Meet the children →</a>
-          <a class="btn-quiet" href="/casa-hogar/">What is a casa hogar?</a>
+      <div class="donate-bar">
+        <div class="donate-bar-inner">
+          <div class="amount">$45<span>per month</span></div>
+          <p>Sponsor a child at Casa Hogar Alegre. Tax-deductible in the United States, through a U.S. 501(c)(3).</p>
+          <a class="btn-primary" href="https://donorbox.org/vcs-cha-sponsorship-program?default_interval=m" target="_blank" rel="noopener noreferrer">Donate →</a>
         </div>
       </div>
 
