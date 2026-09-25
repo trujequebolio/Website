@@ -48,7 +48,7 @@
       font-family: 'Nunito', sans-serif;
       background: var(--crema);
       color: var(--dark);
-      overflow-x: hidden;
+      overflow-x: clip;
     }
 
     .wrap { max-width: 1100px; margin: 0 auto; padding: 0 28px; }
@@ -194,7 +194,12 @@
     }
 
     /* ── LATERAL ── */
-    .aside { position: sticky; top: 28px; }
+    .aside {
+      position: sticky;
+      top: 96px;
+      max-height: calc(100vh - 120px);
+      overflow: auto;
+    }
 
     .card {
       background: #fff;
@@ -314,9 +319,20 @@
     <div>
 
       <div class="group featured">
-        <h2>Sponsor a child in Mexico: the four questions we're asked <em>most</em></h2>
+        <h2>Sponsor a child in Mexico: the five questions we're asked <em>most</em></h2>
 
         <details open>
+          <summary>What is sponsorachildmexico.org?</summary>
+          <div class="answer">
+            <p>A way for people in the United States to sponsor a child at Casa Hogar Alegre, with a tax-deductible receipt. Three organizations make it work, each supplying something the others cannot.</p>
+            <p><strong>Casa Hogar Alegre</strong> is the home. Elizabeth Castelazo — Mama Liz — opened it in Tuxtla Gutiérrez in 1993 with her two children, Ángel and Merari. All three are still there.</p>
+            <p><strong>Baja Bound Ministries</strong> is a U.S. 501(c)(3), founded in 1993 and based near San Diego, that builds homes for families working the fields around Ensenada — most of them Indigenous families who migrated north from Chiapas and Oaxaca. It receives the donations, issues the receipts, and forwards the funds to Chiapas every month.</p>
+            <p><strong>Valley Christian High School</strong>, in San Jose, California, started this. The sponsorship program was their idea, and their students travel to Chiapas.</p>
+            <p>The program exists because Casa Hogar Alegre had run for three decades on donations that arrived by word of mouth, and because Americans who wanted to give regularly had no way to do it that produced a tax-deductible receipt.</p>
+          </div>
+        </details>
+
+        <details>
           <summary>Does my $45 go directly to the child I sponsor?</summary>
           <div class="answer">
             <p>It goes to the home, for every child in it. Casa Hogar Alegre pools sponsorships so that no child eats less because fewer people chose their photograph. <strong>You support a child by supporting the household they live in.</strong></p>
@@ -366,16 +382,6 @@
           </div>
         </details>
 
-        <details>
-          <summary>What is sponsorachildmexico.org?</summary>
-          <div class="answer">
-            <p>A way for people in the United States to sponsor a child at Casa Hogar Alegre, with a tax-deductible receipt. Three organizations make it work, each supplying something the others cannot.</p>
-            <p><strong>Casa Hogar Alegre</strong> is the home. Elizabeth Castelazo — Mama Liz — opened it in Tuxtla Gutiérrez in 1993 with her two children, Ángel and Merari. All three are still there.</p>
-            <p><strong>Baja Bound Ministries</strong> is a U.S. 501(c)(3), founded in 1993 and based near San Diego, that builds homes for families working the fields around Ensenada — most of them Indigenous families who migrated north from Chiapas and Oaxaca. It receives the donations, issues the receipts, and forwards the funds to Chiapas every month.</p>
-            <p><strong>Valley Christian High School</strong>, in San Jose, California, started this. The sponsorship program was their idea, and their students travel to Chiapas.</p>
-            <p>The program exists because Casa Hogar Alegre had run for three decades on donations that arrived by word of mouth, and because Americans who wanted to give regularly had no way to do it that produced a tax-deductible receipt.</p>
-          </div>
-        </details>
       </div>
 
       <div class="group">
