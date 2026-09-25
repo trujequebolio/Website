@@ -329,6 +329,14 @@
       color: #fff;
     }
 
+    /* el item de edades lleva una frase, no una cifra: se reduce para que
+       la barra mantenga la misma altura y alineacion que los demas */
+    .stat-num.is-phrase {
+      font-size: 1.35rem;
+      line-height: 1.12;
+      padding-top: 0.22em;
+    }
+
     .stat-label {
       font-size: 0.75rem;
       letter-spacing: 0.1em;
@@ -1385,20 +1393,20 @@
 <!-- STATS -->
 <div class="stats-bar">
   <div class="stat-item">
-    <div class="stat-num">85</div>
+    <div class="stat-num">91</div>
     <div class="stat-label">Children Housed</div>
   </div>
   <div class="stat-item">
-    <div class="stat-num">85</div>
-    <div class="stat-label">Awaiting Sponsors</div>
+    <div class="stat-num is-phrase">From Babies<br>to University</div>
+    <div class="stat-label">Ages We Care For</div>
   </div>
   <div class="stat-item">
     <div class="stat-num">$45</div>
     <div class="stat-label">Monthly Sponsorship</div>
   </div>
   <div class="stat-item">
-    <div class="stat-num">2026</div>
-    <div class="stat-label">Year Founded</div>
+    <div class="stat-num">1993</div>
+    <div class="stat-label">Caring for Children Since</div>
   </div>
 </div>
 
