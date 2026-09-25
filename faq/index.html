@@ -87,13 +87,11 @@
       color: rgba(255,255,255,0.86);
     }
 
-    /* ── DOS COLUMNAS: acordeón + lateral ── */
+    /* ── COLUMNA ÚNICA: el vídeo va dentro de su propia respuesta ── */
     .faq-layout {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) 330px;
-      gap: 52px;
-      align-items: start;
-      padding: 64px 0 80px;
+      max-width: 1060px;
+      padding-top: 64px;
+      padding-bottom: 80px;
     }
 
     /* ── GRUPOS ── */
@@ -165,13 +163,14 @@
       line-height: 1.75;
       color: var(--warm-gray);
       margin-bottom: 12px;
+      max-width: 74ch;
     }
 
     .answer p:last-child { margin-bottom: 0; }
     .answer strong { color: var(--dark); }
     .answer a { color: var(--tierra); font-weight: 600; }
 
-    .answer ul { list-style: none; margin: 4px 0 12px; }
+    .answer ul { list-style: none; margin: 4px 0 12px; max-width: 74ch; }
 
     .answer ul li {
       position: relative;
@@ -193,20 +192,17 @@
       background: var(--sol);
     }
 
-    /* ── LATERAL ── */
-    .aside {
-      position: sticky;
-      top: 96px;
-      max-height: calc(100vh - 120px);
-      overflow: auto;
-    }
-
+    /* ── BANDA DE LLAMADA A LA ACCIÓN ── */
     .card {
       background: #fff;
       border: 1px solid #EFE0CB;
       border-radius: 16px;
-      padding: 26px 24px;
-      margin-bottom: 18px;
+      padding: 26px 30px;
+      margin: 0 0 40px;
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      gap: 28px;
+      align-items: center;
     }
 
     .card h3 {
@@ -217,11 +213,13 @@
     }
 
     .card p {
-      font-size: 0.92rem;
+      font-size: 0.95rem;
       line-height: 1.68;
       color: var(--warm-gray);
-      margin-bottom: 16px;
+      margin: 0;
     }
+
+    .card .card-actions { display: flex; gap: 12px; }
 
     .card .amount {
       font-family: 'Playfair Display', serif;
@@ -250,6 +248,7 @@
       text-decoration: none;
       display: block;
       text-align: center;
+      white-space: nowrap;
       transition: transform 0.2s, box-shadow 0.2s;
     }
 
@@ -265,26 +264,60 @@
       font-weight: 600;
       font-size: 0.92rem;
       text-decoration: none;
-      margin-top: 10px;
+      white-space: nowrap;
     }
 
     .btn-quiet:hover { background: #FDF6EC; }
 
-    /* Hueco reservado para el vídeo. Sustituir por el iframe cuando lo haya. */
-    .video-slot {
-      background: #fff;
-      border: 1px dashed #E4CEAC;
-      border-radius: 16px;
+    /* ── VÍDEO JUNTO A SU PROPIA RESPUESTA ──
+       Cada hueco vive dentro del <details> de la pregunta que contesta.
+       Mientras data-state="pending" no se ve nada y la respuesta ocupa
+       todo el ancho. Al poner el iframe, cambia a data-state="ready". */
+    .answer.with-video {
+      display: grid;
+      grid-template-columns: 1.08fr 0.92fr;
+      gap: 30px;
+      align-items: start;
+    }
+
+    .answer.with-video:has(.video-slot[data-state="pending"]) { display: block; }
+
+    .video-slot[data-state="pending"] { display: none; }
+
+    .video-slot { margin: 4px 0 0; }
+
+    .video-frame {
+      background: #F7EFE3;
+      border: 1px solid #E4CEAC;
+      border-radius: 14px;
       aspect-ratio: 16 / 9;
+      overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 20px;
+      padding: 18px;
       color: var(--warm-gray);
       font-size: 0.84rem;
       line-height: 1.6;
     }
+
+    .video-frame iframe,
+    .video-frame video {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+
+    .video-slot figcaption {
+      font-size: 0.8rem;
+      line-height: 1.6;
+      color: var(--warm-gray);
+      margin-top: 10px;
+    }
+
+    .video-slot figcaption strong { color: var(--dark); }
 
     footer {
       background: var(--dark);
@@ -298,8 +331,10 @@
     footer a { color: var(--sol); text-decoration: none; }
 
     @media (max-width: 900px) {
-      .faq-layout { grid-template-columns: 1fr; gap: 36px; padding: 48px 0 64px; }
-      .aside { position: static; }
+      .faq-layout { padding: 48px 0 64px; }
+      .answer.with-video { grid-template-columns: 1fr; gap: 22px; }
+      .card { grid-template-columns: 1fr; gap: 16px; text-align: center; }
+      .card .card-actions { flex-direction: column; }
       .page-hero { padding: 88px 0 60px; }
     }
   </style>
@@ -323,19 +358,31 @@
 
         <details open>
           <summary>What is sponsorachildmexico.org?</summary>
-          <div class="answer">
+          <div class="answer with-video">
+            <div class="answer-text">
             <p>A way for people in the United States to sponsor a child at Casa Hogar Alegre, with a tax-deductible receipt. Three organizations make it work, each supplying something the others cannot.</p>
             <p><strong>Casa Hogar Alegre</strong> is the home. Elizabeth Castelazo — Mama Liz — opened it in Tuxtla Gutiérrez in 1993 with her two children, Ángel and Merari. All three are still there.</p>
             <p><strong>Baja Bound Ministries</strong> is a U.S. 501(c)(3), founded in 1993 and based near San Diego, that builds homes for families working the fields around Ensenada — most of them Indigenous families who migrated north from Chiapas and Oaxaca. It receives the donations, issues the receipts, and forwards the funds to Chiapas every month.</p>
             <p><strong>Valley Christian High School</strong>, in San Jose, California, started this. The sponsorship program was their idea, and their students travel to Chiapas.</p>
             <p>The program exists because Casa Hogar Alegre had run for three decades on donations that arrived by word of mouth, and because Americans who wanted to give regularly had no way to do it that produced a tax-deductible receipt.</p>
+            </div>
+            <figure class="video-slot" data-state="pending">
+              <div class="video-frame">Vídeo pendiente — las tres organizaciones, contadas por alguien de dentro</div>
+              <figcaption><strong>Mama Liz and Valley Christian on how the three organizations fit together</strong> · 3 min</figcaption>
+            </figure>
           </div>
         </details>
 
         <details>
           <summary>Does my $45 go directly to the child I sponsor?</summary>
-          <div class="answer">
+          <div class="answer with-video">
+            <div class="answer-text">
             <p>It goes to the home, for every child in it. Casa Hogar Alegre pools sponsorships so that no child eats less because fewer people chose their photograph. <strong>You support a child by supporting the household they live in.</strong></p>
+            </div>
+            <figure class="video-slot" data-state="pending">
+              <div class="video-frame">Vídeo pendiente — por qué el apadrinamiento es un fondo común</div>
+              <figcaption><strong>Mama Liz on why Casa Hogar Alegre pools every sponsorship</strong> · 2 min</figcaption>
+            </figure>
           </div>
         </details>
 
@@ -348,10 +395,16 @@
 
         <details>
           <summary>What happens when a child turns eighteen?</summary>
-          <div class="answer">
+          <div class="answer with-video">
+            <div class="answer-text">
             <p>Legally, the home's responsibility ends. <strong>In practice, they can stay.</strong></p>
             <p>A young person who wants to continue — trade school, university — stays, as long as their conduct is good. So does someone who has just started their first job and is saving to move out. Ingrid is in her eighth semester of nursing school and still lives at the home.</p>
             <p>That is why residents run from one year old to twenty-eight.</p>
+            </div>
+            <figure class="video-slot" data-state="pending">
+              <div class="video-frame">Vídeo pendiente — una residente que se quedó para seguir estudiando</div>
+              <figcaption><strong>Ingrid, eighth semester of nursing school, on staying past eighteen</strong> · 3 min</figcaption>
+            </figure>
           </div>
         </details>
 
@@ -361,6 +414,15 @@
             <p>Most are not. Nearly all have living relatives who cannot care for them, or must not. A Mexican family court placed them here, after abuse or neglect.</p>
           </div>
         </details>
+      </div>
+
+      <div class="card">
+        <div class="amount">$45<span>per month</span></div>
+        <p>Sponsor a child at Casa Hogar Alegre. Tax-deductible in the United States, through a U.S. 501(c)(3).</p>
+        <div class="card-actions">
+          <a class="btn-primary" href="/#children">Meet the children →</a>
+          <a class="btn-quiet" href="/casa-hogar/">What is a casa hogar?</a>
+        </div>
       </div>
 
       <div class="group">
@@ -494,8 +556,14 @@
 
         <details>
           <summary>Can I visit the child I sponsor?</summary>
-          <div class="answer">
+          <div class="answer with-video">
+            <div class="answer-text">
             <p>Yes — and very few sponsorship programs can say that. Sponsors who have travelled to Chiapas have met the children they support. Families visit on their own, too. Write to <a href="mailto:contact@alegrecasahogar.org">contact@alegrecasahogar.org</a>.</p>
+            </div>
+            <figure class="video-slot" data-state="pending">
+              <div class="video-frame">Vídeo pendiente — un padrino que ya viajó a Chiapas</div>
+              <figcaption><strong>A sponsor on meeting the child they support</strong> · 2 min</figcaption>
+            </figure>
           </div>
         </details>
 
@@ -528,8 +596,14 @@
 
         <details>
           <summary>Is it safe?</summary>
-          <div class="answer">
+          <div class="answer with-video">
+            <div class="answer-text">
             <p>Groups from churches and schools have been coming to Casa Hogar Alegre for years, and families have come with small children. Write to <a href="mailto:contact@alegrecasahogar.org">contact@alegrecasahogar.org</a> and the home will talk you through where groups stay, how they travel, and what to expect.</p>
+            </div>
+            <figure class="video-slot" data-state="pending">
+              <div class="video-frame">Vídeo pendiente — quien ha llevado grupos, contando cómo se viaja</div>
+              <figcaption><strong>A group leader on how visiting groups travel, stay and spend the week</strong> · 3 min</figcaption>
+            </figure>
           </div>
         </details>
       </div>
@@ -544,21 +618,16 @@
         </details>
       </div>
 
-    </div>
-
-    <aside class="aside">
       <div class="card">
         <div class="amount">$45<span>per month</span></div>
-        <p style="margin-top:16px">Sponsor a child at Casa Hogar Alegre. Tax-deductible in the United States.</p>
-        <a class="btn-primary" href="/#children">Meet the children →</a>
-        <a class="btn-quiet" href="/casa-hogar/">What is a casa hogar?</a>
+        <p>Sponsor a child at Casa Hogar Alegre. Tax-deductible in the United States, through a U.S. 501(c)(3).</p>
+        <div class="card-actions">
+          <a class="btn-primary" href="/#children">Meet the children →</a>
+          <a class="btn-quiet" href="/casa-hogar/">What is a casa hogar?</a>
+        </div>
       </div>
 
-      <!-- Hueco para el vídeo. Sustituir este bloque por el iframe cuando esté. -->
-      <div class="video-slot">
-        Espacio reservado para el vídeo
-      </div>
-    </aside>
+    </div>
 
   </main>
 
