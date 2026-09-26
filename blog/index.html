@@ -140,41 +140,51 @@
 
     .post-more:hover { border-bottom-color: var(--tierra); }
 
-    /* ── BARRA DE DONACIÓN ── */
-    .donate-bar {
+    /* ── DOS COLUMNAS ──
+       Escritorio: las entradas a la izquierda, la tarjeta de apadrinar
+       en una columna propia a la derecha. No tapa nada.
+       Teléfono: una columna y la tarjeta vuelve a ser barra flotante. */
+    .blog-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 300px;
+      gap: 48px;
+      align-items: start;
+      padding-bottom: 20px;
+    }
+
+    .blog-aside {
       position: sticky;
-      bottom: 18px;
+      top: 28px;
       z-index: 20;
-      margin-top: 44px;
+      margin-top: 32px;
     }
 
     .donate-bar-inner {
       background: #fff;
       border: 1px solid #E4CEAC;
       border-radius: 16px;
-      box-shadow: 0 12px 34px rgba(26, 18, 8, 0.16);
-      padding: 18px 24px;
+      box-shadow: 0 6px 20px rgba(26, 18, 8, 0.07);
+      padding: 26px 24px;
       display: grid;
-      grid-template-columns: auto minmax(0, 1fr) auto;
-      gap: 26px;
-      align-items: center;
+      gap: 16px;
+      text-align: center;
     }
 
-    .donate-bar p {
-      font-size: 0.93rem;
-      line-height: 1.6;
+    .blog-aside p {
+      font-size: 0.9rem;
+      line-height: 1.65;
       color: var(--warm-gray);
       margin: 0;
     }
 
-    .donate-bar .amount {
+    .blog-aside .amount {
       font-family: 'Playfair Display', serif;
-      font-size: 1.9rem;
+      font-size: 2.1rem;
       color: var(--tierra);
       line-height: 1;
     }
 
-    .donate-bar .amount span {
+    .blog-aside .amount span {
       font-family: 'Nunito', sans-serif;
       font-size: 0.74rem;
       letter-spacing: 0.12em;
@@ -214,11 +224,21 @@
     @media (max-width: 900px) {
       .page-hero { padding: 88px 0 52px; }
       article.post { padding: 24px 22px; }
-      .donate-bar { bottom: 12px; margin-top: 32px; }
-      .donate-bar-inner { grid-template-columns: auto minmax(0, 1fr); gap: 16px; padding: 14px 18px; }
-      .donate-bar p { display: none; }
-      .donate-bar .amount { font-size: 1.5rem; }
-      .donate-bar .amount span { font-size: 0.66rem; margin-top: 4px; }
+
+      /* Una columna: la tarjeta cae al final y vuelve a flotar abajo. */
+      .blog-layout { display: block; padding-bottom: 0; }
+      .blog-aside { position: sticky; top: auto; bottom: 12px; margin-top: 32px; }
+      .donate-bar-inner {
+        grid-template-columns: auto minmax(0, 1fr);
+        gap: 16px;
+        padding: 14px 18px;
+        text-align: left;
+        align-items: center;
+        box-shadow: 0 12px 34px rgba(26, 18, 8, 0.16);
+      }
+      .blog-aside p { display: none; }
+      .blog-aside .amount { font-size: 1.5rem; }
+      .blog-aside .amount span { font-size: 0.66rem; margin-top: 4px; }
       .btn-primary { padding: 13px 20px; font-size: 0.94rem; }
     }
   </style>
@@ -233,7 +253,9 @@
     </div>
   </header>
 
-  <main class="wrap">
+  <main class="wrap blog-layout">
+
+   <div class="blog-main">
 
     <div class="draft-note">
       <strong>Maqueta.</strong> El texto de estas tres entradas es de relleno (lorem ipsum) y sirve
@@ -272,13 +294,15 @@
 
     </div>
 
-    <div class="donate-bar">
+   </div>
+
+    <aside class="blog-aside">
       <div class="donate-bar-inner">
         <div class="amount">$45<span>per month</span></div>
         <p>Sponsor a child at Casa Hogar Alegre. Tax-deductible in the United States, through a U.S. 501(c)(3).</p>
-        <a class="btn-primary" href="https://donorbox.org/vcs-cha-sponsorship-program?default_interval=m" target="_blank" rel="noopener noreferrer">Donate →</a>
+        <a class="btn-primary" href="/index2.html#children">Sponsor a child →</a>
       </div>
-    </div>
+    </aside>
 
   </main>
 

@@ -1324,9 +1324,6 @@
 
     .nav-menu a:hover { background: rgba(196,98,45,0.09); color: var(--tierra); }
 
-    /* En el teléfono el globo no cabe en la barra, así que entra aquí. */
-    .nav-menu .menu-cta { display: none; }
-
     @keyframes menuIn {
       from { opacity: 0; transform: scale(0.95) translateY(-6px); }
       to   { opacity: 1; transform: scale(1) translateY(0); }
@@ -1359,18 +1356,9 @@
       .nav-logo { font-size: 0.95rem; }
       .nav-menu { right: 16px; left: 16px; min-width: 0; }
 
-      /* El globo sale de la barra y entra en el menú, arriba del todo. */
+      /* El globo no aparece en teléfono, ni en la barra ni en el menú:
+         la sección de los niños se encuentra bajando por la página. */
       .nav-links .nav-cta { display: none; }
-      .nav-menu .menu-cta {
-        display: block;
-        background: var(--sol);
-        color: var(--dark);
-        margin: 0 16px 8px;
-        border-radius: 999px;
-        text-align: center;
-        padding: 14px 20px;
-      }
-      .nav-menu .menu-cta:hover { background: #E59A2E; color: var(--dark); }
 
       /* El contenido del hero baja para no quedar debajo de la barra. */
       .hero { padding: 104px 20px 56px; }
@@ -1468,7 +1456,6 @@
     </button>
   </div>
   <div class="nav-menu" id="navMenu" hidden>
-    <a href="#children" class="menu-cta">Sponsor a Child</a>
     <a href="/casa-hogar/">About Us</a>
     <a href="/faq/">FAQ</a>
     <a href="/blog/">Blog</a>
