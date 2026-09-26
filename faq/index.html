@@ -319,7 +319,12 @@
     @media (max-width: 900px) {
       .faq-layout { padding: 48px 0 64px; }
       .answer.with-video { grid-template-columns: 1fr; gap: 22px; }
-      .page-hero { padding: 88px 0 60px; }
+      .page-hero { padding: 104px 0 60px; }
+      nav.site-nav { padding: 12px 16px; }
+      .nav-logo { font-size: 0.95rem; }
+      .nav-menu { right: 16px; min-width: 150px; padding: 8px 0; }
+      .nav-menu a { padding: 12px 20px; font-size: 0.98rem; }
+
 
       /* En móvil la barra se queda con lo imprescindible: importe y botón. */
       .donate-bar { bottom: 12px; margin-top: 32px; }
@@ -329,9 +334,123 @@
       .donate-bar .amount span { font-size: 0.66rem; margin-top: 4px; }
       .btn-primary { padding: 13px 20px; font-size: 0.94rem; }
     }
+
+    /* ══ BARRA SUPERIOR ══
+       La misma de la portada, para que haya siempre forma de volver. */
+    nav.site-nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 500;
+      padding: 16px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.3s, box-shadow 0.3s;
+    }
+
+    nav.site-nav.scrolled {
+      background: rgba(26,8,0,0.92);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+    }
+
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      color: #fff;
+      text-decoration: none;
+      font-style: italic;
+      white-space: nowrap;
+    }
+
+    .nav-logo span { color: var(--sol); }
+
+    .nav-burger {
+      background: rgba(255,255,255,0.08);
+      border: 1.5px solid rgba(255,255,255,0.28);
+      border-radius: 12px;
+      width: 46px; height: 46px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      cursor: pointer;
+      padding: 0;
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    .nav-burger:hover { background: rgba(255,255,255,0.16); border-color: rgba(255,255,255,0.45); }
+    .nav-burger:focus-visible { outline: 2px solid var(--sol); outline-offset: 3px; }
+
+    .nav-burger span {
+      display: block;
+      width: 22px; height: 2.5px;
+      border-radius: 2px;
+      background: #fff;
+      transition: transform 0.25s, opacity 0.2s;
+    }
+
+    .nav-burger[aria-expanded="true"] span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
+    .nav-burger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+    .nav-burger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
+
+    .nav-menu {
+      position: absolute;
+      top: calc(100% - 4px);
+      right: 32px;
+      min-width: 172px;
+      background: var(--crema);
+      border-radius: 18px;
+      box-shadow: 0 18px 44px rgba(0,0,0,0.32);
+      padding: 14px 0;
+      display: flex;
+      flex-direction: column;
+      transform-origin: top right;
+      animation: menuIn 0.18s ease-out;
+    }
+
+    .nav-menu[hidden] { display: none; }
+
+    .nav-menu a {
+      color: var(--dark);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1.02rem;
+      padding: 13px 28px;
+      text-align: right;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .nav-menu a:hover { background: rgba(196,98,45,0.09); color: var(--tierra); }
+
+    /* La página en la que ya estás: se muestra, pero apagada. */
+    .nav-menu a[aria-current="page"] {
+      color: var(--warm-gray);
+      pointer-events: none;
+    }
+
+    @keyframes menuIn {
+      from { opacity: 0; transform: scale(0.95) translateY(-6px); }
+      to   { opacity: 1; transform: scale(1) translateY(0); }
+    }
   </style>
 </head>
 <body>
+
+<nav class="site-nav" id="siteNav">
+  <a href="/index2.html" class="nav-logo">Casa Hogar <span>Alegre</span></a>
+  <button type="button" class="nav-burger" id="navBurger"
+          aria-label="Open menu" aria-expanded="false" aria-controls="navMenu">
+    <span></span><span></span><span></span>
+  </button>
+  <div class="nav-menu" id="navMenu" hidden>
+      <a href="/index2.html">Home</a>
+      <a href="/casa-hogar/">About Us</a>
+      <a href="/faq/" aria-current="page">FAQ</a>
+      <a href="/blog/">Blog</a>
+  </div>
+</nav>
 
   <header class="page-hero">
     <div class="wrap">
@@ -618,6 +737,33 @@
     <p>A Valley Christian High School initiative · Donations received by Baja Bound Ministries, a U.S. 501(c)(3)</p>
     <p>Questions? <a href="mailto:contact@alegrecasahogar.org">contact@alegrecasahogar.org</a></p>
   </footer>
+
+
+  <script>
+  (function () {
+    const nav    = document.getElementById('siteNav');
+    const burger = document.getElementById('navBurger');
+    const menu   = document.getElementById('navMenu');
+
+    function setOpen(open) {
+      menu.hidden = !open;
+      burger.setAttribute('aria-expanded', String(open));
+      burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    }
+
+    burger.addEventListener('click', e => { e.stopPropagation(); setOpen(menu.hidden); });
+    document.addEventListener('click', e => { if (!menu.hidden && !menu.contains(e.target)) setOpen(false); });
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && !menu.hidden) { setOpen(false); burger.focus(); }
+    });
+    menu.addEventListener('click', () => setOpen(false));
+
+    // Fondo oscuro en cuanto se pasa del hero, para que se lea sobre crema.
+    const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 60);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  })();
+  </script>
 
 </body>
 </html>
