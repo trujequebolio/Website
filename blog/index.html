@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog — Casa Hogar Alegre</title>
+
+  <!-- MAQUETA. El texto es de relleno: quitar este noindex cuando haya
+       entradas reales, o Google indexará lorem ipsum. -->
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="description" content="News from Casa Hogar Alegre in Tuxtla Gutiérrez, Chiapas." />
+  <link rel="canonical" href="https://sponsorachildmexico.org/blog/" />
+
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --tierra: #C4622D;
+      --sol: #F2A73B;
+      --verde: #3A7D44;
+      --crema: #FDF6EC;
+      --dark: #1A1208;
+      --warm-gray: #7C6B55;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--crema);
+      color: var(--dark);
+      overflow-x: clip;
+    }
+
+    .wrap { max-width: 1060px; margin: 0 auto; padding: 0 28px; }
+
+    /* ── HERO ── */
+    .page-hero {
+      background: linear-gradient(160deg, #241708 0%, #3A2410 100%);
+      color: #fff;
+      padding: 120px 0 64px;
+      text-align: center;
+    }
+
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--sol);
+      margin-bottom: 12px;
+    }
+
+    .page-hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4.6vw, 3rem);
+      line-height: 1.16;
+      max-width: 20ch;
+      margin: 0 auto 18px;
+    }
+
+    .page-hero h1 em { font-style: italic; color: var(--sol); }
+
+    .page-hero p {
+      font-size: 1.04rem;
+      line-height: 1.75;
+      max-width: 54ch;
+      margin: 0 auto;
+      color: rgba(255,255,255,0.86);
+    }
+
+    /* ── AVISO DE MAQUETA ── */
+    .draft-note {
+      background: #FFF4DC;
+      border: 1px dashed #E0B45F;
+      border-radius: 14px;
+      padding: 16px 22px;
+      margin: 40px 0 8px;
+      font-size: 0.88rem;
+      line-height: 1.65;
+      color: #7A5A1E;
+    }
+
+    .draft-note strong { color: #5B420F; }
+
+    /* ── ENTRADAS ── */
+    .posts { padding: 32px 0 80px; }
+
+    article.post {
+      background: #fff;
+      border: 1px solid #EFE0CB;
+      border-radius: 16px;
+      padding: 30px 34px;
+      margin-bottom: 22px;
+    }
+
+    .post-meta {
+      font-size: 0.74rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--warm-gray);
+      margin-bottom: 10px;
+    }
+
+    .post h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.35rem, 2.6vw, 1.8rem);
+      line-height: 1.25;
+      margin-bottom: 14px;
+    }
+
+    .post h2 em { font-style: italic; color: var(--tierra); }
+
+    .post p {
+      font-size: 0.99rem;
+      line-height: 1.78;
+      color: var(--warm-gray);
+      margin-bottom: 12px;
+      max-width: 72ch;
+    }
+
+    .post p:last-of-type { margin-bottom: 18px; }
+
+    .post-more {
+      display: inline-block;
+      color: var(--tierra);
+      font-weight: 700;
+      font-size: 0.93rem;
+      text-decoration: none;
+      border-bottom: 2px solid rgba(196,98,45,0.28);
+      padding-bottom: 2px;
+    }
+
+    .post-more:hover { border-bottom-color: var(--tierra); }
+
+    /* ── BARRA DE DONACIÓN ── */
+    .donate-bar {
+      position: sticky;
+      bottom: 18px;
+      z-index: 20;
+      margin-top: 44px;
+    }
+
+    .donate-bar-inner {
+      background: #fff;
+      border: 1px solid #E4CEAC;
+      border-radius: 16px;
+      box-shadow: 0 12px 34px rgba(26, 18, 8, 0.16);
+      padding: 18px 24px;
+      display: grid;
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      gap: 26px;
+      align-items: center;
+    }
+
+    .donate-bar p {
+      font-size: 0.93rem;
+      line-height: 1.6;
+      color: var(--warm-gray);
+      margin: 0;
+    }
+
+    .donate-bar .amount {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.9rem;
+      color: var(--tierra);
+      line-height: 1;
+    }
+
+    .donate-bar .amount span {
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.74rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--warm-gray);
+      display: block;
+      margin-top: 6px;
+    }
+
+    .btn-primary {
+      background: var(--sol);
+      color: var(--dark);
+      font-weight: 700;
+      font-size: 1rem;
+      padding: 14px 30px;
+      border-radius: 999px;
+      text-decoration: none;
+      display: block;
+      text-align: center;
+      white-space: nowrap;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 22px rgba(242,167,59,0.4); }
+
+    footer {
+      background: var(--dark);
+      color: rgba(255,255,255,0.72);
+      text-align: center;
+      padding: 44px 28px;
+      font-size: 0.86rem;
+      line-height: 1.8;
+    }
+
+    footer a { color: var(--sol); text-decoration: none; }
+
+    @media (max-width: 900px) {
+      .page-hero { padding: 88px 0 52px; }
+      article.post { padding: 24px 22px; }
+      .donate-bar { bottom: 12px; margin-top: 32px; }
+      .donate-bar-inner { grid-template-columns: auto minmax(0, 1fr); gap: 16px; padding: 14px 18px; }
+      .donate-bar p { display: none; }
+      .donate-bar .amount { font-size: 1.5rem; }
+      .donate-bar .amount span { font-size: 0.66rem; margin-top: 4px; }
+      .btn-primary { padding: 13px 20px; font-size: 0.94rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="page-hero">
+    <div class="wrap">
+      <p class="section-label">Tuxtla Gutiérrez · Chiapas · Mexico</p>
+      <h1>News from <em>Casa Hogar Alegre</em></h1>
+      <p>What happens in the home, written from the home: the school year, the milestones, and the days worth telling you about.</p>
+    </div>
+  </header>
+
+  <main class="wrap">
+
+    <div class="draft-note">
+      <strong>Maqueta.</strong> El texto de estas tres entradas es de relleno (lorem ipsum) y sirve
+      sólo para ver la forma de la página. La página lleva <code>noindex</code>: Google no la va a
+      leer hasta que se quite esa línea.
+    </div>
+
+    <div class="posts">
+
+      <article class="post">
+        <p class="post-meta">26 August 2026 · School</p>
+        <h2>Back to <em>school</em></h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+        <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis.</p>
+        <a class="post-more" href="#">Read the full story →</a>
+      </article>
+
+      <article class="post">
+        <p class="post-meta">14 July 2026 · Milestones</p>
+        <h2>Our <em>first graduate</em></h2>
+        <p>Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.</p>
+        <p>Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur. Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur.</p>
+        <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint.</p>
+        <a class="post-more" href="#">Read the full story →</a>
+      </article>
+
+      <article class="post">
+        <p class="post-meta">24 December 2025 · The home</p>
+        <h2>Merry <em>Christmas</em> from Chiapas</h2>
+        <p>Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae.</p>
+        <p>Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit.</p>
+        <p>Quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus.</p>
+        <a class="post-more" href="#">Read the full story →</a>
+      </article>
+
+    </div>
+
+    <div class="donate-bar">
+      <div class="donate-bar-inner">
+        <div class="amount">$45<span>per month</span></div>
+        <p>Sponsor a child at Casa Hogar Alegre. Tax-deductible in the United States, through a U.S. 501(c)(3).</p>
+        <a class="btn-primary" href="https://donorbox.org/vcs-cha-sponsorship-program?default_interval=m" target="_blank" rel="noopener noreferrer">Donate →</a>
+      </div>
+    </div>
+
+  </main>
+
+  <footer>
+    <p><a href="https://www.alegrecasahogar.org/" target="_blank" rel="noopener noreferrer"><strong>Casa Hogar Alegre</strong></a> · Tuxtla Gutiérrez, Chiapas, México</p>
+    <p>A Valley Christian High School initiative · Donations received by Baja Bound Ministries, a U.S. 501(c)(3)</p>
+    <p>Questions? <a href="mailto:contact@alegrecasahogar.org">contact@alegrecasahogar.org</a></p>
+  </footer>
+
+</body>
+</html>
