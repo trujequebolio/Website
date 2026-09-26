@@ -1229,6 +1229,7 @@
       color: #fff;
       text-decoration: none;
       font-style: italic;
+      white-space: nowrap;
     }
 
     .nav-logo span { color: var(--sol); }
@@ -1256,6 +1257,7 @@
       padding: 8px 20px;
       border-radius: 999px;
       font-weight: 700;
+      white-space: nowrap;
     }
 
     /* ── HAMBURGUESA ── */
@@ -1322,6 +1324,9 @@
 
     .nav-menu a:hover { background: rgba(196,98,45,0.09); color: var(--tierra); }
 
+    /* En el teléfono el globo no cabe en la barra, así que entra aquí. */
+    .nav-menu .menu-cta { display: none; }
+
     @keyframes menuIn {
       from { opacity: 0; transform: scale(0.95) translateY(-6px); }
       to   { opacity: 1; transform: scale(1) translateY(0); }
@@ -1348,13 +1353,27 @@
       .about-inner, .coffee-inner { grid-template-columns: 1fr; gap: 40px; }
       .about-tag { bottom: -12px; right: 0; }
       /* Antes aquí se ocultaba .nav-links entero, lo que dejaba el móvil
-         sin ningún tipo de navegación. Ahora sólo lleva el globo y la
-         hamburguesa, así que se queda visible. */
-      nav { padding: 14px 18px; }
-      .nav-logo { font-size: 1rem; }
-      .nav-links { gap: 12px; }
-      .nav-links .nav-cta { padding: 9px 16px; font-size: 0.82rem; }
-      .nav-menu { right: 18px; left: 18px; min-width: 0; }
+         sin ningún tipo de navegación. Ahora la barra lleva el logotipo y
+         la hamburguesa, y el globo se mete dentro del panel. */
+      nav { padding: 12px 16px; }
+      .nav-logo { font-size: 0.95rem; }
+      .nav-menu { right: 16px; left: 16px; min-width: 0; }
+
+      /* El globo sale de la barra y entra en el menú, arriba del todo. */
+      .nav-links .nav-cta { display: none; }
+      .nav-menu .menu-cta {
+        display: block;
+        background: var(--sol);
+        color: var(--dark);
+        margin: 0 16px 8px;
+        border-radius: 999px;
+        text-align: center;
+        padding: 14px 20px;
+      }
+      .nav-menu .menu-cta:hover { background: #E59A2E; color: var(--dark); }
+
+      /* El contenido del hero baja para no quedar debajo de la barra. */
+      .hero { padding: 104px 20px 56px; }
       .form-row { grid-template-columns: 1fr; }
       .coffee-emblem { width: 240px; height: 240px; }
       .stat-item { padding: 20px 24px; }
@@ -1449,6 +1468,7 @@
     </button>
   </div>
   <div class="nav-menu" id="navMenu" hidden>
+    <a href="#children" class="menu-cta">Sponsor a Child</a>
     <a href="/casa-hogar/">About Us</a>
     <a href="/faq/">FAQ</a>
     <a href="/blog/">Blog</a>
