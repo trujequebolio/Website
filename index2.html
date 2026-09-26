@@ -1354,7 +1354,11 @@
          la hamburguesa, y el globo se mete dentro del panel. */
       nav { padding: 12px 16px; }
       .nav-logo { font-size: 0.95rem; }
-      .nav-menu { right: 16px; left: 16px; min-width: 0; }
+      /* Que se ajuste al texto en vez de estirarse de borde a borde:
+         con tres palabras cortas, un panel a pantalla completa queda
+         medio vacío. */
+      .nav-menu { right: 16px; min-width: 150px; padding: 8px 0; }
+      .nav-menu a { padding: 12px 20px; font-size: 0.98rem; }
 
       /* El globo no aparece en teléfono, ni en la barra ni en el menú:
          la sección de los niños se encuentra bajando por la página. */
