@@ -522,6 +522,9 @@
       box-shadow: 0 2px 12px rgba(0,0,0,0.06);
       transition: transform 0.25s, box-shadow 0.25s;
       cursor: pointer;
+      /* Columna, para que el pie se pueda empujar al fondo. */
+      display: flex;
+      flex-direction: column;
     }
 
     .child-card:hover {
@@ -575,6 +578,9 @@
 
     .child-info {
       padding: 20px 22px 24px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
     }
 
     .child-name {
@@ -629,10 +635,15 @@
       gap: 10px;
       margin-top: 6px;
       flex-wrap: wrap;
+      align-content: flex-start;
+      /* Sitio para dos renglones de etiquetas aunque solo haya uno,
+         así todas las fichas reparten el espacio igual. */
+      min-height: calc(2 * (0.72rem * 1.5 + 6px) + 10px);
     }
 
     .child-tag {
       font-size: 0.72rem;
+      line-height: 1.5;
       font-weight: 700;
       letter-spacing: 0.06em;
       text-transform: uppercase;
@@ -649,10 +660,15 @@
       line-height: 1.6;
       padding-left: 12px;
       border-left: 3px solid var(--sol);
+      /* Dos renglones reservados: 1.6 de interlínea × 2. */
+      min-height: 3.2em;
     }
 
     .child-card-footer {
-      margin-top: 18px;
+      /* auto en vez de una medida fija: los botones caen al fondo de la
+         ficha, así que se alinean aunque un nombre ocupe dos renglones. */
+      margin-top: auto;
+      padding-top: 18px;
       display: flex;
       gap: 10px;
     }
