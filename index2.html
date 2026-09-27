@@ -922,9 +922,17 @@
       border-radius: 24px;
       max-width: 920px;
       width: 100%;
+      /* dvh descuenta la barra del navegador en el móvil; vh es el
+         respaldo para navegadores viejos que no la entienden. */
       max-height: 90vh;
+      max-height: 90dvh;
       display: block;
-      overflow: hidden;
+      /* Antes era overflow:hidden, así que todo lo que no cupiera
+         quedaba recortado y sin forma de llegar a ello. */
+      overflow-x: hidden;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      -webkit-overflow-scrolling: touch;
       animation: modalIn 0.3s ease;
       position: relative;
     }
