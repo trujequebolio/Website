@@ -1572,8 +1572,8 @@
     <div style="display:flex;align-items:center;gap:12px;">
       <div class="filter-tabs">
       <button class="filter-tab active" onclick="filterCards('all', this)">All</button>
-      <button class="filter-tab" onclick="filterCards('available', this)">Needs Sponsor</button>
-      <button class="filter-tab" onclick="filterCards('sponsored', this)">Sponsored</button>
+      <button class="filter-tab" onclick="filterCards('Girl', this)">Girls</button>
+      <button class="filter-tab" onclick="filterCards('Boy', this)">Boys</button>
       </div>
       <div style="display:flex;align-items:center;gap:8px;">
         <label for="ageFilter" style="font-size:0.85rem;color:var(--warm-gray);">Age</label>
@@ -2944,24 +2944,113 @@ let currentAgeFilter = 'all';
 let currentPage = 1;
 const PAGE_SIZE = 12;
 
+/* ═══════════════════════════════════════════════════════════════
+   EN QUÉ ORDEN SE MUESTRAN LOS NIÑOS
+
+   Cambia esta palabra y se cambia el orden. Nada más que tocar.
+
+     'barajado'            orden al azar, distinto para cada visitante
+                           y estable mientras dure su visita. Reparte
+                           la atención entre los 85.
+
+     'mas-jovenes-primero' de menor a mayor edad.
+
+     'como-esta'           el orden del array, tal cual.
+   ═══════════════════════════════════════════════════════════════ */
+const ORDEN = 'barajado';
+
+/* ── La edad se calcula sola a partir de la fecha de nacimiento ──
+   En cada niño se pone  born: "2009-04"  (año y mes).
+   Mientras un niño no tenga 'born', se usa su 'age' escrito a mano.  */
+function edadHoy(born) {
+  if (!born) return null;
+  const [a, m] = String(born).split('-').map(Number);
+  if (!a) return null;
+  const hoy = new Date();
+  let edad = hoy.getFullYear() - a;
+  // Si aún no ha llegado su mes este año, todavía no los ha cumplido.
+  if (m && (hoy.getMonth() + 1) < m) edad--;
+  return edad >= 0 ? edad : null;
+}
+
+children.forEach(c => {
+  const e = edadHoy(c.born);
+  if (e !== null) c.age = e;
+});
+
+/* ── Barajado con semilla, para que no se reordene al navegar ──
+   La semilla se guarda mientras dure la pestaña: cada visitante ve
+   un orden distinto, pero el suyo no cambia al filtrar ni al volver
+   de la ficha de un niño. */
+function semilla() {
+  let s = null;
+  try { s = sessionStorage.getItem('ordenNinos'); } catch (e) {}
+  if (!s) {
+    s = String(Math.floor(Math.random() * 1e9));
+    try { sessionStorage.setItem('ordenNinos', s); } catch (e) {}
+  }
+  return Number(s);
+}
+
+function azarConSemilla(s) {
+  return function () {
+    s |= 0; s = (s + 0x6D2B79F5) | 0;
+    let t = Math.imul(s ^ (s >>> 15), 1 | s);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+function ordenarNinos(lista) {
+  if (ORDEN === 'como-esta') return lista.slice();
+
+  if (ORDEN === 'mas-jovenes-primero') {
+    return lista.slice().sort((a, b) => (a.age ?? 99) - (b.age ?? 99));
+  }
+
+  // Barajado
+  const azar = azarConSemilla(semilla());
+  const mezclado = lista.slice();
+  for (let i = mezclado.length - 1; i > 0; i--) {
+    const j = Math.floor(azar() * (i + 1));
+    [mezclado[i], mezclado[j]] = [mezclado[j], mezclado[i]];
+  }
+  // Intercalar niña / niño, para que ninguna página salga casi toda
+  // de un solo sexo.
+  const ninas = mezclado.filter(c => c.gender === 'Girl');
+  const ninos = mezclado.filter(c => c.gender !== 'Girl');
+  const salida = [];
+  for (let i = 0; i < Math.max(ninas.length, ninos.length); i++) {
+    if (ninas[i]) salida.push(ninas[i]);
+    if (ninos[i]) salida.push(ninos[i]);
+  }
+  return salida;
+}
+
+const ninosOrdenados = ordenarNinos(children);
+
+/* Una sola función decide qué niños se ven: la usan tanto el dibujado
+   como el paginador, así que no pueden descuadrarse. */
+function listaFiltrada() {
+  let lista = ninosOrdenados;
+
+  if (currentFilter === 'Girl' || currentFilter === 'Boy') {
+    lista = lista.filter(c => c.gender === currentFilter);
+  }
+
+  if (currentAgeFilter && currentAgeFilter !== 'all') {
+    const [min, max] = currentAgeFilter.split('-').map(Number);
+    lista = lista.filter(c => typeof c.age === 'number' && c.age >= min && c.age <= max);
+  }
+
+  return lista;
+}
+
 function getInitial(name) { return name[0]; }
 
 function renderChildren(filter) {
   const grid = document.getElementById('childrenGrid');
-  // base filtering by sponsor status
-  let filtered = filter === 'all' ? children
-    : filter === 'available' ? children.filter(c => !c.sponsored)
-    : children.filter(c => c.sponsored);
-
-  // then apply age-range filter
-  if (currentAgeFilter && currentAgeFilter !== 'all') {
-    const parts = currentAgeFilter.split('-').map(Number);
-    if (parts.length === 2) {
-      const min = parts[0];
-      const max = parts[1];
-      filtered = filtered.filter(c => typeof c.age === 'number' && c.age >= min && c.age <= max);
-    }
-  }
+  const filtered = listaFiltrada();
 
   // pagination
   const total = filtered.length;
@@ -3032,7 +3121,7 @@ function createPagination(totalPages) {
 }
 
 function goToPage(p) {
-  const totalPages = Math.max(1, Math.ceil((currentFilter === 'all' ? children.length : (currentFilter === 'available' ? children.filter(c=>!c.sponsored).length : children.filter(c=>c.sponsored).length)) / PAGE_SIZE));
+  const totalPages = Math.max(1, Math.ceil(listaFiltrada().length / PAGE_SIZE));
   if (p < 1) p = 1;
   if (p > totalPages) p = totalPages;
   currentPage = p;
