@@ -3032,7 +3032,12 @@ const ninosOrdenados = ordenarNinos(children);
 /* Una sola función decide qué niños se ven: la usan tanto el dibujado
    como el paginador, así que no pueden descuadrarse. */
 function listaFiltrada() {
-  let lista = ninosOrdenados;
+  /* Un niño con  activo: false  no aparece en la web.
+     Si no lleva el campo, se muestra: por defecto todos salen.
+     Ojo: esto lo esconde, no lo borra. Sus datos siguen dentro del
+     archivo y cualquiera puede leerlos viendo el código fuente. Para
+     una salida definitiva hay que borrar su bloque y su foto. */
+  let lista = ninosOrdenados.filter(c => c.activo !== false);
 
   if (currentFilter === 'Girl' || currentFilter === 'Boy') {
     lista = lista.filter(c => c.gender === currentFilter);
