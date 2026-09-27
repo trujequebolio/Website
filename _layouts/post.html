@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+{% include cabeza.html %}
+</head>
+<body>
+
+{% include barra.html %}
+
+  <header class="page-hero post-hero">
+    <div class="wrap">
+      <p class="post-date">{{ page.date | date: "%-d %B %Y" }}{% if page.category %} · {{ page.category }}{% endif %}</p>
+      <h1>{{ page.title }}</h1>
+    </div>
+  </header>
+
+  <main class="wrap blog-layout">
+
+   <div class="blog-main">
+    <article class="post">
+      {% if page.image %}<img class="post-cover" src="{{ page.image }}" alt="{{ page.image_alt | default: page.title }}" />{% endif %}
+      <div class="post-body">
+{{ content }}
+      </div>
+      <a class="post-back" href="/blog/">&larr; All posts</a>
+    </article>
+   </div>
+
+{% include apadrinar.html %}
+
+  </main>
+
+{% include pie.html %}
+
+</body>
+</html>

@@ -1,0 +1,30 @@
+# ═══════════════════════════════════════════════════════════════
+#  Configuración del blog · sponsorachildmexico.org
+#
+#  Este archivo no afecta a index.html, faq/, casa-hogar/ ni
+#  thank-you/. Jekyll solo procesa los archivos que empiezan con
+#  tres rayas (---), y esos no las llevan: los copia tal cual.
+# ═══════════════════════════════════════════════════════════════
+
+title: Casa Hogar Alegre
+url: https://sponsorachildmexico.org
+lang: en
+
+# Las entradas viven en /blog/<nombre-de-la-entrada>/
+permalink: /blog/:title/
+
+# ── EL INTERRUPTOR ──
+# Mientras esto sea true, el blog lleva noindex: Google no lo lee.
+# Cuando haya entradas de verdad, cámbialo a false y guarda.
+blog_borrador: true
+
+# Archivos que no forman parte de la web
+exclude:
+  - PUBLICAR.md
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+
+# Jekyll 3 (el que usa GitHub Pages) necesita esto declarado
+plugins: []

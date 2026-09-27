@@ -1,0 +1,5 @@
+# Lo que genera Jekyll al compilar. No va al repositorio.
+_site/
+.jekyll-cache/
+.jekyll-metadata
+Gemfile.lock

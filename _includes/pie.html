@@ -1,0 +1,30 @@
+  <footer>
+    <p><a href="https://www.alegrecasahogar.org/" target="_blank" rel="noopener noreferrer"><strong>Casa Hogar Alegre</strong></a> · Tuxtla Gutiérrez, Chiapas, México</p>
+    <p>A Valley Christian High School initiative · Donations received by Baja Bound Ministries, a U.S. 501(c)(3)</p>
+    <p>Questions? <a href="mailto:contact@alegrecasahogar.org">contact@alegrecasahogar.org</a></p>
+  </footer>
+
+  <script>
+  (function () {
+    const nav    = document.getElementById('siteNav');
+    const burger = document.getElementById('navBurger');
+    const menu   = document.getElementById('navMenu');
+
+    function setOpen(open) {
+      menu.hidden = !open;
+      burger.setAttribute('aria-expanded', String(open));
+      burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    }
+
+    burger.addEventListener('click', e => { e.stopPropagation(); setOpen(menu.hidden); });
+    document.addEventListener('click', e => { if (!menu.hidden && !menu.contains(e.target)) setOpen(false); });
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && !menu.hidden) { setOpen(false); burger.focus(); }
+    });
+    menu.addEventListener('click', () => setOpen(false));
+
+    const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 60);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  })();
+  </script>

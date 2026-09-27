@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+{% include cabeza.html %}
+</head>
+<body>
+
+{% include barra.html %}
+
+  <header class="page-hero">
+    <div class="wrap">
+      <p class="section-label">Tuxtla Gutiérrez · Chiapas · Mexico</p>
+      <h1>News from <em>Casa Hogar Alegre</em></h1>
+      <p>What happens in the home, written from the home: the school year, the milestones, and the days worth telling you about.</p>
+    </div>
+  </header>
+
+  <main class="wrap blog-layout">
+
+   <div class="blog-main">
+{% if site.blog_borrador %}
+    <div class="draft-note">
+      <strong>Borrador.</strong> El blog lleva <code>noindex</code>: Google todavía no lo lee.
+      Para publicarlo de verdad, abre <code>_config.yml</code> y cambia
+      <code>blog_borrador: true</code> por <code>false</code>.
+    </div>
+{% endif %}
+    <div class="posts">
+{% for post in site.posts %}
+      <article class="post">
+        {% if post.image %}<img class="post-thumb" src="{{ post.image }}" alt="{{ post.image_alt | default: post.title }}" loading="lazy" decoding="async" />{% endif %}
+        <p class="post-meta">{{ post.date | date: "%-d %B %Y" }}{% if post.category %} · {{ post.category }}{% endif %}</p>
+        <h2>{{ post.title }}</h2>
+        {{ post.excerpt }}
+        <a class="post-more" href="{{ post.url }}">Read the full story &rarr;</a>
+      </article>
+{% endfor %}
+    </div>
+   </div>
+
+{% include apadrinar.html %}
+
+  </main>
+
+{% include pie.html %}
+
+</body>
+</html>
