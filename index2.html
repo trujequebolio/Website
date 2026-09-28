@@ -3156,7 +3156,12 @@ function textoAbout(c) {
   const [a, m] = String(c.arrived).split('-').map(Number);
   if (!a) return c.about;
   const anios = (new Date() - new Date(a, (m || 1) - 1, 15)) / (1000 * 60 * 60 * 24 * 365.25);
-  return c.about.replace(/for [\d.]+ years/, 'for ' + anios.toFixed(1) + ' years');
+  const enteros = Math.floor(anios);
+  // Sin decimales, y cuidando el singular y el primer año.
+  const frase = enteros < 1 ? 'for less than a year'
+              : enteros === 1 ? 'for more than a year'
+              : 'for more than ' + enteros + ' years';
+  return c.about.replace(/for [\d.]+ years/, frase);
 }
 
 /* ── Barajado con semilla, para que no se reordene al navegar ──
