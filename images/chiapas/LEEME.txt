@@ -1,0 +1,18 @@
+Fotos de los lugares de Chiapas para la sección "What else is here"
+de /casa-hogar/.
+
+Nombres de archivo que espera la página (sin acentos, en minúsculas):
+
+  sumidero.jpg          Cañón del Sumidero
+  san-cristobal.jpg     San Cristóbal de las Casas
+  rancho-nuevo.jpg      Rancho Nuevo
+  chorreadero.jpg       Cascadas El Chorreadero
+  tenam-puente.jpg      Tenam Puente
+  palenque.jpg          Palenque
+  chamula.jpg           San Juan Chamula
+  cafe.jpg              Café: patio de secado, cerezas o montaña
+
+Formato: horizontal, mínimo 1200 px de ancho. Se recortan a 4:3.
+
+IMPORTANTE: solo fotos propias o con licencia que permita el uso.
+No valen fotos sacadas de Google Imágenes sin más.

@@ -206,6 +206,48 @@
 
     ul.places li strong { color: var(--dark); }
 
+    /* ── FOTOS DE LOS LUGARES ──
+       Tira de miniaturas encima de cada lista. Mientras no haya fotos,
+       el bloque no se escribe y aquí no se ve nada. */
+    .place-shots {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 14px;
+      margin: 0 0 26px;
+    }
+
+    .place-shots figure { margin: 0; }
+
+    .place-shots img {
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      border-radius: 12px;
+      display: block;
+      background: #F3EDE4;
+    }
+
+    .place-shots figcaption {
+      font-size: 0.76rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--warm-gray);
+      margin-top: 8px;
+    }
+
+    /* Crédito de la foto, si la licencia lo pide */
+    .photo-credit {
+      font-size: 0.72rem;
+      color: var(--warm-gray);
+      margin: -14px 0 26px;
+    }
+
+    .photo-credit a { color: var(--warm-gray); }
+
+    @media (max-width: 600px) {
+      .place-shots { grid-template-columns: 1fr 1fr; gap: 10px; }
+    }
+
     /* ── LISTA ── */
     ul.checks { list-style: none; margin: 4px 0 20px; max-width: 62ch; }
 
