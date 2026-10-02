@@ -206,6 +206,58 @@
 
     ul.places li strong { color: var(--dark); }
 
+    /* ── FICHAS DE LUGAR: foto arriba, nombre y texto debajo ── */
+    .place-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px 28px;
+      margin: 6px 0 32px;
+    }
+
+    .place-cards img {
+      width: 100%;
+      /* Sin esto, el height="750" del HTML gana a la proporción
+         y la foto sale con su alto original. */
+      height: auto;
+      aspect-ratio: 4 / 3;
+      object-fit: cover;
+      border-radius: 14px;
+      display: block;
+      margin-bottom: 14px;
+      background: #F3EDE4;
+    }
+
+    .place-cards h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.14rem;
+      line-height: 1.3;
+      color: var(--dark);
+      margin-bottom: 7px;
+    }
+
+    .place-cards p {
+      font-size: 0.95rem;
+      line-height: 1.72;
+      color: var(--warm-gray);
+    }
+
+    /* Foto ancha del bloque del café */
+    .coffee-shot {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      border-radius: 16px;
+      display: block;
+      margin: 8px 0 24px;
+      background: #F3EDE4;
+    }
+
+    @media (max-width: 700px) {
+      .place-cards { grid-template-columns: 1fr; gap: 26px; }
+      .coffee-shot { aspect-ratio: 4 / 3; border-radius: 12px; }
+    }
+
     /* ── FOTOS DE LOS LUGARES ──
        Tira de miniaturas encima de cada lista. Mientras no haya fotos,
        el bloque no se escribe y aquí no se ve nada. */
@@ -596,25 +648,54 @@
         <p class="body">The home sits in one of the richest corners of Mexico — a state of canyons, cloud forest and Maya cities, where the food changes every hour you drive and the mountains on the horizon are planted with coffee.</p>
 
         <h3 class="sub-title">Coffee country</h3>
+        <img class="coffee-shot" src="/images/chiapas/chiapas-coffee-harvest-mexico.jpg" alt="A coffee picker carrying a sack of harvested cherries between the bushes on a mountain farm in Chiapas, Mexico" width="1000" height="750" loading="lazy" decoding="async" />
         <p class="body">Chiapas grows more coffee than any other state in Mexico, and almost none of it on anything you would call a plantation. It comes from small family plots on the slopes of the Sierra Madre, between a thousand and seventeen hundred metres, grown in the shade of the forest that was already standing there.</p>
         <p class="body">It is picked by hand, cherry by cherry, because the mountain is too steep for machines and because a branch ripens a few beans at a time. Drive through those villages in harvest season and you pass patio after patio of beans drying in the sun, raked into stripes and turned by whoever is nearest the door.</p>
         <p class="body"><strong>This is coffee country with a name well beyond Mexico.</strong> Lots off these mountains have taken first place in the country's national cupping competition, and they are bought by specialty roasters abroad.</p>
         <p class="body">And a group does not have to see it from the road. <strong>Broken Rib Coffee</strong>, the program's coffee partner, takes visitors through the whole thing on the ground — from the branch to the cup, explained in as much detail as you care to go.</p>
 
         <h3 class="sub-title">Close to the home</h3>
-        <ul class="places">
-          <li><strong>Cañón del Sumidero</strong> — You go in by boat, at water level, and the walls climb a thousand metres on either side. You spend the hour with your head tilted back. Crocodiles on the banks, vultures turning overhead, and a waterfall that has grown moss into the shape of a Christmas tree.</li>
-          <li><strong>San Cristóbal de las Casas</strong> — Two thousand two hundred metres up, and cold at night. Tsotsil women sell textiles on the steps of a baroque church while someone roasts Chiapas coffee two doors down. The old and the new are not displayed side by side here for visitors. They are simply both in use.</li>
-          <li><strong>Rancho Nuevo</strong> — Pine forest on the road up the mountain. Horses to ride between the trunks, a zip line strung through the trees, and underneath all of it a cave you can walk into — stalactites, cold air, and the sound of a whole group going quiet at once.</li>
-          <li><strong>Cascadas El Chorreadero</strong> — The river comes out of the side of a mountain already a waterfall, and drops into pools cold enough to make everyone shout. The closest place to swim, and the easiest afternoon to add to a week of work.</li>
-        </ul>
+        <div class="place-cards">
+          <article>
+            <img src="/images/chiapas/canon-del-sumidero-chiapas-mexico.jpg" alt="A boat of visitors on the Grijalva river inside the Cañón del Sumidero, near Tuxtla Gutiérrez, Chiapas" width="1000" height="750" loading="lazy" decoding="async" />
+            <h4>Cañón del Sumidero</h4>
+            <p>You go in by boat, at water level, and the walls climb a thousand metres on either side. You spend the hour with your head tilted back. Crocodiles on the banks, vultures turning overhead, and a waterfall that has grown moss into the shape of a Christmas tree.</p>
+          </article>
+          <article>
+            <img src="/images/chiapas/san-cristobal-de-las-casas-chiapas.jpg" alt="A colonial street in San Cristóbal de las Casas, Chiapas, at dusk with the lamps lit" width="1000" height="750" loading="lazy" decoding="async" />
+            <h4>San Cristóbal de las Casas</h4>
+            <p>Two thousand two hundred metres up, and cold at night. Tsotsil women sell textiles on the steps of a baroque church while someone roasts Chiapas coffee two doors down. The old and the new are not displayed side by side here for visitors. They are simply both in use.</p>
+          </article>
+          <article>
+            <img src="/images/chiapas/rancho-nuevo-horseback-riding-chiapas.jpg" alt="Horseback riding among the pine trees at Rancho Nuevo, in the Chiapas highlands" width="1000" height="750" loading="lazy" decoding="async" />
+            <h4>Rancho Nuevo</h4>
+            <p>Pine forest on the road up the mountain. Horses to ride between the trunks, a zip line strung through the trees, and underneath all of it a cave you can walk into — stalactites, cold air, and the sound of a whole group going quiet at once.</p>
+          </article>
+          <article>
+            <img src="/images/chiapas/el-chorreadero-waterfall-chiapas.jpg" alt="The El Chorreadero waterfall falling from a cave mouth into a turquoise pool, Chiapas, Mexico" width="1000" height="750" loading="lazy" decoding="async" />
+            <h4>Cascadas El Chorreadero</h4>
+            <p>The river comes out of the side of a mountain already a waterfall, and drops into pools cold enough to make everyone shout. The closest place to swim, and the easiest afternoon to add to a week of work.</p>
+          </article>
+        </div>
 
         <h3 class="sub-title">Worth a longer drive</h3>
-        <ul class="places">
-          <li><strong>Tenam Puente</strong> — A Maya city built in terraces up a hillside, with ball courts and the whole valley below. You will rarely share it with more than a handful of people, which is most of what makes it worth the drive.</li>
-          <li><strong>Palenque</strong> — The jungle closes over it, and the howler monkeys start before first light. Pakal's tomb is here, under the Temple of the Inscriptions. Most of the city is still under the trees — found, counted, and left where it is.</li>
-          <li><strong>San Juan Chamula</strong> — The church has no pews and no mass. The floor is laid with pine needles, candles stand in rows on the stone, and families pray in Tsotsil beside a healer. Photographs are not allowed inside, and it is worth understanding why before you go.</li>
-        </ul>
+        <div class="place-cards">
+          <article>
+            <img src="/images/chiapas/tenam-puente-maya-ruins-chiapas.jpg" alt="The stepped Maya pyramid at the Tenam Puente archaeological site near Comitán, Chiapas" width="1000" height="750" loading="lazy" decoding="async" />
+            <h4>Tenam Puente</h4>
+            <p>A Maya city built in terraces up a hillside, with ball courts and the whole valley below. You will rarely share it with more than a handful of people, which is most of what makes it worth the drive.</p>
+          </article>
+          <article>
+            <img src="/images/chiapas/palenque-maya-ruins-chiapas.jpg" alt="The tower of the Palace at Palenque, the Maya city in the Chiapas jungle, Mexico" width="1000" height="750" loading="lazy" decoding="async" />
+            <h4>Palenque</h4>
+            <p>The jungle closes over it, and the howler monkeys start before first light. Pakal's tomb is here, under the Temple of the Inscriptions. Most of the city is still under the trees — found, counted, and left where it is.</p>
+          </article>
+          <article>
+            <img src="/images/chiapas/san-juan-chamula-church-chiapas.jpg" alt="The church of San Juan Bautista in San Juan Chamula, a Tsotsil village in the Chiapas highlands" width="1000" height="750" loading="lazy" decoding="async" />
+            <h4>San Juan Chamula</h4>
+            <p>The church has no pews and no mass. The floor is laid with pine needles, candles stand in rows on the stone, and families pray in Tsotsil beside a healer. Photographs are not allowed inside, and it is worth understanding why before you go.</p>
+          </article>
+        </div>
 
         <p class="body">Groups normally fit one or two of these around the work. Tell the home your dates and they will say what is realistic — both for the days at Casa Hogar Alegre and for everything around them.</p>
         <p class="body"><a class="inline" href="mailto:contact@alegrecasahogar.org">Write to us about bringing a group →</a></p>
