@@ -1,9 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- /blog/ y /thank-you/ no se listan: ambos llevan noindex.
+     Cuando el blog tenga entradas reales y se quite su noindex,
+     hay que anadirlo aqui. -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://sponsorachildmexico.org/</loc>
-    <lastmod>2026-09-21</lastmod>
-    <changefreq>monthly</changefreq>
+    <lastmod>2026-10-13</lastmod>
+    <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://sponsorachildmexico.org/casa-hogar/</loc>
+    <lastmod>2026-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://sponsorachildmexico.org/faq/</loc>
+    <lastmod>2026-10-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
 </urlset>
