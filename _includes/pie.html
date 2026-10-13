@@ -21,7 +21,11 @@
     document.addEventListener('keydown', e => {
       if (e.key === 'Escape' && !menu.hidden) { setOpen(false); burger.focus(); }
     });
-    menu.addEventListener('click', () => setOpen(false));
+    menu.addEventListener('click', e => {
+      /* Blog todavia no tiene destino: si lo pulsan, el menu se queda
+         abierto en vez de cerrarse como si algo hubiera pasado. */
+      if (e.target.closest('a[href]')) setOpen(false);
+    });
 
     const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 60);
     window.addEventListener('scroll', onScroll, { passive: true });

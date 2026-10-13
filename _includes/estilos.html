@@ -315,6 +315,23 @@
 
     .nav-menu a:hover { background: rgba(196,98,45,0.09); color: var(--tierra); }
 
+    /* Blog todavia sin entradas reales: se ve en el menu pero no se pulsa.
+       Al quitarle el href deja de ser un enlace y conserva el resto del
+       estilo. Cuando haya contenido se le devuelve  href="/blog/"  y se
+       borra el <small>. */
+    .nav-menu a:not([href]) { color: #A89A86; cursor: default; }
+    .nav-menu a:not([href]):hover { background: none; color: #A89A86; }
+    .nav-menu a:not([href]) small {
+      display: block;
+      margin-top: 2px;
+      font-size: 0.66rem;
+      font-weight: 700;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      opacity: 0.85;
+    }
+
+
     /* La página en la que ya estás: se muestra, pero apagada. */
     .nav-menu a[aria-current="page"] {
       color: var(--warm-gray);

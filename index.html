@@ -518,6 +518,9 @@
       box-shadow: 0 2px 12px rgba(0,0,0,0.06);
       transition: transform 0.25s, box-shadow 0.25s;
       cursor: pointer;
+      /* Columna, para que el pie se pueda empujar al fondo. */
+      display: flex;
+      flex-direction: column;
     }
 
     .child-card:hover {
@@ -571,6 +574,9 @@
 
     .child-info {
       padding: 20px 22px 24px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
     }
 
     .child-name {
@@ -625,10 +631,15 @@
       gap: 10px;
       margin-top: 6px;
       flex-wrap: wrap;
+      align-content: flex-start;
+      /* Sitio para dos renglones de etiquetas aunque solo haya uno,
+         así todas las fichas reparten el espacio igual. */
+      min-height: calc(2 * (0.72rem * 1.5 + 6px) + 10px);
     }
 
     .child-tag {
       font-size: 0.72rem;
+      line-height: 1.5;
       font-weight: 700;
       letter-spacing: 0.06em;
       text-transform: uppercase;
@@ -645,10 +656,15 @@
       line-height: 1.6;
       padding-left: 12px;
       border-left: 3px solid var(--sol);
+      /* Dos renglones reservados: 1.6 de interlínea × 2. */
+      min-height: 3.2em;
     }
 
     .child-card-footer {
-      margin-top: 18px;
+      /* auto en vez de una medida fija: los botones caen al fondo de la
+         ficha, así que se alinean aunque un nombre ocupe dos renglones. */
+      margin-top: auto;
+      padding-top: 18px;
       display: flex;
       gap: 10px;
     }
@@ -918,9 +934,17 @@
       border-radius: 24px;
       max-width: 920px;
       width: 100%;
+      /* dvh descuenta la barra del navegador en el móvil; vh es el
+         respaldo para navegadores viejos que no la entienden. */
       max-height: 90vh;
+      max-height: 90dvh;
       display: block;
-      overflow: hidden;
+      /* Antes era overflow:hidden, así que todo lo que no cupiera
+         quedaba recortado y sin forma de llegar a ello. */
+      overflow-x: hidden;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      -webkit-overflow-scrolling: touch;
       animation: modalIn 0.3s ease;
       position: relative;
     }
@@ -1225,6 +1249,7 @@
       color: #fff;
       text-decoration: none;
       font-style: italic;
+      white-space: nowrap;
     }
 
     .nav-logo span { color: var(--sol); }
@@ -1252,6 +1277,95 @@
       padding: 8px 20px;
       border-radius: 999px;
       font-weight: 700;
+      white-space: nowrap;
+    }
+
+    /* ── HAMBURGUESA ── */
+    .nav-burger {
+      background: rgba(255,255,255,0.08);
+      border: 1.5px solid rgba(255,255,255,0.28);
+      border-radius: 12px;
+      width: 46px;
+      height: 46px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      cursor: pointer;
+      padding: 0;
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    .nav-burger:hover { background: rgba(255,255,255,0.16); border-color: rgba(255,255,255,0.45); }
+
+    .nav-burger:focus-visible { outline: 2px solid var(--sol); outline-offset: 3px; }
+
+    .nav-burger span {
+      display: block;
+      width: 22px;
+      height: 2.5px;
+      border-radius: 2px;
+      background: #fff;
+      transition: transform 0.25s, opacity 0.2s;
+    }
+
+    /* Abierto: las tres barras se convierten en una X */
+    .nav-burger[aria-expanded="true"] span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
+    .nav-burger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+    .nav-burger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
+
+    /* ── PANEL DEL MENÚ ── */
+    .nav-menu {
+      position: absolute;
+      top: calc(100% - 4px);
+      right: 32px;
+      min-width: 172px;
+      background: var(--crema);
+      border-radius: 18px;
+      box-shadow: 0 18px 44px rgba(0,0,0,0.32);
+      padding: 14px 0;
+      display: flex;
+      flex-direction: column;
+      transform-origin: top right;
+      animation: menuIn 0.18s ease-out;
+    }
+
+    .nav-menu[hidden] { display: none; }
+
+    .nav-menu a {
+      color: var(--dark);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 1.02rem;
+      padding: 13px 28px;
+      /* Alineados al borde derecho del panel, debajo de la hamburguesa. */
+      text-align: right;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .nav-menu a:hover { background: rgba(196,98,45,0.09); color: var(--tierra); }
+
+    /* Blog todavia sin entradas reales: se ve en el menu pero no se pulsa.
+       Al quitarle el href deja de ser un enlace y conserva el resto del
+       estilo. Cuando haya contenido se le devuelve  href="/blog/"  y se
+       borra el <small>. */
+    .nav-menu a:not([href]) { color: #A89A86; cursor: default; }
+    .nav-menu a:not([href]):hover { background: none; color: #A89A86; }
+    .nav-menu a:not([href]) small {
+      display: block;
+      margin-top: 2px;
+      font-size: 0.66rem;
+      font-weight: 700;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      opacity: 0.85;
+    }
+
+
+    @keyframes menuIn {
+      from { opacity: 0; transform: scale(0.95) translateY(-6px); }
+      to   { opacity: 1; transform: scale(1) translateY(0); }
     }
 
     /* ── ANIMATIONS ── */
@@ -1274,7 +1388,23 @@
     @media (max-width: 768px) {
       .about-inner, .coffee-inner { grid-template-columns: 1fr; gap: 40px; }
       .about-tag { bottom: -12px; right: 0; }
-      .nav-links { display: none; }
+      /* Antes aquí se ocultaba .nav-links entero, lo que dejaba el móvil
+         sin ningún tipo de navegación. Ahora la barra lleva el logotipo y
+         la hamburguesa, y el globo se mete dentro del panel. */
+      nav { padding: 12px 16px; }
+      .nav-logo { font-size: 0.95rem; }
+      /* Que se ajuste al texto en vez de estirarse de borde a borde:
+         con tres palabras cortas, un panel a pantalla completa queda
+         medio vacío. */
+      .nav-menu { right: 16px; min-width: 150px; padding: 8px 0; }
+      .nav-menu a { padding: 12px 20px; font-size: 0.98rem; }
+
+      /* El globo no aparece en teléfono, ni en la barra ni en el menú:
+         la sección de los niños se encuentra bajando por la página. */
+      .nav-links .nav-cta { display: none; }
+
+      /* El contenido del hero baja para no quedar debajo de la barra. */
+      .hero { padding: 104px 20px 56px; }
       .form-row { grid-template-columns: 1fr; }
       .coffee-emblem { width: 240px; height: 240px; }
       .stat-item { padding: 20px 24px; }
@@ -1362,10 +1492,16 @@
 <nav id="nav">
   <a href="#" class="nav-logo">Casa Hogar <span>Alegre</span></a>
   <div class="nav-links">
-    <a href="#children">Meet the Kids</a>
-    <a href="#coffee">Coffee Rewards</a>
-    <a href="#how">How It Works</a>
     <a href="#children" class="nav-cta">Sponsor a Child</a>
+    <button type="button" class="nav-burger" id="navBurger"
+            aria-label="Open menu" aria-expanded="false" aria-controls="navMenu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="nav-menu" id="navMenu" hidden>
+    <a href="/casa-hogar/">About Us</a>
+    <a href="/faq/">FAQ</a>
+    <a aria-disabled="true">Blog<small>coming soon</small></a>
   </div>
 </nav>
 
@@ -1449,8 +1585,8 @@
     <div style="display:flex;align-items:center;gap:12px;">
       <div class="filter-tabs">
       <button class="filter-tab active" onclick="filterCards('all', this)">All</button>
-      <button class="filter-tab" onclick="filterCards('available', this)">Needs Sponsor</button>
-      <button class="filter-tab" onclick="filterCards('sponsored', this)">Sponsored</button>
+      <button class="filter-tab" onclick="filterCards('Girl', this)">Girls</button>
+      <button class="filter-tab" onclick="filterCards('Boy', this)">Boys</button>
       </div>
       <div style="display:flex;align-items:center;gap:8px;">
         <label for="ageFilter" style="font-size:0.85rem;color:var(--warm-gray);">Age</label>
@@ -1798,6 +1934,8 @@ const children = [
     // name: "Francisco A",
     name: "Frank",
     age: 17,
+    born: "2009-01",
+    arrived: "2020-09",
     gender: "Boy",
     interests: ["Basketball", "Drawing"],
     funfact: "Frank is very skilled in English and math.",
@@ -1810,6 +1948,8 @@ const children = [
     name: "Arturo",
     // nickname: "Arturo",
     age: 17,
+    born: "2009-10",
+    arrived: "2016-02",
     gender: "Boy",
     interests: ["Basketball", "Reading books about dinosaurs"],
     funfact: "Arturo is very calm and focused when completing tasks.",
@@ -1822,6 +1962,8 @@ const children = [
     // name: "Ximena G",
     name: "Xime",
     age: 16,
+    born: "2010-06",
+    arrived: "2016-05",
     gender: "Girl",
     interests: ["Singing", "Embroidery"],
     funfact: "Xime is very creative and is very skilled in making beautiful bracelets.",
@@ -1834,6 +1976,8 @@ const children = [
     name: "Mariana",
     // nickname: "Mariana",
     age: 16,
+    born: "2010-05",
+    arrived: "2011-12",
     gender: "Girl",
     interests: ["Baking", "Taking care of the babies"],
     funfact: "Mariana enjoys styling her friends' hair.",
@@ -1846,6 +1990,8 @@ const children = [
     name: "Dana",
     // nickname: "Dana",
     age: 16,
+    born: "2010-10",
+    arrived: "2014-05",
     gender: "Girl",
     interests: ["Taking care of the babies", "Reading"],
     funfact: "Dana is very organized and keeps all her schoolwork neat.",
@@ -1858,6 +2004,8 @@ const children = [
     // name: "Noemi",
     name: "Mima",
     age: 18,
+    born: "2008-04",
+    arrived: "2017-03",
     gender: "Girl",
     interests: ["Cooking", "Reading"],
     funfact: "Mima loves nature and often spends time outdoors.",
@@ -1870,6 +2018,8 @@ const children = [
     // name: "Antonio",
     name: "Lugo",
     age: 19,
+    born: "2007-07",
+    arrived: "2026-02",
     gender: "Boy",
     interests: ["Playing soccer", "Cooking"],
     funfact: "Lugo loves cooking and designing.",
@@ -1882,6 +2032,8 @@ const children = [
     // name: "José Antonio",
     name: "Toño",
     age: 19,
+    born: "2007-10",
+    arrived: "2011-12",
     gender: "Boy",
     interests: ["Boxing", "Electrical work"],
     funfact: "Toño loves to build and work with tools.",
@@ -1894,6 +2046,8 @@ const children = [
     // name: "Yosmar",
     name: "Choma",
     age: 18,
+    born: "2007-11",
+    arrived: "2017-08",
     gender: "Boy",
     interests: ["Reading", "Listening to music"],
     funfact: "Choma is loves to to research new things.",
@@ -1906,6 +2060,8 @@ const children = [
     // name: "Luis",
     name: "Wicho",
     age: 16,
+    born: "2010-06",
+    arrived: "2016-12",
     gender: "Boy",
     interests: ["Playing basketball", "Drawing"],
     funfact: "Wicho is very artistic and loves learning new things.",
@@ -1918,6 +2074,8 @@ const children = [
     name: "Karla",
     // nickname: "Karla",
     age: 14,
+    born: "2012-06",
+    arrived: "2025-07",
     gender: "Girl",
     interests: ["Playing soccer", "Coloring"],
     funfact: "Karla is very smart and quick to understand instructions. She also really enjoys math.",
@@ -1930,6 +2088,8 @@ const children = [
     name: "Yoni",
     // nickname: "Yoni",
     age: 13,
+    born: "2013-07",
+    arrived: "2013-12",
     gender: "Boy",
     interests: ["Playing basketball", "Reading stories"],
     funfact: "Yoni is very responsible and strong in all subjects.",
@@ -1942,6 +2102,8 @@ const children = [
     // name: "Rigorberto",
     name: "Rigo",
     age: 15,
+    born: "2011-02",
+    arrived: "2012-07",
     gender: "Boy",
     interests: ["Playing soccer", "Playing basketball"],
     funfact: "Rigo is very helpful and always willing to assist others.",
@@ -1954,6 +2116,8 @@ const children = [
     // name: "Adamari",
     name: "Mari",
     age: 14,
+    born: "2012-08",
+    arrived: "2014-05",
     gender: "Girl",
     interests: ["Coloring", "Sleeping"],
     funfact: "Mari is good at english and math.",
@@ -1966,6 +2130,8 @@ const children = [
     name: "Geysi",
     // nickname: "Geysi",
     age: 13,
+    born: "2013-06",
+    arrived: "2022-08",
     gender: "Girl",
     interests: ["Singing", "Playing soccer"],
     funfact: "Geysi enjoys reading and is good at coloring.",
@@ -1978,6 +2144,8 @@ const children = [
     name: "Ivan",
     // nickname: "Ivan",
     age: 12,
+    born: "2013-11",
+    arrived: "2015-10",
     gender: "Boy",
     interests: ["Playing with Legos", "Playing soccer"],
     funfact: "Ivan is very helpful and cooperative.",
@@ -1990,6 +2158,8 @@ const children = [
     // name: "Anita",
     name: "Ana",
     age: 14,
+    born: "2011-10",
+    arrived: "2021-04",
     gender: "Girl",
     interests: ["Playing basketball", "Playing volleyball"],
     funfact: "Ana is very shy and quiet.",
@@ -2002,6 +2172,8 @@ const children = [
     name: "Darwin",
     // nickname: "Darwin",
     age: 14,
+    born: "2011-11",
+    arrived: "2025-03",
     gender: "Boy",
     interests: ["Playing basketball", "Playing soccer"],
     funfact: "Darwin is very smart and enjoys math, but can be shy.",
@@ -2014,6 +2186,8 @@ const children = [
     name: "Lucas",
     // nickname: "Lucas",
     age: 14,
+    born: "2012-03",
+    arrived: "2025-03",
     gender: "Boy",
     interests: ["Playing volleyball", "Playing marbles"],
     funfact: "Lucas is helpful around the orphanage and enjoys reading.",
@@ -2026,6 +2200,8 @@ const children = [
     // name: "Flor De Asalia",
     name: "Flor",
     age: 14,
+    born: "2012-03",
+    arrived: "2022-03",
     gender: "Girl",
     interests: ["Watching movies", "Playing soccer"],
     funfact: "Flor is very bright and enjoys math.",
@@ -2038,6 +2214,8 @@ const children = [
     // name: "Blanca L",
     name: "Lety",
     age: 15,
+    born: "2011-05",
+    arrived: "2022-11",
     gender: "Girl",
     interests: ["Playing with dolls", "Playing with balls"],
     funfact: "Lety is very creative and is good with modeling clay.",
@@ -2050,6 +2228,8 @@ const children = [
     // name: "Maria Del Carmen",
     name: "Carmen",
     age: 16,
+    born: "2010-05",
+    arrived: "2023-08",
     gender: "Girl",
     interests: ["Playing basketball", "Coloring"],
     funfact: "Carmen is very dedicated and responsible with cleaning and tasks.",
@@ -2062,6 +2242,8 @@ const children = [
     name: "Miguel",
     // nickname: "Miguel",
     age: 17,
+    born: "2009-01",
+    arrived: "2025-03",
     gender: "Boy",
     interests: ["Reading", "Playing soccer"],
     funfact: "Miguel has very good handwriting.",
@@ -2074,6 +2256,8 @@ const children = [
     name: "Bruno",
     // nickname: "Bruno",
     age: 13,
+    born: "2013-10",
+    arrived: "2025-06",
     gender: "Boy",
     interests: ["Playing soccer", "Painting"],
     funfact: "Bruno is very good at math.",
@@ -2086,6 +2270,8 @@ const children = [
     // name: "Dariney C",
     name: "Clemente",
     age: 12,
+    born: "2014-10",
+    arrived: "2025-03",
     gender: "Boy",
     interests: ["Playing soccer", "Playing basketball"],
     funfact: "Clemente is very nice handwriting.",
@@ -2098,6 +2284,8 @@ const children = [
     // name: "Itzel M",
     name: "Margarita",
     age: 11,
+    born: "2014-11",
+    arrived: "2023-04",
     gender: "Girl",
     interests: ["Playing soccer", "Embroidery"],
     funfact: "Margarita is very shy and quiet.",
@@ -2110,6 +2298,8 @@ const children = [
     // name: "Pascuala C",
     name: "Carolina",
     age: 11,
+    born: "2015-03",
+    arrived: "2025-03",
     gender: "Girl",
     interests: ["Playing soccer", "Playing basketball"],
     funfact: "Carolina is very outgoing and talkative.",
@@ -2122,6 +2312,8 @@ const children = [
     name: "Claudio",
     // nickname: "Claudio",
     age: 12,
+    born: "2013-11",
+    arrived: "2013-11",
     gender: "Boy",
     interests: ["Playing with Legos", "Playing soccer"],
     funfact: "Claudio is very creative and good at following instructions.",
@@ -2134,6 +2326,8 @@ const children = [
     // name: "Rey D",
     name: "David",
     age: 13,
+    born: "2012-11",
+    arrived: "2015-10",
     gender: "Boy",
     interests: ["Playing soccer", "Playing chess"],
     funfact: "David is very creative and participative.",
@@ -2146,6 +2340,8 @@ const children = [
     name: "Genesis",
     // nickname: "Genesis",
     age: 17,
+    born: "2009-04",
+    arrived: "2014-12",
     gender: "Girl",
     interests: ["Hair styling", "Playing"],
     funfact: "Though she is visually impaired, Genesis is very talented and creative.",
@@ -2158,6 +2354,8 @@ const children = [
     name: "Fabian",
     // nickname: "Fabian",
     age: 13,
+    born: "2013-09",
+    arrived: "2025-02",
     gender: "Boy",
     interests: ["Playing soccer", "Singing"],
     funfact: "Fabian is very creative and good at drawing.",
@@ -2170,6 +2368,8 @@ const children = [
     name: "William",
     // nickname: "William",
     age: 14,
+    born: "2011-11",
+    arrived: "2019-09",
     gender: "Boy",
     interests: ["Playing basketball", "Playing soccer"],
     funfact: "William is very hardworking and works well when focused.",
@@ -2182,6 +2382,8 @@ const children = [
     name: "Carlos",
     // nickname: "Carlos",
     age: 9,
+    born: "2017-04",
+    arrived: "2025-07",
     gender: "Boy",
     interests: ["Playing soccer", "Playing basketball"],
     funfact: "Carlos is very shy and helpful.",
@@ -2194,6 +2396,8 @@ const children = [
     name: "Fatima",
     // nickname: "Fatima",
     age: 10,
+    born: "2015-12",
+    arrived: "2025-03",
     gender: "Girl",
     interests: ["Playing soccer", "Jumping rope"],
     funfact: "Fatima is very talkative and loves helping others.",
@@ -2206,6 +2410,8 @@ const children = [
     name: "Gilberto",
     // nickname: "Gilbeto",
     age: 11,
+    born: "2015-01",
+    arrived: "2025-06",
     gender: "Boy",
     interests: ["Playing soccer", "Playing volleyball"],
     funfact: "Gilberto is hardworking and always making an effort.",
@@ -2218,6 +2424,8 @@ const children = [
     name: "Eunices",
     // nickname: "Eunices",
     age: 9,
+    born: "2017-02",
+    arrived: "2022-03",
     gender: "Girl",
     interests: ["Playing soccer", "Playing basketball"],
     funfact: "Eunices is very intelligent.",
@@ -2230,6 +2438,8 @@ const children = [
     name: "Dulce",
     // nickname: "Dulce",
     age: 11,
+    born: "2015-05",
+    arrived: "2021-08",
     gender: "Girl",
     interests: ["Playing soccer", "Playing basketball"],
     funfact: "Dulce is very intelligent.",
@@ -2242,6 +2452,8 @@ const children = [
     // name: "Yenibeth",
     name: "Yeni",
     age: 11,
+    born: "2015-04",
+    arrived: "2021-08",
     gender: "Girl",
     interests: ["Playing soccer", "Playing basketball"],
     funfact: "Yeni is very dedicated to crafts.",
@@ -2254,6 +2466,8 @@ const children = [
     // name: "Ivana N",
     name: "Nicole",
     age: 10,
+    born: "2015-12",
+    arrived: "2020-02",
     gender: "Girl",
     interests: ["Playing basketball", "Playing soccer"],
     funfact: "Nicole enjoys reading and has a good memory.",
@@ -2266,6 +2480,8 @@ const children = [
     name: "Santiago",
     // nickname: "Santiago",
     age: 11,
+    born: "2015-07",
+    arrived: "2022-11",
     gender: "Boy",
     interests: ["Playing soccer", "Playing volleyball"],
     funfact: "Santiago is very good at drawing.",
@@ -2278,6 +2494,8 @@ const children = [
     name: "Jesus",
     // nickname: "Jesus",
     age: 10,
+    born: "2015-12",
+    arrived: "2016-10",
     gender: "Boy",
     interests: ["Playing soccer", "Playing volleyball"],
     funfact: "Jesus is very talkative and helpful.",
@@ -2290,6 +2508,8 @@ const children = [
     name: "Enoc",
     // nickname: "Enoc",
     age: 10,
+    born: "2016-01",
+    arrived: "2017-08",
     gender: "Boy",
     interests: ["Playing soccer", "Playing volleyball"],
     funfact: "Enoc enjoys math but dislikes reading.",
@@ -2302,6 +2522,8 @@ const children = [
     // name: "Sarai C",
     name: "Sara",
     age: 10,
+    born: "2016-09",
+    arrived: "2025-08",
     gender: "Girl",
     interests: ["Playing soccer", "Jumping rope"],
     funfact: "Sara enjoys math and reading.",
@@ -2314,6 +2536,8 @@ const children = [
     name: "Lizbeth",
     // nickname: "Lizbeth",
     age: 9,
+    born: "2017-06",
+    arrived: "2022-03",
     gender: "Girl",
     interests: ["Playing basketball", "Gymnastics"],
     funfact: "Lizbeth is very helpful and enjoys supporting others.",
@@ -2326,6 +2550,8 @@ const children = [
     name: "Miranda",
     // nickname: "Miranda",
     age: 6,
+    born: "2020-01",
+    arrived: "2025-07",
     gender: "Girl",
     interests: ["Playing hide and seek", "Painting"],
     funfact: "Miranda is very skilled in english and math.",
@@ -2338,6 +2564,8 @@ const children = [
     name: "Blanquita",
     // nickname: "Yazmin",
     age: 6,
+    born: "2020-06",
+    arrived: "2025-03",
     gender: "Girl",
     interests: ["Playing pretend kitchen", "Coloring"],
     funfact: "Blanquita is very imaginative and loves all her siblings.",
@@ -2350,6 +2578,8 @@ const children = [
     name: "Emili",
     // nickname: "Yazmin",
     age: 6,
+    born: "2020-06",
+    arrived: "2024-07",
     gender: "Girl",
     interests: ["Playing with blocks", "Painting"],
     funfact: "Emili is very good at crafts.",
@@ -2362,6 +2592,8 @@ const children = [
     name: "Masha",
     // nickname: "Yazmin",
     age: 6,
+    born: "2020-06",
+    arrived: "2024-07",
     gender: "Girl",
     interests: ["Painting", "Playing with dolls"],
     funfact: "Masha is very good at singing.",
@@ -2374,6 +2606,8 @@ const children = [
     name: "Gabi",
     // nickname: "Yazmin",
     age: 6,
+    born: "2019-11",
+    arrived: "2025-02",
     gender: "Girl",
     interests: ["Playing with blocks", "Hide and seek"],
     funfact: "Gabi enjoys being read to.",
@@ -2386,6 +2620,8 @@ const children = [
     name: "Chaparrita",
     // nickname: "Yazmin",
     age: 4,
+    born: "2021-12",
+    arrived: "2023-04",
     gender: "Girl",
     interests: ["Playing pretend kitchen", "Painting"],
     funfact: "Chaparrita enjoys dancing.",
@@ -2398,6 +2634,8 @@ const children = [
     name: "Chaparrito",
     // nickname: "Yazmin",
     age: 5,
+    born: "2021-08",
+    arrived: "2022-03",
     gender: "Boy",
     interests: ["Playing soccer", "Playing with toy cars"],
     funfact: "Chaparrito enjoys math.",
@@ -2410,6 +2648,8 @@ const children = [
     name: "Julio",
     // nickname: "Yazmin",
     age: 6,
+    born: "2020-09",
+    arrived: "2022-03",
     gender: "Boy",
     interests: ["Playing soccer", "Playing basketball"],
     funfact: "Julio is very creative and has great storytelling skills.",
@@ -2422,6 +2662,8 @@ const children = [
     name: "Elena",
     // nickname: "Yazmin",
     age: 5,
+    born: "2021-10",
+    arrived: "2025-11",
     gender: "Girl",
     interests: ["Playing pretend kitchen", "Playing basketball"],
     funfact: "Elena is very good at crafts.",
@@ -2434,6 +2676,8 @@ const children = [
     name: "Ana",
     // nickname: "Yazmin",
     age: 4,
+    born: "2021-11",
+    arrived: "2025-04",
     gender: "Girl",
     interests: ["Playing with dolls", "Playing pretend kitchen"],
     funfact: "Ana is very good at singing.",
@@ -2446,6 +2690,8 @@ const children = [
     name: "Sele",
     // nickname: "Yazmin",
     age: 27,
+    born: "1999-03",
+    arrived: "2006-07",
     gender: "Girl",
     interests: ["Playing with dolls", "Painting"],
     funfact: "Sele enjoys painting.",
@@ -2458,6 +2704,8 @@ const children = [
     name: "Alexa",
     // nickname: "Yazmin",
     age: 4,
+    born: "2022-09",
+    arrived: "2024-07",
     gender: "Girl",
     interests: ["Playing with dolls", "Playing pretend kitchen"],
     funfact: "Alexa enjoys listening to stories.",
@@ -2470,6 +2718,8 @@ const children = [
     name: "Javier",
     // nickname: "Yazmin",
     age: 6,
+    born: "2020-07",
+    arrived: "2022-03",
     gender: "Boy",
     interests: ["Playing basketball", "Playing with animals"],
     funfact: "Javier is a very creative storyteller.",
@@ -2482,6 +2732,8 @@ const children = [
     name: "Fer",
     // nickname: "Yazmin",
     age: 5,
+    born: "2021-06",
+    arrived: "2022-03",
     gender: "Boy",
     interests: ["Playing basketball", "Playing with toy cars"],
     funfact: "Fer enjoys listening to stories.",
@@ -2494,6 +2746,8 @@ const children = [
     name: "Kevin",
     // nickname: "Yazmin",
     age: 4,
+    born: "2022-07",
+    arrived: "2025-10",
     gender: "Boy",
     interests: ["Playing cops and robbers", "Playing firefighters"],
     funfact: "Kevin enjoys being read stories.",
@@ -2506,6 +2760,8 @@ const children = [
     name: "Lupita",
     // nickname: "Yazmin",
     age: 7,
+    born: "2019-07",
+    arrived: "2025-06",
     gender: "Girl",
     interests: ["Playing basketball", "Painting"],
     funfact: "Lupita loves reading.",
@@ -2518,6 +2774,8 @@ const children = [
     name: "Natanael",
     // nickname: "Yazmin",
     age: 7,
+    born: "2018-12",
+    arrived: "2025-03",
     gender: "Boy",
     interests: ["Playing soccer", "Racing games"],
     funfact: "Natanael enjoys reading and crafts.",
@@ -2530,6 +2788,8 @@ const children = [
     name: "Rafa",
     // nickname: "Yazmin",
     age: 11,
+    born: "2015-05",
+    arrived: "2025-03",
     gender: "Boy",
     interests: ["Playing basketball", "Doing his homework"],
     funfact: "Rafa has a lot of useful practical skills.",
@@ -2542,6 +2802,8 @@ const children = [
     name: "Daniela",
     // nickname: "Yazmin",
     age: 7,
+    born: "2017-08",
+    arrived: "2025-03",
     gender: "Girl",
     interests: ["Cooking", "Writing"],
     funfact: "Daniela loves making crafts.",
@@ -2554,6 +2816,8 @@ const children = [
     name: "Josue",
     // nickname: "Yazmin",
     age: 9,
+    born: "2017-06",
+    arrived: "2023-04",
     gender: "Boy",
     interests: ["Card games", "Puzzles"],
     funfact: "Josue loves reading and crafts.",
@@ -2566,6 +2830,8 @@ const children = [
     name: "Eli",
     // nickname: "Yazmin",
     age: 8,
+    born: "2018-02",
+    arrived: "2020-10",
     gender: "Boy",
     interests: ["Watching movies", "Cleaning"],
     funfact: "Eli loves reading and listening to stories.",
@@ -2578,6 +2844,8 @@ const children = [
     name: "Laura",
     // nickname: "Yazmin",
     age: 7,
+    born: "2019-06",
+    arrived: "2025-11",
     gender: "Girl",
     interests: ["Reading", "Card games"],
     funfact: "Laura loves crafts and stories.",
@@ -2590,6 +2858,8 @@ const children = [
     name: "Lleny",
     // nickname: "Yazmin",
     age: 1,
+    born: "2025-09",
+    arrived: "2025-11",
     gender: "Girl",
     interests: ["Painting", "Racing"],
     funfact: "Lleny enjoys listening to stories.",
@@ -2602,6 +2872,8 @@ const children = [
     name: "Christopher",
     // nickname: "Yazmin",
     age: 8,
+    born: "2018-05",
+    arrived: "2020-02",
     gender: "Boy",
     interests: ["Card games", "Hide and seek"],
     funfact: "Christopher loves reading and writing.",
@@ -2614,6 +2886,8 @@ const children = [
     name: "Ardani",
     // nickname: "Yazmin",
     age: 8,
+    born: "2018-04",
+    arrived: "2022-03",
     gender: "Girl",
     interests: ["Painting", "Swimming"],
     funfact: "Ardani loves making crafts.",
@@ -2626,6 +2900,8 @@ const children = [
     name: "Leslie",
     // nickname: "Yazmin",
     age: 10,
+    born: "2015-12",
+    arrived: "2026-01",
     gender: "Boy",
     interests: ["Painting", "Hide and seek"],
     funfact: "Leslie enjoys creative storytelling.",
@@ -2638,6 +2914,8 @@ const children = [
     name: "Benja",
     // nickname: "Yazmin",
     age: 7,
+    born: "2018-11",
+    arrived: "2019-05",
     gender: "Boy",
     interests: ["Playing soccer", "Playing tag"],
     funfact: "Benja loves reading and math.",
@@ -2650,6 +2928,8 @@ const children = [
     name: "Jorge",
     // nickname: "Yazmin",
     age: 8,
+    born: "2018-08",
+    arrived: "2025-06",
     gender: "Boy",
     interests: ["Playing soccer", "Bible questions"],
     funfact: "Jorge loves reading and drawing.",
@@ -2662,6 +2942,8 @@ const children = [
     name: "Mendoza",
     // nickname: "Yazmin",
     age: 11,
+    born: "2015-09",
+    arrived: "2025-03",
     gender: "Boy",
     interests: ["Playing soccer", "Hide and seek"],
     funfact: "Mendoza loves reading.",
@@ -2674,6 +2956,8 @@ const children = [
     name: "Emma",
     // nickname: "Yazmin",
     age: 9,
+    born: "2017-06",
+    arrived: "2024-09",
     gender: "Boy",
     interests: ["Reading", "Writing"],
     funfact: "Emma loves reading and storytelling.",
@@ -2686,6 +2970,8 @@ const children = [
     name: "Manuel",
     // nickname: "Yazmin",
     age: 10,
+    born: "2016-02",
+    arrived: "2020-11",
     gender: "Boy",
     interests: ["Reading", "Building things"],
     funfact: "Manuel has great math skills.",
@@ -2698,6 +2984,8 @@ const children = [
     name: "Ximena",
     // nickname: "Yazmin",
     age: 10,
+    born: "2016-02",
+    arrived: "2025-11",
     gender: "Girl",
     interests: ["Painting", "Singing"],
     funfact: "Ximena loves making crafts and is helpful to others.",
@@ -2710,6 +2998,8 @@ const children = [
     name: "Avatar",
     // nickname: "Yazmin",
     age: 7,
+    born: "2019-05",
+    arrived: "2022-03",
     gender: "Boy",
     interests: ["Playing basketball", "Writing"],
     funfact: "Avatar loves reading.",
@@ -2722,6 +3012,8 @@ const children = [
     name: "Juan",
     // nickname: "Yazmin",
     age: 18,
+    born: "2008-07",
+    arrived: "2016-11",
     gender: "Boy",
     interests: ["Playing soccer", "Carpentry"],
     funfact: "Juan enjoys helping others.",
@@ -2734,6 +3026,8 @@ const children = [
     name: "Silvia",
     // nickname: "Yazmin",
     age: 21,
+    born: "2005-03",
+    arrived: "2023-03",
     gender: "Girl",
     interests: ["Cleaning"],
     funfact: "Silvia is very helpful in the kitchen.",
@@ -2746,6 +3040,8 @@ const children = [
     name: "Lalito",
     // nickname: "Yazmin",
     age: 2,
+    born: "2024-01",
+    arrived: "2025-08",
     gender: "Boy",
     interests: ["Playing"],
     funfact: "Lalito plays well with others.",
@@ -2758,6 +3054,8 @@ const children = [
     name: "Arleth",
     // nickname: "Yazmin",
     age: 2,
+    born: "2024-08",
+    arrived: "2025-07",
     gender: "Girl",
     interests: ["Playing"],
     funfact: "Arleth is very playful.",
@@ -2770,6 +3068,8 @@ const children = [
     name: "Manuel",
     // nickname: "Yazmin",
     age: 2,
+    born: "2024-01",
+    arrived: "2025-10",
     gender: "Boy",
     interests: ["Playing"],
     funfact: "Manuel plays and shares with others.",
@@ -2782,6 +3082,8 @@ const children = [
     name: "Angelito",
     // nickname: "Yazmin",
     age: 3,
+    born: "2022-11",
+    arrived: "2022-11",
     gender: "Boy",
     interests: ["Playing"],
     funfact: "Angelito is very playful.",
@@ -2794,6 +3096,8 @@ const children = [
     name: "Majo",
     // nickname: "Yazmin",
     age: 28,
+    born: "1997-12",
+    arrived: "2001-02",
     gender: "Girl",
     interests: ["Drawing", "Coloring"],
     funfact: "Majo loves drawing what she sees or imagines.",
@@ -2806,6 +3110,8 @@ const children = [
     name: "Ingrid",
     // nickname: "Yazmin",
     age: 21,
+    born: "2004-11",
+    arrived: "2009-11",
     gender: "Girl",
     interests: ["Reading", "Writing"],
     funfact: "Ingrid loves reading and researching.",
@@ -2821,24 +3127,134 @@ let currentAgeFilter = 'all';
 let currentPage = 1;
 const PAGE_SIZE = 12;
 
+/* ═══════════════════════════════════════════════════════════════
+   EN QUÉ ORDEN SE MUESTRAN LOS NIÑOS
+
+   Cambia esta palabra y se cambia el orden. Nada más que tocar.
+
+     'barajado'            orden al azar, distinto para cada visitante
+                           y estable mientras dure su visita. Reparte
+                           la atención entre los 85.
+
+     'mas-jovenes-primero' de menor a mayor edad.
+
+     'como-esta'           el orden del array, tal cual.
+   ═══════════════════════════════════════════════════════════════ */
+const ORDEN = 'barajado';
+
+/* ── La edad se calcula sola a partir de la fecha de nacimiento ──
+   En cada niño se pone  born: "2009-04"  (año y mes).
+   Mientras un niño no tenga 'born', se usa su 'age' escrito a mano.  */
+function edadHoy(born) {
+  if (!born) return null;
+  const [a, m] = String(born).split('-').map(Number);
+  if (!a) return null;
+  const hoy = new Date();
+  let edad = hoy.getFullYear() - a;
+  // Si aún no ha llegado su mes este año, todavía no los ha cumplido.
+  if (m && (hoy.getMonth() + 1) < m) edad--;
+  return edad >= 0 ? edad : null;
+}
+
+children.forEach(c => {
+  const e = edadHoy(c.born);
+  if (e !== null) c.age = e;
+});
+
+/* ── El "has been a part of the orphanage for X years" también vivía
+   congelado. Se recalcula a partir de  arrived: "AAAA-MM"  cada vez
+   que se abre una ficha, sin tocar el resto de la frase. ── */
+function textoAbout(c) {
+  if (!c.about || !c.arrived) return c.about || '';
+  const [a, m] = String(c.arrived).split('-').map(Number);
+  if (!a) return c.about;
+  const anios = (new Date() - new Date(a, (m || 1) - 1, 15)) / (1000 * 60 * 60 * 24 * 365.25);
+  const enteros = Math.floor(anios);
+  // Sin decimales, y cuidando el singular y el primer año.
+  const frase = enteros < 1 ? 'for less than a year'
+              : enteros === 1 ? 'for more than a year'
+              : 'for more than ' + enteros + ' years';
+  return c.about.replace(/for [\d.]+ years/, frase);
+}
+
+/* ── Barajado con semilla, para que no se reordene al navegar ──
+   La semilla se guarda mientras dure la pestaña: cada visitante ve
+   un orden distinto, pero el suyo no cambia al filtrar ni al volver
+   de la ficha de un niño. */
+function semilla() {
+  let s = null;
+  try { s = sessionStorage.getItem('ordenNinos'); } catch (e) {}
+  if (!s) {
+    s = String(Math.floor(Math.random() * 1e9));
+    try { sessionStorage.setItem('ordenNinos', s); } catch (e) {}
+  }
+  return Number(s);
+}
+
+function azarConSemilla(s) {
+  return function () {
+    s |= 0; s = (s + 0x6D2B79F5) | 0;
+    let t = Math.imul(s ^ (s >>> 15), 1 | s);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+function ordenarNinos(lista) {
+  if (ORDEN === 'como-esta') return lista.slice();
+
+  if (ORDEN === 'mas-jovenes-primero') {
+    return lista.slice().sort((a, b) => (a.age ?? 99) - (b.age ?? 99));
+  }
+
+  // Barajado
+  const azar = azarConSemilla(semilla());
+  const mezclado = lista.slice();
+  for (let i = mezclado.length - 1; i > 0; i--) {
+    const j = Math.floor(azar() * (i + 1));
+    [mezclado[i], mezclado[j]] = [mezclado[j], mezclado[i]];
+  }
+  // Intercalar niña / niño, para que ninguna página salga casi toda
+  // de un solo sexo.
+  const ninas = mezclado.filter(c => c.gender === 'Girl');
+  const ninos = mezclado.filter(c => c.gender !== 'Girl');
+  const salida = [];
+  for (let i = 0; i < Math.max(ninas.length, ninos.length); i++) {
+    if (ninas[i]) salida.push(ninas[i]);
+    if (ninos[i]) salida.push(ninos[i]);
+  }
+  return salida;
+}
+
+const ninosOrdenados = ordenarNinos(children);
+
+/* Una sola función decide qué niños se ven: la usan tanto el dibujado
+   como el paginador, así que no pueden descuadrarse. */
+function listaFiltrada() {
+  /* Un niño con  activo: false  no aparece en la web.
+     Si no lleva el campo, se muestra: por defecto todos salen.
+     Ojo: esto lo esconde, no lo borra. Sus datos siguen dentro del
+     archivo y cualquiera puede leerlos viendo el código fuente. Para
+     una salida definitiva hay que borrar su bloque y su foto. */
+  let lista = ninosOrdenados.filter(c => c.activo !== false);
+
+  if (currentFilter === 'Girl' || currentFilter === 'Boy') {
+    lista = lista.filter(c => c.gender === currentFilter);
+  }
+
+  if (currentAgeFilter && currentAgeFilter !== 'all') {
+    const [min, max] = currentAgeFilter.split('-').map(Number);
+    lista = lista.filter(c => typeof c.age === 'number' && c.age >= min && c.age <= max);
+  }
+
+  return lista;
+}
+
 function getInitial(name) { return name[0]; }
 
 function renderChildren(filter) {
   const grid = document.getElementById('childrenGrid');
-  // base filtering by sponsor status
-  let filtered = filter === 'all' ? children
-    : filter === 'available' ? children.filter(c => !c.sponsored)
-    : children.filter(c => c.sponsored);
-
-  // then apply age-range filter
-  if (currentAgeFilter && currentAgeFilter !== 'all') {
-    const parts = currentAgeFilter.split('-').map(Number);
-    if (parts.length === 2) {
-      const min = parts[0];
-      const max = parts[1];
-      filtered = filtered.filter(c => typeof c.age === 'number' && c.age >= min && c.age <= max);
-    }
-  }
+  const filtered = listaFiltrada();
 
   // pagination
   const total = filtered.length;
@@ -2909,7 +3325,7 @@ function createPagination(totalPages) {
 }
 
 function goToPage(p) {
-  const totalPages = Math.max(1, Math.ceil((currentFilter === 'all' ? children.length : (currentFilter === 'available' ? children.filter(c=>!c.sponsored).length : children.filter(c=>c.sponsored).length)) / PAGE_SIZE));
+  const totalPages = Math.max(1, Math.ceil(listaFiltrada().length / PAGE_SIZE));
   if (p < 1) p = 1;
   if (p > totalPages) p = totalPages;
   currentPage = p;
@@ -2954,7 +3370,7 @@ function openModal(id) {
     ...child.interests.map(i => `<span class="child-tag">${i}</span>`)
   ].join('');
   document.getElementById('modalFact').textContent = child.funfact;
-  document.getElementById('modalAbout').textContent = child.about;
+  document.getElementById('modalAbout').textContent = textoAbout(child);
   document.getElementById('modalSponsorBtn').onclick = () => { closeModal(); openSponsorForm(id); };
   // replace modal photo with image if available, otherwise keep avatar
   const modalPhoto = document.querySelector('.modal-photo');
@@ -3087,6 +3503,37 @@ function submitForm() {
 }
 
 // Sticky nav
+// ── Menú hamburguesa ──
+(function () {
+  const burger = document.getElementById('navBurger');
+  const menu   = document.getElementById('navMenu');
+  if (!burger || !menu) return;
+
+  function setOpen(open) {
+    menu.hidden = !open;
+    burger.setAttribute('aria-expanded', String(open));
+    burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  }
+
+  burger.addEventListener('click', e => {
+    e.stopPropagation();
+    setOpen(menu.hidden);
+  });
+
+  // Cerrar al pulsar fuera, con Escape, o al elegir una opción
+  document.addEventListener('click', e => {
+    if (!menu.hidden && !menu.contains(e.target)) setOpen(false);
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && !menu.hidden) { setOpen(false); burger.focus(); }
+  });
+  menu.addEventListener('click', e => {
+    /* Blog todavia no tiene destino: si lo pulsan, el menu se queda
+       abierto en vez de cerrarse como si algo hubiera pasado. */
+    if (e.target.closest('a[href]')) setOpen(false);
+  });
+})();
+
 window.addEventListener('scroll', () => {
   document.getElementById('nav').classList.toggle('scrolled', window.scrollY > 60);
 });

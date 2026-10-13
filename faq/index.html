@@ -436,6 +436,23 @@
 
     .nav-menu a:hover { background: rgba(196,98,45,0.09); color: var(--tierra); }
 
+    /* Blog todavia sin entradas reales: se ve en el menu pero no se pulsa.
+       Al quitarle el href deja de ser un enlace y conserva el resto del
+       estilo. Cuando haya contenido se le devuelve  href="/blog/"  y se
+       borra el <small>. */
+    .nav-menu a:not([href]) { color: #A89A86; cursor: default; }
+    .nav-menu a:not([href]):hover { background: none; color: #A89A86; }
+    .nav-menu a:not([href]) small {
+      display: block;
+      margin-top: 2px;
+      font-size: 0.66rem;
+      font-weight: 700;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      opacity: 0.85;
+    }
+
+
     /* La página en la que ya estás: se muestra, pero apagada. */
     .nav-menu a[aria-current="page"] {
       color: var(--warm-gray);
@@ -451,16 +468,16 @@
 <body>
 
 <nav class="site-nav" id="siteNav">
-  <a href="/index2.html" class="nav-logo">Casa Hogar <span>Alegre</span></a>
+  <a href="/" class="nav-logo">Casa Hogar <span>Alegre</span></a>
   <button type="button" class="nav-burger" id="navBurger"
           aria-label="Open menu" aria-expanded="false" aria-controls="navMenu">
     <span></span><span></span><span></span>
   </button>
   <div class="nav-menu" id="navMenu" hidden>
-      <a href="/index2.html">Home</a>
+      <a href="/">Home</a>
       <a href="/casa-hogar/">About Us</a>
       <a href="/faq/" aria-current="page">FAQ</a>
-      <a href="/blog/">Blog</a>
+      <a aria-disabled="true">Blog<small>coming soon</small></a>
   </div>
 </nav>
 
@@ -811,7 +828,7 @@
         <div class="donate-bar-inner">
           <div class="amount">$45<span>per month</span></div>
           <p>Sponsor a child at Casa Hogar Alegre. Tax-deductible in the United States, through a U.S. 501(c)(3).</p>
-          <a class="btn-primary" href="/index2.html#children">Sponsor a child →</a>
+          <a class="btn-primary" href="/#children">Sponsor a child →</a>
         </div>
       </div>
 
@@ -843,7 +860,11 @@
     document.addEventListener('keydown', e => {
       if (e.key === 'Escape' && !menu.hidden) { setOpen(false); burger.focus(); }
     });
-    menu.addEventListener('click', () => setOpen(false));
+    menu.addEventListener('click', e => {
+      /* Blog todavia no tiene destino: si lo pulsan, el menu se queda
+         abierto en vez de cerrarse como si algo hubiera pasado. */
+      if (e.target.closest('a[href]')) setOpen(false);
+    });
 
     // Fondo oscuro en cuanto se pasa del hero, para que se lea sobre crema.
     const onScroll = () => nav.classList.toggle('scrolled', window.scrollY > 60);
