@@ -3,3 +3,7 @@ _site/
 .jekyll-cache/
 .jekyll-metadata
 Gemfile.lock
+
+# Archivos de trabajo con datos de los menores (fecha completa de nacimiento).
+# El repositorio es publico: estos NUNCA deben subirse.
+*.xlsx
