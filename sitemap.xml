@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- /blog/ y /thank-you/ no se listan: ambos llevan noindex.
-     Cuando el blog tenga entradas reales y se quite su noindex,
-     hay que anadirlo aqui. -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- /blog/ y /thank-you/ no se listan: ambos llevan noindex.
+       Cuando el blog tenga entradas reales y se le quite el noindex,
+       hay que anadirlo aqui. -->
   <url>
     <loc>https://sponsorachildmexico.org/</loc>
     <lastmod>2026-10-13</lastmod>
